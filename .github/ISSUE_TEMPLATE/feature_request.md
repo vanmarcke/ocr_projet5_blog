@@ -3,7 +3,9 @@ name: Feature request
 about: Addition of functionality and / or HTML content
 ---
 
+**Priority :**
 
+**Duration :** 
 
 **Description:**
 
