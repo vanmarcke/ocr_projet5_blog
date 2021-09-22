@@ -21,7 +21,7 @@
   display: inline-block;
 }
 
-.titreBorder:after {
+.titreBorder::after {
   content: '';
   position: absolute;
   left: 0;
@@ -30,8 +30,9 @@
   margin: 2px auto;
   width: 38%;
   height: 4px;
-  background: #F8533D;
+  background: #f8533d;
 }
+
 /******************* MENU *****************/
 
 #header {
@@ -41,7 +42,7 @@
   padding: 4px 46px 2px;
   background: #fff;
   font-size: 1.2em;
-  box-shadow: 0 1px 16px rgba(0, 0, 0, .4);
+  box-shadow: 0 1px 16px rgba(0, 0, 0, 0.4);
 }
 
 #logo img {
@@ -65,17 +66,17 @@ nav {
 #menu a {
   text-decoration: none;
   display: inline-block;
-  color: #0D1E4C;
+  color: #0d1e4c;
 }
 
 #menu a:hover {
-  color: #EE4437;
+  color: #ee4437;
   transition: all 0.3s;
 }
 
 #menu li::after {
   content: "|";
-  color: #0D1E4C;
+  color: #0d1e4c;
   position: absolute;
   z-index: 1;
   top: 17px;
@@ -89,12 +90,12 @@ nav {
   height: 1px;
   width: 0;
   background: transparent;
-  transition: width .5s ease, background-color .5s ease;
+  transition: width 0.5s ease, background-color 0.5s ease;
 }
 
-#menu li a:hover:after {
+#menu li a:hover::after {
   width: 90%;
-  background: #EE4437;
+  background: #ee4437;
 }
 
 #menu li:last-child::after {
@@ -142,7 +143,7 @@ nav {
   background-color: #fff;
   overflow-y: auto;
   transform: translateX(-100%);
-  transition: transform .2s ease-out;
+  transition: transform 0.2s ease-out;
 }
 
 #hamburger-sidebar li {
@@ -173,7 +174,7 @@ nav {
 .background {
   width: 100%;
   height: 100vh;
-  background-color: #0D1E4C;
+  background-color: #0D1E4c;
   opacity: 0.6;
 }
 
@@ -210,7 +211,7 @@ nav {
   top: 92%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgba(9, 20, 49,.7);
+  background-color: rgba(9, 20, 49, 0.7);
   border: 0 none;
   transition: all 0.6s;
   text-decoration: none;
@@ -234,6 +235,14 @@ nav {
   margin-top: 6px;
 }
 
+#footer p {
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
+  font-size: 0.9em;
+  color: #fff;
+  text-align: center;
+  margin-top: 10px;
+}
+
 #me div p {
   padding-top: 20px;
   font-size: 1.1em;
@@ -248,10 +257,11 @@ nav {
 .btn-cv {
   background: #fff !important;
   border-radius: 10px !important;
-  color: #0D1E4C !important;
+  color: #0d1e4c !important;
 }
+
 .btn-cv:hover {
-  color: #EE4437 !important;
+  color: #ee4437 !important;
 }
 
 .btn-attest {
@@ -260,7 +270,8 @@ nav {
   border-radius: 10px !important;
   color: #1e2ebd !important;
 }
-.btn-attest:hover{
+
+.btn-attest:hover {
   color: #EE4437 !important;
 }
 
@@ -269,12 +280,12 @@ nav {
 #formation {
   background: #ba144c;
   min-height: 60vh;
-  color: #ffffff;
+  color: #fff;
   text-align: center;
   padding: 75px 0 90px;
 }
 
-#formation h1, #experience h1{
+#formation h1, #experience h1 {
   padding-bottom: 20px;
   font-weight: 700;
 }
@@ -286,7 +297,7 @@ nav {
 }
 
 .studyItem .rightArea {
-  border-left: solid 1px #EE4437;
+  border-left: solid 1px #ee4437;
   padding-bottom: 40px;
 }
 
@@ -331,7 +342,7 @@ nav {
 }
 
 .studyBox p {
-  color: #252E55;
+  color: #252e55;
   line-height: 21px;
 }
 
@@ -346,6 +357,7 @@ nav {
 }
 
 /************* EXPERIENCE *************/
+
 #experience {
   background: #145;
   min-height: 60vh;
@@ -353,7 +365,6 @@ nav {
   text-align: center;
   padding: 75px 0 90px;
 }
-
 
 #experience .fa-laptop {
   text-align: center;
@@ -406,7 +417,6 @@ nav {
   border-radius: 18px;
   color: #fff;
   background: #164d6e;
-  /*Pour le javascript*/
   opacity: 0;
   transform: translateY(100px);
   transition: all 0.6s;
@@ -418,20 +428,13 @@ nav {
 }
 
 .compItems li:hover {
-  background: #F87E6F;
-  transition: all .3s;
+  background: #F87E6f;
+  transition: all 0.3s;
 }
 
 #competence .compRight {
   margin-right: auto;
   padding: 40px 0 40px 40px;
-}
-
-#competence .left-float,
-#competence .right-float {
-  width: 50%;
-  padding-top: 50px;
-
 }
 
 .right-float,
@@ -479,7 +482,7 @@ nav {
   padding-top: 12px;
 }
 
-#portfolio .titreBorder:after {
+#portfolio .titreBorder::after {
   background: #fff;
 }
 
@@ -499,6 +502,7 @@ nav {
 .modal-title {
   color: #0D1E4C;
 }
+
 .modal-left img{
   width: 100%;
   height: auto;
@@ -555,13 +559,12 @@ nav {
 #loisir {
   width: 100%;
   padding: 30px 0;
-  background: #114455;
-  box-shadow: 0 1px 16px rgba(0, 0, 0, .5);
-
+  background: #145;
+  box-shadow: 0 1px 16px rgba(0, 0, 0, 0.5);
 }
 
 #loisir p {
-  text-shadow: 1px 1px 0 rgba(0, 0, 0, .4);
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.4);
   font-size: 1.7em;
   color: #fff;
   font-weight: 300;
@@ -581,14 +584,14 @@ nav {
 /************* CONTACT *************/
 
 #contact {
-  background: #08112A;
+  background: #08112a;
   padding: 40px 60px 20px;
   min-height: 65vh;
   text-align: center;
 }
 
 #contact h1 {
-  color: #EAEAEA;
+  color: #eaeaea;
   padding-bottom: 0.4em;
   font-weight: 700;
 }
@@ -669,11 +672,11 @@ nav {
 
 
 @keyframes Wrong {
-  0% {margin-left: 0;}
-  25% {margin-left: 10px;}
-  50% {margin-left: 0;}
-  75% {margin-left: -10px;}
-  100% {margin-left: 0;}
+  0% { margin-left: 0; }
+  25% { margin-left: 10px; }
+  50%  {margin-left: 0; }
+  75% { margin-left: -10px; }
+  100% { margin-left: 0; }
 }
 
 .wrong {
@@ -692,23 +695,23 @@ textarea {
 /* FELICITATIONS */
 
 @keyframes Merci {
-    from {
-      opacity: 0;
-      top: 30%;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    }
+  from {
+    opacity: 0;
+    top: 30%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
 
-    to {
-      opacity: 1;
-      top: 50%;
-      box-shadow: 0 20px 30px rgba(0, 0, 0, 0.6);
-    }
+  to {
+    opacity: 1;
+    top: 50%;
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.6);
+  }
 }
 
 .merci,
 .echec {
   animation-name: Merci;
-  animation-duration: .4s;
+  animation-duration: 0.4s;
   animation-iteration-count: 1;
   animation-fill-mode: both;
   position: fixed;
@@ -739,15 +742,7 @@ textarea {
   box-shadow: 0 1px 16px rgba(0, 0, 0, 0.5);
 }
 
-#footer p {
-  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
-  font-size: 0.9em;
-  color: #fff;
-  text-align: center;
-  margin-top: 10px;
-}
-
-.btn-legal{
+.btn-legal {
   cursor: pointer;
 }
 

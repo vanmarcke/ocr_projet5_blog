@@ -38,7 +38,7 @@
                 var b2 = Math.round(istep * c1_0[2] + step * c1_1[2]);
                 var color2 = "rgb(" + r2 + "," + g2 + "," + b2 + ")";
 
-                $('.background').css({
+                $(".background").css({
                     background: "-webkit-gradient(linear, left top, right top, from(" + color1 + "), to(" + color2 + "))"
                 }).css({
                     background: "-moz-linear-gradient(left, " + color1 + " 0%, " + color2 + " 100%)"
@@ -61,17 +61,17 @@
             window.sr = ScrollReveal({
                 reset: true
             });
-            ScrollReveal().reveal('.headline', {
+            ScrollReveal().reveal(".headline", {
                 delay: 100
             });
-            ScrollReveal().reveal('.tagline', {
+            ScrollReveal().reveal(".tagline", {
                 delay: 500
             });
-            ScrollReveal().reveal('.punchline', {
+            ScrollReveal().reveal(".punchline", {
                 delay: 1000
             });
 
-            sr.reveal('.sc-item', {
+            sr.reveal(".sc-item", {
                 rotate: {
                     x: 100,
                     y: 100,
@@ -82,30 +82,30 @@
 
             /**************** Menu Hamburger *****************/
 
-            var content = document.querySelector('#hamburger-content');
-            var sidebarBody = document.querySelector('#hamburger-sidebar-body');
+            var content = document.querySelector("#hamburger-content");
+            var sidebarBody = document.querySelector("#hamburger-sidebar-body");
 
             sidebarBody.innerHTML = content.innerHTML;
 
 
-            var button = document.querySelector('#hamburger-button');
-            var overlay = document.querySelector('#hamburger-overlay');
-            var activatedClass = 'hamburger-activated';
+            var button = document.querySelector("#hamburger-button");
+            var overlay = document.querySelector("#hamburger-overlay");
+            var activatedClass = "hamburger-activated";
 
-            button.addEventListener('click', function (e) {
+            button.addEventListener("click", function (e) {
                 e.preventDefault();
 
                 this.parentNode.classList.add(activatedClass);
             });
 
-            button.addEventListener('keydown', function (e) {
+            button.addEventListener("keydown", function (e) {
                 if (this.parentNode.classList.contains(activatedClass)) {
                     if (e.repeat === false && e.which === 27)
                         this.parentNode.classList.remove(activatedClass);
                 }
             });
 
-            overlay.addEventListener('click', function (e) {
+            overlay.addEventListener("click", function (e) {
                 e.preventDefault();
 
                 this.parentNode.classList.remove(activatedClass);
@@ -127,23 +127,23 @@
 
             /*************************HEADER**********************/
 
-            $('#header').hide();
+            $("#header").hide();
             var hauteur = 580;
             $(function () {
                 $(window).scroll(function () {
                     if ($(this).scrollTop() > hauteur) {
-                        $('#header').css("display", "flex")
+                        $("#header").css("display", "flex")
                          .fadeIn();
                     } else {
-                        $('#header').hide();
+                        $("#header").hide();
                     }
                 });
             });
 
             /********** Scroll smooth sections ************/
 
-            $(document).on('click', 'a[href^="#"]:not(li.nav-item a)', function (e) {
-                var id = $(this).attr('href');
+            $(document).on("click", 'a[href^="#"]:not(li.nav-item a)', function (e) {
+                var id = $(this).attr("href");
 
                 var $id = $(id);
                 if ($id.length === 0) {
@@ -154,12 +154,12 @@
 
                 var pos = $id.offset().top;
 
-                $('body, html').animate({
+                $("body, html").animate({
                     scrollTop: pos
                 }, 1000);
                 
-                if ($('#hamburger-overlay').length) {
-                    $('#hamburger').removeClass('hamburger-activated');
+                if ($("#hamburger-overlay").length) {
+                    $("#hamburger").removeClass("hamburger-activated");
                 }
 
             });
@@ -169,21 +169,21 @@
 
             $(window).scroll(function () {
                 var wPos = $(window).scrollTop();
-                var rdPos = $('.compItems').offset().top;
+                var rdPos = $(".compItems").offset().top;
 
                 if (wPos + 500 >= rdPos) {
-                    var art = $('.compItems').find('li');
-                    art.addClass('inView');
+                    var art = $(".compItems").find("li");
+                    art.addClass("inView");
                 }
                 
             });
 
             /********** Formulaire contact ************/
-            $('input').blur(function () {
-                if ($(this).val() == '') {
-                    $(this).addClass('wrong');
+            $("input").blur(function () {
+                if ($(this).val() == "") {
+                    $(this).addClass("wrong");
                 } else {
-                    $(this).removeClass('worng');
+                    $(this).removeClass("worng");
                 }
             });
 
@@ -198,11 +198,11 @@
                 if (dataString == "") {
                     msg = $('<div class="echec">Vous devez remplir tous les champs</div>');
 
-                } else if (nom == "") {
+                } else if (nom === "") {
                     msg = $('<div class="echec">Vous devez saisir vos nom et prénom</div>');
-                } else if (email == "") {
+                } else if (email === "") {
                     msg = $('<div class="echec">Vous devez saisir votre mail</div>');
-                } else if (message == "") {
+                } else if (message === "") {
                     msg = $('<div class="echec">Vous devez saisir un message</div>');
                 } else {
                     $.ajax({
@@ -213,7 +213,7 @@
 
                             var msgSuccess;
                             msgSuccess = $('<div class="merci">Merci ' + nom + ', votre message a bien été envoyé </div>');
-                            $('body').append(msgSuccess);
+                            $("body").append(msgSuccess);
                             setTimeout(function () {
                                     $(msgSuccess).fadeOut();
                                 },
@@ -227,7 +227,7 @@
                         error: function () {
                             var msgError;
                             msgError = $('<div class="echec">Le message n\'a pas été envoyé </div>');
-                            $('body').append(msgError);
+                            $("body").append(msgError);
                             setTimeout(function () {
                                     $(msgError).fadeOut();
                                 },
@@ -236,7 +236,7 @@
                         }
                     });
                 }
-                $('body').append(msg);
+                $("body").append(msg);
 
                 setTimeout(function () {
                         $(msg).fadeOut();
@@ -292,10 +292,10 @@
             };
 
             window.onload = function () {
-                var elements = document.getElementsByClassName('typewrite');
+                var elements = document.getElementsByClassName("typewrite");
                 for (var i = 0; i < elements.length; i++) {
-                    var toRotate = elements[i].getAttribute('data-type');
-                    var period = elements[i].getAttribute('data-period');
+                    var toRotate = elements[i].getAttribute("data-type");
+                    var period = elements[i].getAttribute("data-period");
                     if (toRotate) {
                         new TxtType(elements[i], JSON.parse(toRotate), period);
                     }
