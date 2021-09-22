@@ -56,6 +56,11 @@ nav {
   vertical-align: top;
 }
 
+.compItems li:hover {
+  background: #f87e6f;
+  transition: all 0.3s;
+}
+
 #menu li {
   display: inline-flex;
   padding: 18px 10px;
@@ -174,7 +179,7 @@ nav {
 .background {
   width: 100%;
   height: 100vh;
-  background-color: #0D1E4c;
+  background-color: #0d1e4c;
   opacity: 0.6;
 }
 
@@ -243,6 +248,11 @@ nav {
   margin-top: 10px;
 }
 
+.studyBox p {
+  color: #252e55;
+  line-height: 21px;
+}
+
 #me div p {
   padding-top: 20px;
   font-size: 1.1em;
@@ -272,7 +282,7 @@ nav {
 }
 
 .btn-attest:hover {
-  color: #EE4437 !important;
+  color: #ee4437 !important;
 }
 
 /************* PARCOURS *************/
@@ -285,7 +295,8 @@ nav {
   padding: 75px 0 90px;
 }
 
-#formation h1, #experience h1 {
+#formation h1,
+#experience h1 {
   padding-bottom: 20px;
   font-weight: 700;
 }
@@ -341,19 +352,14 @@ nav {
   border-radius: 12px;
 }
 
-.studyBox p {
-  color: #252e55;
-  line-height: 21px;
-}
-
 .studyBox h4 {
-  color: #252E55;
+  color: #252e55;
   font-weight: 650;
   padding-bottom: 4px;
 }
 
 .studyBox h5 {
-  color: #252E55;
+  color: #252e55;
 }
 
 /************* EXPERIENCE *************/
@@ -361,7 +367,7 @@ nav {
 #experience {
   background: #145;
   min-height: 60vh;
-  color: #ffffff;
+  color: #fff;
   text-align: center;
   padding: 75px 0 90px;
 }
@@ -369,7 +375,7 @@ nav {
 #experience .fa-laptop {
   text-align: center;
   font-size: 5rem;
-  color: #ffffff;
+  color: #fff;
 }
 
 /************* COMPETENCE *************/
@@ -379,18 +385,23 @@ nav {
   background: linear-gradient(to right, #fff 0, #fff 50%, #f3f3f3 50%, #f3f3f3 100%);
   padding-bottom: 60px;
   color: #0D1E4C;
-  box-shadow: 0 1px 16px rgba(0, 0, 0, .4);
+  box-shadow: 0 1px 16px rgba( 0, 0, 0, 0.4 );
+}
+
+.left-float,
+.left-wrapper {
+  float: left;
+}
+
+.right-float,
+.right-wrapper {
+  float: right;
 }
 
 #competence .left-float,
 #competence .right-float {
   width: 50%;
   padding-top: 60px;
-}
-
-.left-float,
-.left-wrapper {
-  float: left;
 }
 
 #competence .compLeft {
@@ -427,19 +438,9 @@ nav {
   transform: translateY(0);
 }
 
-.compItems li:hover {
-  background: #F87E6f;
-  transition: all 0.3s;
-}
-
 #competence .compRight {
   margin-right: auto;
   padding: 40px 0 40px 40px;
-}
-
-.right-float,
-.right-wrapper {
-  float: right;
 }
 
 #competence h3 {
@@ -448,17 +449,16 @@ nav {
   font-weight: 600;
 }
 
-
 #competence .fa-code,
 #competence .fa-globe {
-  color: #EE4437;
+  color: #ee4437;
   font-size: 2.2rem;
   margin-right: 10px;
 }
 
 #competence .fa-briefcase,
 #competence .fa-user-circle {
-  color: #EE4437;
+  color: #ee4437;
   font-size: 1.9rem;
   margin-right: 8px;
 }
@@ -470,7 +470,7 @@ nav {
   padding: 88px 0;
   text-align: center;
   color: #fff;
-  box-shadow: 0 1px 16px rgba(0, 0, 0, .4);
+  box-shadow: 0 1px 16px rgba( 0, 0, 0, 0.4 );
 }
 
 #portfolio h1 {
@@ -503,13 +503,13 @@ nav {
   color: #0D1E4C;
 }
 
-.modal-left img{
+.modal-left img {
   width: 100%;
   height: auto;
 }
 
 .modal-right {
-  color: #0D1E4C;
+  color: #0d1e4c;
   text-align: left;
 }
 
@@ -522,7 +522,7 @@ nav {
 }
 
 .card-header {
-  padding: .75rem 0.25rem !important;
+  padding: 0.75rem 0.25rem !important;
 }
 
 .descriptexte {
@@ -536,7 +536,7 @@ nav {
   color: #f1f1f1;
   width: 90%;
   transition: 0.5s ease;
-  opacity:0;
+  opacity: 0;
   font-size: 15px;
   padding: 10px;
   text-align: center;
@@ -610,6 +610,10 @@ nav {
   cursor: not-allowed;
 }
 
+textarea {
+  min-height: 250px;
+}
+
 #contact textarea {
   resize: vertical;
   min-height: 150px;
@@ -666,7 +670,7 @@ nav {
   background: #cb2027;
 }
 
-.fa-github{
+.fa-github {
   background: #24292e;
 }
 
@@ -674,7 +678,7 @@ nav {
 @keyframes Wrong {
   0% { margin-left: 0; }
   25% { margin-left: 10px; }
-  50%  {margin-left: 0; }
+  50%  { margin-left: 0; }
   75% { margin-left: -10px; }
   100% { margin-left: 0; }
 }
@@ -683,13 +687,9 @@ nav {
   position: relative;
   border: solid 1px rgb(255, 102, 0);
   animation-name: Wrong;
-  animation-duration: 0.20s;
+  animation-duration: .20s;
   animation-iteration-count: 3;
   animation-fill-mode: both;
-}
-
-textarea {
-  min-height: 250px;
 }
 
 /* FELICITATIONS */
