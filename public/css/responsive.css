@@ -1,260 +1,245 @@
-@media screen and (max-width:768px) {
+@media screen and (max-width: 768px) {
+  #header {
+    display: flex !important;
+    align-items: center;
+    padding: 4px 20px 2px;
+  }
 
-    #header {
-        display: flex !important;
-        align-items: center;
-            padding: 4px 20px 2px;
-    }
+  #menu a:hover {
+    font-size: 1em;
+  }
 
-    #menu a:hover {
-        font-size: 1em;
-    }
+  #hamburger-content {
+    display: none;
+  }
 
-    #hamburger-content {
-        display: none;
-    }
+  #hamburger-button,
+  #hamburger-sidebar,
+  .hamburger-activated #hamburger-overlay {
+    display: block;
+  }
 
-    #hamburger-button,
-    #hamburger-sidebar,
-    .hamburger-activated #hamburger-overlay {
-        display: block;
-    }
+  .hamburger-activated #hamburger-sidebar {
+    transform: translateX(0);
+  }
 
-    .hamburger-activated #hamburger-sidebar {
-        transform: translateX(0);
-    }
+  #menu li {
+    font-size: 1em;
+  }
 
-    #menu li {
-        font-size: 1em;
-    }
+  #menu li::after {
+    content: none;
+  }
 
-    #menu li::after {
-        content: none;
-    }
+  #slider {
+    height: 80vh;
+  }
 
-    #slider {
-        height: 80vh;
-    }
+  .background {
+    height: 80vh;
+  }
 
-    .background {
-        height: 80vh;
-    }
+  #slider img {
+    height: 80vh;
+  }
 
-    #slider img {
-        height: 80vh;
-    }
+  .pres h1 {
+    font-size: 2em;
+  }
 
-    .pres h1 {
-        font-size: 2em;
-    }
+  .pres {
+    width: 65%;
+    padding: 8px;
+    font-size: 1.2rem;
+  }
 
-    .pres {
-        width: 65%;
-        padding: 8px;
-        font-size: 1.2rem;
-    }
+  #me {
+    text-align: center;
+  }
 
-    #me {
-        text-align: center;
-    }
+  #me .row {
+    display: block;
+  }
 
-    #me .row {
-        display: block;
-    }
+  #me div img {
+    padding-bottom: 20px;
+    width: 220px;
+  }
 
-    #me div img {
-        padding-bottom: 20px;
-        width: 220px;
-    }
+  .btn {
+    margin-bottom: 20px;
+  }
 
-    .btn {
-        margin-bottom: 20px;
-    }
+  .dates {
+    margin: 0 auto;
+  }
 
-    .dates {
-        margin: 0 auto;
-    }
+  .studyItem .rightArea {
+    border: none;
+  }
 
-    .studyItem .rightArea {
-        border: none;
-    }
+  .studyBox {
+    margin-left: 35px;
+    padding: 22px 40px 6px 47px;
+  }
 
-    .studyBox {
-        margin-left: 35px;
-        padding: 22px 40px 6px 47px;
-    }
+  .arrowpart {
+    margin-left: 20px;
+  }
 
-    .arrowpart {
-        margin-left: 20px;
-    }
-    
-    #contact .btn {
-        width: 100%;
-        text-align: center;
-    }
+  #contact .btn {
+    width: 100%;
+    text-align: center;
+  }
 }
 
-@media screen and (max-width:480px) {
-    body {
-        overflow-x: hidden;
-    }
+@media screen and (max-width: 480px) {
+  body {
+    overflow-x: hidden;
+  }
 
-    .row {
-        margin-left: 0 !important;
-    }
+  .row {
+    margin-left: 0 !important;
+  }
 
-    .pres {
-        width: 73%;
-        font-size: 0.9rem;
-    }
+  .pres {
+    width: 73%;
+    font-size: 0.9rem;
+  }
 
+  #slider,
+  .background,
+  #slider img {
+    height: 45vh;
+  }
 
-    #slider,
-    .background,
-    #slider img {
-        height: 45vh;
-    }
+  .compItems li {
+    height: auto;
+    padding: 0 0.8em;
+    margin: 2px;
+  }
 
-    #menu li {
-        font-size: 0.70em;
-    }
+  #menu li {
+    font-size: 0.7em;
+  }
 
-    .pres h1 {
-        font-size: 1.5em;
-    }
+  .pres h1 {
+    font-size: 1.5em;
+  }
 
-    #me {
-        padding: 30px 5px;
-    }
+  #me {
+    padding: 30px 5px;
+  }
 
-    #me h1,
-    #formation h1,
-    #experience h1,
-    #contact h1 {
-        font-size: 2rem;
-    }
+  #me h1,
+  #formation h1,
+  #experience h1,
+  #contact h1 {
+    font-size: 2rem;
+  }
 
-    #me div p {
-        font-size: 0.9em;
-    }
+  #loisir p {
+    font-size: 1.2em;
+  }
 
-    #me div img {
-        padding-bottom: 0;
-        width: 200px;
-    }
+  #footer p {
+    font-size: 0.7em;
+  }
 
-    .dates {
-        margin: 0 auto;
-    }
+  #me div p {
+    font-size: 0.9em;
+  }
 
-    .arrowpart {
-        float: none;
-        width: 100%;
-        height: 40px;
-        background: url(../images/arrow-top.png) no-repeat 45% 101%;
-    }
+  #me div img {
+    padding-bottom: 0;
+    width: 200px;
+  }
 
-    .studyBox {
-        margin-left: -11px;
-        padding: 20px 12px;
-        text-align: center;
-    }
+  .dates {
+    margin: 0 auto;
+  }
 
-    #competence {
-        background: none;
-        padding-bottom: 0;
-    }
+  .arrowpart {
+    float: none;
+    width: 100%;
+    height: 40px;
+    background: url(../images/arrow-top.png) no-repeat 45% 101%;
+  }
 
-    #formation .fa,
-    #experience .fa {
-        width: 100%;
-    }
+  .studyBox {
+    margin-left: -11px;
+    padding: 20px 12px;
+    text-align: center;
+  }
 
-    #competence .left-float,
-    #competence .right-float {
-        width: 100%;
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 30px 5%;
-        float: none;
-    }
+  .right-float {
+    background: #f3f3f3;
+  }
 
-    #competence .left-float {
-        padding: 0 2px;
-    }
+  #competence {
+    background: none;
+    padding-bottom: 0;
+  }
 
-    .right-float {
-        background: #f3f3f3;
-    }
+  #formation .fa,
+  #experience .fa {
+    width: 100%;
+  }
 
-    #portfolio .nav {
-        display: block;
-    }
+  #competence .left-float,
+  #competence .right-float {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 30px 5%;
+    float: none;
+  }
 
-    .overlay {
+  #competence .left-float {
+    padding: 0 2px;
+  }
+
+  #portfolio .nav {
+    display: block;
+  }
+
+  .overlay {
     max-width: 100%;
     padding: 2px;
+  }
 
-    }
+  #portfolio h1 {
+    margin-bottom: 20px;
+  }
 
-    .compItems li {
-        height: auto;
-        padding: 0 0.8em;
-        margin: 2px;
-    }
+  #myTabContent {
+    padding: 0 50px;
+  }
 
-    #portfolio h1 {
-        margin-bottom: 20px;
-    }
+  #loisir {
+    padding: 20px;
+  }
 
-    #myTabContent {
-        padding: 0 50px;
-    }
+  #contact .row {
+    display: block;
+  }
 
-    #loisir {
-        padding: 20px;
-    }
+  #contact {
+    padding: 36px 20px 16px;
+  }
 
-    #loisir p {
-        font-size: 1.2em;
-    }
+  #contact ul {
+    text-align: center;
+    padding: 20px 0;
+  }
 
-    #contact .row {
-        display: block;
-    }
+  #contact h3 {
+    width: 100%;
+  }
 
-    #contact {
-        padding: 36px 20px 16px;
-
-    }
-
-    #contact ul {
-        text-align: center;
-        padding: 20px 0;
-    }
-
-
-    #contact .col-8 {
-        max-width: 100%;
-    }
-
-    #contact .col-4 {
-        max-width: 100%;
-    }
-
-    #contact h3 {
-        width: 100%;
-    }
-
-    
-
-    #footer p {
-        font-size: 0.7em;
-    }
-
-    #toDown {
-        font-size: 0.9em;
-        padding: 10px;
-        width: 36px;
-    }
+  #toDown {
+    font-size: 0.9em;
+    padding: 10px;
+    width: 36px;
+  }
 }

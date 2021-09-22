@@ -5,6 +5,15 @@
     <!-- Head site ***************************************** -->
     <title>Frédéric Vanmarcke | Portfolio - Développeur & Intégrateur Web</title>
 
+    <link rel="manifest" href="public/manifest.json" />
+
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="VMKDEV">
+    <meta name="apple-mobile-web-app-title" content="VMKDEV">
+    <meta name="msapplication-starturl" content="https://vmkdev.com/">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <meta name="robots" content="index,follow">
     <meta name="description" content="Je m'appelle Frédéric Vanmarcke, je suis Développeur web front / Full-Stack à Rambouillet. 
     Après 18 ans dans la métallurgie, j’effectue une reconversion professionnelle, en intégrant une formation
@@ -25,7 +34,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <!-- Global site tag (gtag.js) - Function for Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-B8PVFKPPGT"></script>
     <script>
     window.dataLayer = window.dataLayer || [];
@@ -105,27 +114,27 @@
         <?php
         // ABOUT ME *****************************************
 
-         include('public/view/aboutMe.twig');
+         include 'public/view/aboutMe.twig';
 
         //  TRAINING *****************************************
         
-         include('public/view/training.twig');
+         include 'public/view/training.twig';
 
         //  EXPERIENCE *****************************************
        
-         include('public/view/experience.twig');
+         include 'public/view/experience.twig';
 
         //  SKILL  *****************************************
     
-         include('public/view/skill.twig');
+         include 'public/view/skill.twig';
 
         //  PORTFOLIO  *****************************************
      
-         include('public/view/portFolio.twig');
+         include 'public/view/portFolio.twig';
 
         //  HOBBIES  *****************************************
         
-         include('public/view/hobbies.twig');
+         include 'public/view/hobbies.twig';
         ?>
         <!-- CONTACT  ***************************************** -->
        

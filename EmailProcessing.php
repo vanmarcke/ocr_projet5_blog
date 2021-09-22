@@ -1,5 +1,5 @@
 <?php
-require_once('public/include/init.php');
+require 'public/include/init.php';
 
 
 if($_POST)
