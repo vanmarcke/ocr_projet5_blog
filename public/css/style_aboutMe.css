@@ -1,0 +1,61 @@
+/************** ABOUT ME *************/
+
+#me {
+  background: #164d6e;
+  min-height: 80vh;
+  width: 100%;
+  color: #fff;
+  padding: 88px 0 40px;
+  text-align: end;
+  box-shadow: 0 1px 16px rgba(102, 83, 83, 0.5);
+}
+
+#me h1::after {
+  background: #fff;
+  margin-top: 6px;
+}
+
+#footer p {
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
+  font-size: 0.9em;
+  color: #fff;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.studyBox p {
+  color: #252e55;
+  line-height: 21px;
+}
+
+#me div p {
+  padding-top: 20px;
+  font-size: 1.1em;
+  text-align: justify;
+}
+
+#me div img {
+  width: 240px;
+  border-radius: 50%;
+}
+
+.btn-cv {
+  background: #fff !important;
+  border-radius: 10px !important;
+  color: #0d1e4c !important;
+}
+
+.btn-cv:hover {
+  color: #ee4437 !important;
+}
+
+.btn-attest {
+  background: #fff !important;
+  padding: 50px !important;
+  border-radius: 10px !important;
+  color: #1e2ebd !important;
+}
+
+.btn-attest:hover {
+  color: #ee4437 !important;
+}

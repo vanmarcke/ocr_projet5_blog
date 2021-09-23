@@ -1,0 +1,73 @@
+/********** FELICITATIONS *******/
+
+@keyframes Merci {
+  from {
+    opacity: 0;
+    top: 30%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+
+  to {
+    opacity: 1;
+    top: 50%;
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.6);
+  }
+}
+
+.merci,
+.echec {
+  animation-name: Merci;
+  animation-duration: 0.4s;
+  animation-iteration-count: 1;
+  animation-fill-mode: both;
+  position: fixed;
+  z-index: 2;
+  border-radius: 10px;
+  padding: 30px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  text-align: center;
+}
+
+.echec {
+  background-color: rgb(229, 39, 51);
+}
+
+.merci {
+  background-color: rgb(136, 194, 20);
+}
+
+/************* FOOTER *************/
+
+#footer {
+  width: 100%;
+  padding: 8px 0;
+  background-color: #091431;
+  box-shadow: 0 1px 16px rgba(0, 0, 0, 0.5);
+}
+
+.btn-legal {
+  cursor: pointer;
+}
+
+/************* toTop Bouton *************/
+
+#toTop {
+  display: none;
+  position: fixed;
+  bottom: 85px;
+  right: 15px;
+  margin-right: 0;
+  z-index: 100;
+  background-color: rgba(9, 20, 49, 0.7);
+  border: 0 none;
+  transition: all 0.6s;
+  text-decoration: none;
+  font-size: 1.3em;
+}
+
+#toTop:hover {
+  background-color: #0d1e4c;
+}

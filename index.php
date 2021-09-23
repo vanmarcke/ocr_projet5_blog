@@ -27,6 +27,15 @@
     <meta name="viewport" content="width=device-width, user-scalable=no">
     <link rel="icon" type="image/png" href="public/favicon.ico">
     <link rel="stylesheet" type="text/css" href="public/css/style.css">
+    <link rel="stylesheet" type="text/css" href="public/css/style_menu.css">
+    <link rel="stylesheet" type="text/css" href="public/css/style_slider.css">
+    <link rel="stylesheet" type="text/css" href="public/css/style_aboutMe.css">
+    <link rel="stylesheet" type="text/css" href="public/css/style_parcours.css">
+    <link rel="stylesheet" type="text/css" href="public/css/style_expe_compet.css">
+    <link rel="stylesheet" type="text/css" href="public/css/style_portFolio.css">
+    <link rel="stylesheet" type="text/css" href="public/css/style_loisirsContact.css">
+    <link rel="stylesheet" type="text/css" href="public/css/style_networkIcons.css">
+    <link rel="stylesheet" type="text/css" href="public/css/style_footer.css">
     <link rel="stylesheet" type="text/css" href="public/css/responsive_max_width_768px.css">
     <link rel="stylesheet" type="text/css" href="public/css/responsive_max_width_480px.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">

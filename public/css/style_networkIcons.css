@@ -1,0 +1,59 @@
+/********* social network icons *********/
+
+.fa {
+  padding: 16px;
+  font-size: 1.8em;
+  width: 52px;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 50%;
+  margin-right: 100px;
+  color: white;
+  transition: 0.5s ease-in-out;
+}
+
+.fa:hover {
+  opacity: 0.6;
+  color: #fff;
+  transform: rotate(360deg);
+}
+
+.fa-arrow-circle-down {
+  color: #08112a;
+  margin-right: 0;
+  font-size: 3em;
+}
+
+.fa-linkedin {
+  background: #007bb5;
+}
+
+.fa-facebook {
+  background: #395498;
+}
+
+.fa-pinterest {
+  background: #cb2027;
+}
+
+.fa-github {
+  background: #24292e;
+}
+
+
+@keyframes Wrong {
+  0% { margin-left: 0; }
+  25% { margin-left: 10px; }
+  50%  { margin-left: 0; }
+  75% { margin-left: -10px; }
+  100% { margin-left: 0; }
+}
+
+.wrong {
+  position: relative;
+  border: solid 1px rgb(255, 102, 0);
+  animation-name: Wrong;
+  animation-duration: .20s;
+  animation-iteration-count: 3;
+  animation-fill-mode: both;
+}

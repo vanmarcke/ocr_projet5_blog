@@ -1,0 +1,90 @@
+/************* PORFOLIO *************/
+
+#portfolio {
+  background-color: #3fabce;
+  padding: 88px 0;
+  text-align: center;
+  color: #fff;
+  box-shadow: 0 1px 16px rgba( 0, 0, 0, 0.4 );
+}
+
+#portfolio h1 {
+  font-family: cursive;
+  font-size: 3.2em;
+}
+
+#myTab {
+  padding-top: 12px;
+}
+
+#portfolio .titreBorder::after {
+  background: #fff;
+}
+
+.nav-link {
+  color: #fff;
+}
+
+#myTabContent {
+  width: 100%;
+  padding-top: 30px;
+}
+
+.modal-dialog {
+  max-width: 700px !important;
+}
+
+.modal-title {
+  color: #0D1E4C;
+}
+
+.modal-left img {
+  width: 100%;
+  height: auto;
+}
+
+.modal-right {
+  color: #0d1e4c;
+  text-align: left;
+}
+
+.modal-right h5 {
+  font-size: 1.1em;
+}
+
+.modal-right p {
+  font-size: 0.9em;
+}
+
+.card-header {
+  padding: 0.75rem 0.25rem !important;
+}
+
+.descriptexte {
+  text-align: justify;
+}
+
+.overlay {
+  position: absolute;
+  bottom: 0;
+  background: rgba(13, 30, 76, 0.5);
+  color: #f1f1f1;
+  width: 90%;
+  transition: 0.5s ease;
+  opacity: 0;
+  font-size: 15px;
+  padding: 10px;
+  text-align: center;
+}
+
+.work-item:hover .overlay {
+  opacity: 1;
+}
+
+.fa-search-plus {
+  margin-right: 0 !important;
+}
+
+.work-item {
+  margin: 10px 0;
+}
