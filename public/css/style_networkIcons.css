@@ -39,11 +39,3 @@
 .fa-github {
   background: #24292e;
 }
-
-@keyframes Wrong {
-  0% { margin-left: 0; }
-  25% { margin-left: 10px; }
-  50% { margin-left: 0; }
-  75% { margin-left: -10px; }
-  100% { margin-left: 0; }
-}
