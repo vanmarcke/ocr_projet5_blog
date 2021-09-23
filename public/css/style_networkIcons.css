@@ -40,11 +40,10 @@
   background: #24292e;
 }
 
-
 @keyframes Wrong {
   0% { margin-left: 0; }
   25% { margin-left: 10px; }
-  50%  { margin-left: 0; }
+  50% { margin-left: 0; }
   75% { margin-left: -10px; }
   100% { margin-left: 0; }
 }
@@ -53,7 +52,7 @@
   position: relative;
   border: solid 1px rgb(255, 102, 0);
   animation-name: Wrong;
-  animation-duration: .20s;
+  animation-duration: 0.20s;
   animation-iteration-count: 3;
   animation-fill-mode: both;
 }

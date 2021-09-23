@@ -114,7 +114,7 @@
             /********** to TOP bouton **********/
 
             window.onscroll = function () {
-                scrollFunction()
+                scrollFunction();
             };
 
             function scrollFunction() {

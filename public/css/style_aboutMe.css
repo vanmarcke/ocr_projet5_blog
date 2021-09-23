@@ -15,17 +15,17 @@
   margin-top: 6px;
 }
 
+.studyBox p {
+  color: #252e55;
+  line-height: 21px;
+}
+
 #footer p {
   text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
   font-size: 0.9em;
   color: #fff;
   text-align: center;
   margin-top: 10px;
-}
-
-.studyBox p {
-  color: #252e55;
-  line-height: 21px;
 }
 
 #me div p {
