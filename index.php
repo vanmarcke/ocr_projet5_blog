@@ -29,12 +29,12 @@
     <link rel="stylesheet" type="text/css" href="public/css/style.css">
     <link rel="stylesheet" type="text/css" href="public/css/style_menu.css">
     <link rel="stylesheet" type="text/css" href="public/css/style_slider.css">
-    <link rel="stylesheet" type="text/css" href="public/css/style_aboutMe.css">
+    <link rel="stylesheet" type="text/css" href="public/css/style_about_me.css">
     <link rel="stylesheet" type="text/css" href="public/css/style_parcours.css">
     <link rel="stylesheet" type="text/css" href="public/css/style_expe_compet.css">
     <link rel="stylesheet" type="text/css" href="public/css/style_portFolio.css">
-    <link rel="stylesheet" type="text/css" href="public/css/style_loisirsContact.css">
-    <link rel="stylesheet" type="text/css" href="public/css/style_networkIcons.css">
+    <link rel="stylesheet" type="text/css" href="public/css/style_loisirs_contact.css">
+    <link rel="stylesheet" type="text/css" href="public/css/style_network_icons.css">
     <link rel="stylesheet" type="text/css" href="public/css/style_footer.css">
     <link rel="stylesheet" type="text/css" href="public/css/responsive_max_width_768px.css">
     <link rel="stylesheet" type="text/css" href="public/css/responsive_max_width_480px.css">
