@@ -1,0 +1,34 @@
+@charset "UTF-8";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
+}
+
+.titreBorder {
+  position: relative;
+  display: inline-block;
+}
+
+.titreBorder::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  margin: 2px auto;
+  width: 38%;
+  height: 4px;
+  background: #f8533d;
+}
