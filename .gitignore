@@ -1,4 +1,4 @@
 /vendor/
 
-/controller/EmailProcessing.php
+/src/controller/EmailProcessing.php
 
