@@ -1,0 +1,63 @@
+{% extends 'template.twig' %}
+
+{% block page_title %}
+    <title>Frédéric Vanmarcke | Portfolio - Développeur & Intégrateur Web</title>
+{% endblock %}
+
+{% block content %}
+
+        <section id="slider">
+            <div>
+                <img src="public/images/slider.png" alt="Background coucher de soleil">
+            </div>
+            <div class="background">
+
+            </div>
+            
+            <div class="pres row align-items-center headline">
+                <h1>
+                    <span class="tagline">Frédéric Vanmarcke</span>
+                    
+                    <br />
+                    <span class="int tagline">Développeur - Intégrateur Web & Web Mobile à Rambouillet</span>
+                   
+                </h1>
+            </div>
+            <a id="toDown" title="Go to down" href="#me" class="fa fa-chevron-down punchline">
+            </a>
+        </section>
+        {# SLIDER END ***************************************** #}
+
+
+        {# ABOUT ME ***************************************** #}
+
+        {{ include('aboutMe.twig') }}
+
+        {# TRAINING ***************************************** #}
+        
+        {{ include('training.twig') }}
+
+        {# EXPERIENCE ***************************************** #}
+       
+        {{ include('experience.twig') }}
+
+        {# SKILL  ***************************************** #}
+    
+        {{ include('skill.twig') }}
+
+        {# PORTFOLIO  ***************************************** #}
+     
+        {{ include('portFolio.twig') }}
+
+        {# HOBBIES  ***************************************** #}
+        
+        {{ include('hobbies.twig') }}
+
+        {# CONTACT  ***************************************** #}
+
+        {{ include('contact.twig') }}
+
+        {# CONTACT END ***************************************** #}
+
+{% endblock %}
+
