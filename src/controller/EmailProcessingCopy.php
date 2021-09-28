@@ -7,7 +7,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         header('Location: index.php');
     }else{
         // We prepare the URL 
-        $url = "https://www.google.com/recaptcha/api/siteverify?secret='votre code secret ici'&response={$_POST['recaptcha-response']}";
+        $url = "https://www.google.com/recaptcha/api/siteverify?secret=votre code secret ici&response={$_POST['recaptcha-response']}";
 
         // We check if curl is installed 
         if(function_exists('curl_version')){
@@ -55,7 +55,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 if($_POST)
 {
-    $email = ' votre email ici ';
+    $email = 'votre email ici';
 
     $headers = 'MINE-Version: 1.0' . "\r\n";
 
