@@ -4,6 +4,70 @@
     <title>Frédéric Vanmarcke | Portfolio - Développeur & Intégrateur Web</title>
 {% endblock %}
 
+{% block head %}
+    <!-- Head site ***************************************** -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="VMKDEV">
+    <meta name="apple-mobile-web-app-title" content="VMKDEV">
+    <meta name="msapplication-starturl" content="https://vmkdev.com/">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta name="robots" content="index,follow">
+    <meta name="description" content="Je m'appelle Frédéric Vanmarcke, je suis Développeur web front / Full-Stack à Rambouillet. 
+    Après 18 ans dans la métallurgie, j’effectue une reconversion professionnelle, en intégrant une formation
+    de Développeur WEB largement dominée par un public plus jeune.">
+    <meta name="author" content="Frédéric Vanmarcke">
+    <meta name="keywords" content="Frédéric Vanmarcke, Portfolio, Intégrateur, Informatique, Web, page web, HTML, CSS, 
+    développeur IDF,développeur France, Developpeur web, Full-Stack, Jquery, Javascript, PHP, symfony, angular, 
+    react native, Wordpress, bootstrap, Photoshop, illustrator, webdesign, ajax, création site web rambouillet île de france, 
+    site internet île de france, SEO, Intégration et développement web">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">           
+
+    <!-- CSS, frameworks & Responsive ***************************************** -->
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <link rel="icon" type="image/png" href="public/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="public/css/style.css">
+    <link rel="stylesheet" type="text/css" href="public/css/style_menu.css">
+    <link rel="stylesheet" type="text/css" href="public/css/style_slider.css">
+    <link rel="stylesheet" type="text/css" href="public/css/style_about_me.css">
+    <link rel="stylesheet" type="text/css" href="public/css/style_parcours.css">
+    <link rel="stylesheet" type="text/css" href="public/css/style_expe_compet.css">
+    <link rel="stylesheet" type="text/css" href="public/css/style_portFolio.css">
+    <link rel="stylesheet" type="text/css" href="public/css/style_loisirs_contact.css">
+    <link rel="stylesheet" type="text/css" href="public/css/style_network_icons.css">
+    <link rel="stylesheet" type="text/css" href="public/css/style_footer.css">
+    <link rel="stylesheet" type="text/css" href="public/css/responsive_max_width_768px.css">
+    <link rel="stylesheet" type="text/css" href="public/css/responsive_max_width_480px.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link rel="manifest" href="public/manifest.json" />
+
+    <!-- CSS Transition and Transformation script  -->
+    <script src="https://unpkg.com/scrollreveal"></script>
+
+    <!-- Global site tag (gtag.js) - Function for Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-B8PVFKPPGT"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-B8PVFKPPGT');
+    </script>
+
+    <!-- reCAPTCHA v3 - Load the JavaScript API with my sitekey. -->
+    <script src="https://www.google.com/recaptcha/api.js?render=6LeytAEbAAAAAJbWsEdMqp7_npryrc-itzfYYxS9"></script>
+    <!-- Call grecaptcha.execute on each send action of the contact form.  -->
+    <script>
+    grecaptcha.ready(function() {
+        grecaptcha.execute('6LeytAEbAAAAAJbWsEdMqp7_npryrc-itzfYYxS9', {action: 'submit'}).then(function(token) {
+            document.getElementById('recaptchaResponse').value = token
+        });
+    });
+    </script>
+{% endblock %}
+
 {% block content %}
 
         <section id="slider">
