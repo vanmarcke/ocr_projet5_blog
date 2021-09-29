@@ -1,33 +1,32 @@
 <?php
 
 // We check that the POST method is used 
-if($_SERVER['REQUEST_METHOD'] == 'POST'){
+if($_SERVER['REQUEST_METHOD'] == 'POST') {
     // We check if the "recaptcha-response" field contains a value 
-    if(empty($_POST['recaptcha-response'])){
+    if(empty($_POST['recaptcha-response'])) {
         header('Location: index.php');
-    }else{
+    } else {
         // We prepare the URL 
         $url = "https://www.google.com/recaptcha/api/siteverify?secret=votre code secret ici&response={$_POST['recaptcha-response']}";
 
         // We check if curl is installed 
-        if(function_exists('curl_version')){
+        if(function_exists('curl_version')) {
             $curl = curl_init($url);
             curl_setopt($curl, CURLOPT_HEADER, false);
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($curl, CURLOPT_TIMEOUT, 1);
             curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
             $response = curl_exec($curl);
-        }else{
-            
+        } else {            
             $response = file_get_contents($url);
         }
 
         // We check that we have an answer 
-        if(empty($response) || is_null($response)){
+        if(empty($response) || is_null($response)) {
             header('Location: index.php');
-        }else{
+        } else {
             $data = json_decode($response);
-            if($data->success){
+            if($data->success) {
                 if(
                     isset($_POST['nom']) && !empty($_POST['nom']) &&
                     isset($_POST['sujet']) && !empty($_POST['sujet']) &&
@@ -42,19 +41,18 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 
                 }
-            }else{
+            } else {
                 header('Location: index.php');
             }
         }
     }
-}else{
+} else {
     http_response_code(405);
     echo 'Méthode non autorisée';
 }
 
 
-if($_POST)
-{
+if($_POST) {
     $email = 'votre email ici';
 
     $headers = 'MINE-Version: 1.0' . "\r\n";

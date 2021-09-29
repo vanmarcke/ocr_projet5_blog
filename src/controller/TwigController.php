@@ -5,7 +5,12 @@ namespace Projet5\controller;
 class TwigController{
 
 	protected $twig;
-
+	
+	/**
+	 * Instantiating the loader and template engine 
+	 *
+	 * @return void
+	 */
 	public function __construct(){
 		// twig
 		$loader = new \Twig\Loader\FilesystemLoader('public/view');
@@ -15,4 +20,3 @@ class TwigController{
 		$this->twig = $twig;
 	}
 }
-
