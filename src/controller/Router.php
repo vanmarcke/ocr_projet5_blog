@@ -4,6 +4,9 @@ namespace Projet5\controller;
 
 use Projet5\controller\HomepageController;
 
+/**
+ * Defined the different routes to the controllers 
+ */
 class Router{
 	
 	/**

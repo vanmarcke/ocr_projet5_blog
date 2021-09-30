@@ -2,6 +2,9 @@
 
 namespace Projet5\controller;
 
+/**
+ * Defining the location of branch views 
+ */
 class TwigController{
 
 	protected $twig;
