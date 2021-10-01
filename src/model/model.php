@@ -2,7 +2,7 @@
 
 namespace Projet5\model;
 
-use Exception;
+use PDOException;
 use PDO;
 
 /**
@@ -24,8 +24,9 @@ class Model
 			$bdd = new PDO("mysql:host=" . $dataBase['dbServer'] . ";dbname=" . $dataBase['dbName'] . ";charset=utf8", $dataBase['dbUser'], $dataBase['dbPass'], array(PDO::ATTR_PERSISTENT => true));
 
 			$bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		} catch (Exception $e) {
-			die('*********** Erreur de connexion à la BDD ! ***********');
+		} catch (PDOException $e) {
+			echo '<b>Erreur de connexion à la base de données : <br> Ligne : ' . $e->getLine() . ' :</b> ' . $e->getMessage();
+			exit;
 		}
 		$this->bdd = $bdd;
 	}
