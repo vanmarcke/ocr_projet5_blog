@@ -1,0 +1,60 @@
+<section id="contact">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="titreBorder">Mes réseaux</h1>
+        </div>
+        <div class="col-lg-12">
+            <ul class="networks">
+                <li>
+                    <a href="https://linkedin.com/in/frédéric-vanmarcke/" target="_blank" rel="noopener" class="fa fa-linkedin"></a>
+                </li>
+
+                <li>
+                    <a href="https://github.com/vanmarcke/" target="_blank" rel="noopener" class="fa fa-github"></a>
+                </li>
+                <li>
+                    <a href="https://www.pinterest.fr/fvanmarcke72/" target="_blank" rel="noopener" class="fa fa-pinterest"></a>
+                </li>
+                <li>
+                    <a href="https://www.facebook.com/guedin78/" target="_blank" rel="noopener" class="fa fa-facebook"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="col-lg-12">
+        <h1 class="titreBorder">Me contacter</h1>
+    </div>
+    <div class="col-lg-8 mx-auto">
+
+        <form method="POST" action="src/controller/EmailProcessing.php" id="contactForm">
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="nom"></label>
+                    <input type="text" class="form-control" id="nom" name="nom" placeholder="Vos Nom et Prénom *" >                            
+                </div>
+                <div class="form-group col-md-12">
+                    <label for="sujet"></label>
+                    <input type="text" class="form-control" id="sujet" name="sujet" placeholder="Sujet *" >
+                </div>
+                <div class="form-group col-md-12">
+                    <label for="email"></label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Votre E-mail *" >
+                </div>
+
+                <div class="form-group col-md-12">
+                    <label for="message"></label>
+                    <textarea class="form-control" id="message" name="message" rows="3" placeholder="Votre message *" ></textarea>
+                </div>
+                    
+
+            </div>
+
+            <input type="hidden" id="recaptchaResponse" name="recaptcha-response">
+    
+            <input class="btn btn-primary" data-sitekey="6LeytAEbAAAAAJbWsEdMqp7_npryrc-itzfYYxS9" type="submit" name="submit" value="Envoyer" />
+            
+        </form>
+    </div>
+
+</section>
