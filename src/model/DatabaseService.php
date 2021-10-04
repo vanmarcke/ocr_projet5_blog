@@ -8,7 +8,7 @@ use PDO;
 /**
  * Define the database connection parameters 
  */
-class Model
+class DatabaseService
 {
 	protected $bdd;
 
@@ -28,6 +28,6 @@ class Model
 			echo '<b>Erreur de connexion à la base de données : <br> Ligne : ' . $e->getLine() . ' :</b> ' . $e->getMessage();
 			exit;
 		}
-		$this->bdd = $bdd;
+		return $this->bdd = $bdd;
 	}
 }

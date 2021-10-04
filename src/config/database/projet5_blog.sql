@@ -35,7 +35,7 @@ CREATE TABLE `bpf_blog_posts` (
   `last_date_change` datetime NOT NULL,
   `chapo` text COLLATE utf8mb4_bin NOT NULL,
   `contents` text COLLATE utf8mb4_bin NOT NULL,
-  `publish` enum('valid','waiting') COLLATE utf8mb4_bin NOT NULL DEFAULT 'waiting',
+  `publish` enum('valid','waiting') COLLATE utf8mb4_bin NOT NULL DEFAULT 'waiting' COMMENT 'Expected values:\r\nvalid: Article validated by Admin\r\nwaiting : ''Draft'' article awaiting validation by the Admin',
   `id_bpf_users` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
@@ -48,7 +48,7 @@ CREATE TABLE `bpf_blog_posts` (
 CREATE TABLE `bpf_comments` (
   `id` int(11) NOT NULL,
   `contents` text COLLATE utf8mb4_bin NOT NULL,
-  `publish` enum('valid','waiting','refuse') COLLATE utf8mb4_bin NOT NULL DEFAULT 'waiting',
+  `publish` enum('valid','waiting','refuse') COLLATE utf8mb4_bin NOT NULL DEFAULT 'waiting' COMMENT 'Expected values:\r\nvalid: Comment validated by Admin\r\nwaiting: Comment awaiting validation by Admin\r\nrefused: Comment refused by Admin ',
   `id_bpf_blog_posts` int(11) NOT NULL,
   `id_bpf_users` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
@@ -64,7 +64,7 @@ CREATE TABLE `bpf_users` (
   `pseudo` varchar(50) COLLATE utf8mb4_bin NOT NULL,
   `email` varchar(100) COLLATE utf8mb4_bin NOT NULL,
   `password` varchar(200) COLLATE utf8mb4_bin NOT NULL,
-  `rank` enum('admin','pending','registered') COLLATE utf8mb4_bin NOT NULL DEFAULT 'pending'
+  `rank` enum('admin','pending','registered') COLLATE utf8mb4_bin NOT NULL DEFAULT 'pending' COMMENT 'Expected values:\r\nadmin: Define the Admin profile\r\npending: Registered user awaiting validation by Admin\r\nregistered: Registered user validated by Admin Expected values:\r\nadmin: Define the Admin profile\r\npending: Registered user awaiting validation by Admin\r\nregistered: Registered user validated by Admin '
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
