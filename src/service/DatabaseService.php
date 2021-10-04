@@ -1,6 +1,6 @@
 <?php
 
-namespace Projet5\model;
+namespace Projet5\service;
 
 use PDOException;
 use PDO;
@@ -15,10 +15,10 @@ class DatabaseService
 	/**
 	 * DataBase connexion
 	 *
-	 * @param  mixed $dataBase
+	 * @param array $dataBase
 	 * @return void
 	 */
-	public function __construct($dataBase)
+	public function __construct(array $dataBase)
 	{
 		try {
 			$bdd = new PDO("mysql:host=" . $dataBase['dbServer'] . ";dbname=" . $dataBase['dbName'] . ";charset=utf8", $dataBase['dbUser'], $dataBase['dbPass'], array(PDO::ATTR_PERSISTENT => true));
@@ -28,6 +28,6 @@ class DatabaseService
 			echo '<b>Erreur de connexion à la base de données : <br> Ligne : ' . $e->getLine() . ' :</b> ' . $e->getMessage();
 			exit;
 		}
-		return $this->bdd = $bdd;
+		$this->bdd = $bdd;
 	}
 }
