@@ -29,9 +29,9 @@ class HomepageController extends TwigController
 		// load userDatas if is connected
 		if (isset($_SESSION['IdConnectedUser'])) {
 			$userDatas = $userModel->loadUser($_SESSION['IdConnectedUser']);
-		} else {
+		} 
 			$userDatas = [];
-		}
+		
 
 		// The form is not submitted, display the homepage
 		if (count($_POST) === 0) {
