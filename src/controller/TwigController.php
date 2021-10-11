@@ -16,7 +16,7 @@ class TwigController{
 	 */
 	public function __construct(){
 		// twig
-		$loader = new \Twig\Loader\FilesystemLoader('public/view');
+		$loader = new \Twig\Loader\FilesystemLoader('view');
 		$twig = new \Twig\Environment($loader, [
 		    'cache' => false //__DIR__ .'/tmp'
 		]);
