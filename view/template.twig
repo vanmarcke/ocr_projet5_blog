@@ -1,92 +1,103 @@
 <!DOCTYPE html>
 <html lang="fr">
 
-<head>
-    {% block head %}{% endblock %}
+	<head>
+		{% block head %}{% endblock %}
 
-    {% block page_title %}{% endblock %}
-</head>
+		{% block page_title %}{% endblock %}
+	</head>
 
-<body id="body">
-    <div id="home"></div>
-    <main>
-        
-        {# NAV ***************************************** #}
-        <header id="header" class="flex sticky-top" style="display: none;">
-            <figure id="logo">
-                <a href="#home"> <img alt="Logo VMKDEV" src="public/images/logo_small.png"> </a>
-            </figure>
-            <div id="hamburger">
-                <div id="hamburger-content">
-                    <nav id="menu" role="navigation">
-                        <ul class="nav-pills" id="pills-tab" role="tablist">      
-                            <li>
-                                <a href="#">BLOG</a>
-                            </li>
-                            <li>
-                                <a href="#me">A PROPOS DE MOI</a>
-                            </li>
-                            <li>
-                                <a href="#formation">PARCOURS</a>
-                            </li>
-                            <li>
-                                <a href="#experience">EXPERIENCE</a>
-                            </li>
-                            <li>
-                                <a href="#competence">COMPÉTENCES</a>
-                            </li>
-                            <li>
-                                <a href="#portfolio">PORTFOLIO</a>
-                            </li>
-                            <li>
-                                <a href="#">Déconnexion</a>
-                            </li>
-                            <li>
-                                <a href="#">Connexion</a>
-                            </li>
-                            <li>
-                                <a  href="#">Inscription</a>
-                            </li>
-                            <li>
-                                <a href="#">Ecrire un article</a>
-                            </li>       
-                            <li>
-                                <a href="#">Administration</a>
-                            </li>
-                            <li>
-                                <a href="#contact">CONTACT</a>
-                            </li>
-                        </ul>
-                    </nav>
-                    
-                </div>
-                <button id="hamburger-button">&#9776;</button>
-                <div id="hamburger-sidebar">
-                    <div id="hamburger-sidebar-header"></div>
-                    <div id="hamburger-sidebar-body"></div>
-                </div>
-                <div id="hamburger-overlay"></div>
-            </div>
-        </header>
-        <!-- NAV END ***************************************** -->
+	<body id="body">
+		<div id="home"></div>
+		<main>
 
-        {% block content %}{% endblock %}
+			{# NAV ***************************************** #}
+			<header id="header" class="flex sticky-top" style="display: none;">
+				<figure id="logo">
+					<a href="#home">
+						<img alt="Logo VMKDEV" src="public/images/logo_small.png">
+					</a>
+				</figure>
+				<div id="hamburger">
+					<div id="hamburger-content">
+						<nav id="menu" role="navigation">
+							<ul class="nav-pills" id="pills-tab" role="tablist">
 
 
-        <!-- FOOTER ***************************************** -->        
-        {{ include('footer.twig') }}
+								<li>
+									<a href="#">BLOG</a>
+								</li>
+								<li>
+									<a href="#me">A PROPOS DE MOI</a>
+								</li>
+								<li>
+									<a href="#formation">PARCOURS</a>
+								</li>
+								<li>
+									<a href="#experience">EXPERIENCE</a>
+								</li>
+								<li>
+									<a href="#competence">COMPÉTENCES</a>
+								</li>
+								<li>
+									<a href="#portfolio">PORTFOLIO</a>
+								</li>
+								{% if SESSION.IdConnectedUser is defined %}
 
-        <a id="toTop" title="Go to top" href="#home" class="fa fa-chevron-up"></a>
+									<li>
+										<a href="Deconnexion">Déconnexion</a>
+									</li>
+								{% else %}
+									<li>
+										<a href="Connexion">Connexion</a>
+									</li>
+									<li>
+										<a href="Inscription">Inscription</a>
+									</li>
+								{% endif %}
+								{% if SESSION.rankConnectedUser == 'admin' %}
+									<li>
+										<a href="#">Ecrire un article</a>
+									</li>
+									<li>
+										<a href="#">Administration</a>
+									</li>
+								{% endif %}
 
-    </main>
+								<li>
+									<a href="#contact">CONTACT</a>
+								</li>
+							</ul>
+						</nav>
 
-    <!-- Scripts ***************************************** -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="public/js/app.js" async defer></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/cookie-bar/cookiebar-latest.min.js?forceLang=fr&theme=flying&always=1"></script>
+					</div>
+					<button id="hamburger-button">&#9776;</button>
+					<div id="hamburger-sidebar">
+						<div id="hamburger-sidebar-header"></div>
+						<div id="hamburger-sidebar-body"></div>
+					</div>
+					<div id="hamburger-overlay"></div>
+				</div>
+			</header>
+			{# NAV END ***************************************** #}
 
-</body>
+			{% block content %}{% endblock %}
+
+
+			<!-- FOOTER ***************************************** -->
+			{{ include('footer.twig') }}
+
+			<a id="toTop" title="Go to top" href="#home" class="fa fa-chevron-up"></a>
+
+		</main>
+
+		<!-- Scripts ***************************************** -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+		<script src="public/js/app.js" async defer></script>
+		<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/cookie-bar/cookiebar-latest.min.js?forceLang=fr&theme=flying&always=1"></script>
+
+	</body>
 
 </html>

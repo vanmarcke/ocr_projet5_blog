@@ -14,13 +14,13 @@ class DatabaseService
 	/**
 	 * getDb
 	 *
-	 * @return void
+	 * @return mixed
 	 */
 	public function getDb() // méthode permettant d'instancier la class PDO
 	{
 		if (!$this->bdd) // seulement si $this->db n'est pas rempli, si il n'y a pas de connexion, alors on la construit
 		{
-			try // bloc d'essai
+			try 
 			{
 				// pour faire du test sur la classe '../app/config.xml'
 				$xml = simplexml_load_file('app/config.xml'); // simplexml_load_file permet de convertir le fichier XML en objet SimpleXMLElement 
