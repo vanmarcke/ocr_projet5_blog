@@ -9,16 +9,14 @@ use Projet5\controller\TwigController;
  */
 class UserController extends TwigController
 {
-
     /**
      * connexion user
      *
-     * @param  mixed $userModel
+     * @param  object $userModel
      * @return void
      */
-    public function connexion($userModel)
+    public function connexion(object $userModel)
     {
-
         // The form is not submitted, posting the connexion form
         if (count($_POST) === 0) {
             echo $this->twig->render('connexion.twig', ['SESSION' => $_SESSION]);
@@ -69,8 +67,8 @@ class UserController extends TwigController
             "email" => $email,
             "password" => $password
         ];
-        // display the form with errors and datas form
-        echo $this->twig->render('connexion.twig', ['error' => $error, 'form' => $form, 'SESSION' => $_SESSION]);
+        // display the form with errors and datas form        
+        echo $this->render('connexion.twig', $error, $form, $_SESSION);
     }
 
     /**
@@ -137,8 +135,8 @@ class UserController extends TwigController
                 $error['sql'] = 'le pseudo ou l\'email existe déjà';
             }
         }
-        // display the form with errors and datas form
-        echo $this->twig->render('register.twig', ['error' => $error, 'form' => $form, 'SESSION' => $_SESSION]);
+        // display the form with errors and datas form       
+        echo $this->render('register.twig', $error, $form, $_SESSION);
     }
 
     /**
@@ -153,5 +151,19 @@ class UserController extends TwigController
         $_SESSION['success'] = 'Vous êtes déconnecté';
         header("Location:Accueil");
         exit;
+    }
+
+    /**
+     * render shortcut for controllers.
+     *
+     * @param  string $templateName
+     * @param  array $error
+     * @param  array $form
+     * @param  array $session
+     * @return void
+     */
+    private function render(string $templateName, array $error, array $form, array $session)
+    {
+        $this->twig->render($templateName, ['error' => $error, 'form' => $form, 'SESSION' => $session]);
     }
 }

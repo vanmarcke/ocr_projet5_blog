@@ -9,7 +9,6 @@ use Projet5\controller\TwigController;
  */
 class SessionController extends TwigController
 {
-	
 	/**
 	 * redirection according to user status 
 	 *
@@ -17,7 +16,6 @@ class SessionController extends TwigController
 	 */
 	public function __construct()
 	{
-
 		parent::__construct();
 
 		// exit if not login

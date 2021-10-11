@@ -9,25 +9,26 @@ use PDO;
  */
 class DatabaseService
 {
-	private $bdd; // objet PDO
+	/**
+	 * bdd
+	 *
+	 * @var object PDO
+	 */
+	private $bdd;
 
 	/**
 	 * getDb
 	 *
-	 * @return mixed
+	 * @return object PDOStatement
 	 */
-	public function getDb() // méthode permettant d'instancier la class PDO
+	public function getDb()
 	{
-		if (!$this->bdd) // seulement si $this->db n'est pas rempli, si il n'y a pas de connexion, alors on la construit
-		{
-			try 
-			{
-				// pour faire du test sur la classe '../app/config.xml'
-				$xml = simplexml_load_file('app/config.xml'); // simplexml_load_file permet de convertir le fichier XML en objet SimpleXMLElement 
-				// echo '<pre>'; print_r($xml); echo '</pre>';          
+		if (!$this->bdd) {
+			try {
 
-				try // on tente la connexion à la BDD
-				{
+				$xml = simplexml_load_file('app/config.xml');
+
+				try {
 					$this->bdd = new PDO("mysql:dbname=" . $xml->db . ";host=" . $xml->host, $xml->user, $xml->password, array(\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION));
 				} catch (\PDOException $e) {
 					die('Problème de connexion BDD, erreur : ' . $e->getMessage());
@@ -35,7 +36,7 @@ class DatabaseService
 			} catch (\Exception $e) {
 				die('Problème de fichier XML, erreur : ' . $e->getMessage());
 			}
-		}
+		} 
 		return $this->bdd;
 	}
 }

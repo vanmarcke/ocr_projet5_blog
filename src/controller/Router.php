@@ -13,7 +13,6 @@ use Projet5\model\UserModel;
  */
 class Router
 {
-
 	/**
 	 * Execute the route to home page 
 	 *
@@ -21,48 +20,58 @@ class Router
 	 */
 	public function run()
 	{
-
-		// Configuration and global variables
-		// require("src/config/database/config.php");
-
 		// Models variables
 		$userModel = new UserModel();
 
 		// ROUTER
+
 		$url = '';
 		if (isset($_GET['url'])) {
 			$url = explode('/', strtolower($_GET['url']));
 		}
-		/*Accueil*/
-		if ($url == '' || $url[0] == 'accueil') {
-			$homepageController = new HomepageController();
-			$homepageController->index($userModel);
+		/*home page*/
+		switch ($url[0]) {
+			case '':
+				$homepageController = new HomepageController();
+				$homepageController->openHome($userModel);
+				break;
 
-			/*connexion*/
-		} elseif ($url[0] == 'connexion') {
-			$userController = new UserController();
-			$userController->connexion($userModel);
+				/*Accueil*/
+			case 'accueil':
+				$homepageController = new HomepageController();
+				$homepageController->index($userModel);
+				break;
 
-			/*inscription*/
-		} elseif ($url[0] == 'inscription') {
-			$userController = new UserController();
-			$userController->register($userModel);
+				/*connexion*/
+			case 'connexion':
+				$userController = new UserController();
+				$userController->connexion($userModel);
+				break;
 
-			/*deconnexion*/
-		} elseif ($url[0] == 'deconnexion') {
-			$userController = new UserController();
-			$userController->deconnexion();
-		} else {
-			$_SESSION['error'] = 'Erreur 404 - Page non trouvé';
-			$homepageController = new HomepageController();
-			$homepageController->index($userModel);
+				/*inscription*/
+			case 'inscription':
+				$userController = new UserController();
+				$userController->register($userModel);
+				break;
+
+				/*deconnexion*/
+			case 'deconnexion':
+				$userController = new UserController();
+				$userController->deconnexion();
+				break;
+
+				/*redirect if page not found*/
+			default;
+				$_SESSION['error'] = 'Erreur 404 - Page non trouvé';
+				$homepageController = new HomepageController();
+				$homepageController->index($userModel);
+				break;
 		}
 	}
 
 	// unset success variables after display
 	public function unsetSuccessErrorVariables()
 	{
-
 		unset($_SESSION['success']);
 		unset($_SESSION['error']);
 	}

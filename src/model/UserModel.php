@@ -13,10 +13,10 @@ class UserModel extends DatabaseService
     /**
      * loadUser
      *
-     * @param  mixed $id
+     * @param  int $id
      * @return void
      */
-    public function loadUser($id)
+    public function loadUser(int $id)
     {
         $req = $this->getDb()->prepare('SELECT * FROM `bpf_users` WHERE `id`= :id;');
         $req->execute(['id' => $id]);
@@ -27,10 +27,10 @@ class UserModel extends DatabaseService
     /**
      * Return id users with email
      *
-     * @param  mixed $email
+     * @param  string $email
      * @return void
      */
-    public function loadByEmail($email)
+    public function loadByEmail(string $email)
     {
         $req = $this->getDb()->prepare('SELECT id FROM bpf_users WHERE email = :email');
         $req->bindValue(':email', $email);
@@ -54,7 +54,7 @@ class UserModel extends DatabaseService
     /**
      * insert user with datas table
      *
-     * @param  mixed $datas
+     * @param  array $datas
      * @return void
      */
     public function insert(array $datas)

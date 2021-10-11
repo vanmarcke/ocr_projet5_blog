@@ -10,13 +10,22 @@ use Projet5\controller\TwigController;
 class HomepageController extends TwigController
 {
 	/**
+	 * opening home page entry on site 
+	 *
+	 * @return void
+	 */
+	public function openHome()
+	{
+		header("Location:Accueil");
+	}
+
+	/**
 	 * Get Homepage
 	 *
 	 * @return void
 	 */
 	public function index($userModel)
 	{
-
 		// load userDatas if is connected
 		if (isset($_SESSION['IdConnectedUser'])) {
 			$userDatas = $userModel->loadUser($_SESSION['IdConnectedUser']);
