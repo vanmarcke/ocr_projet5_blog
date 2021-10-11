@@ -2,7 +2,6 @@
 
 namespace Projet5\service;
 
-use PDOException;
 use PDO;
 
 /**
@@ -10,24 +9,33 @@ use PDO;
  */
 class DatabaseService
 {
-	protected $bdd;
+	private $bdd; // objet PDO
 
 	/**
-	 * DataBase connexion
+	 * getDb
 	 *
-	 * @param array $dataBase
 	 * @return void
 	 */
-	public function __construct(array $dataBase)
+	public function getDb() // méthode permettant d'instancier la class PDO
 	{
-		try {
-			$bdd = new PDO("mysql:host=" . $dataBase['dbServer'] . ";dbname=" . $dataBase['dbName'] . ";charset=utf8", $dataBase['dbUser'], $dataBase['dbPass'], array(PDO::ATTR_PERSISTENT => true));
+		if (!$this->bdd) // seulement si $this->db n'est pas rempli, si il n'y a pas de connexion, alors on la construit
+		{
+			try // bloc d'essai
+			{
+				// pour faire du test sur la classe '../app/config.xml'
+				$xml = simplexml_load_file('app/config.xml'); // simplexml_load_file permet de convertir le fichier XML en objet SimpleXMLElement 
+				// echo '<pre>'; print_r($xml); echo '</pre>';          
 
-			$bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		} catch (PDOException $e) {
-			echo '<b>Erreur de connexion à la base de données : <br> Ligne : ' . $e->getLine() . ' :</b> ' . $e->getMessage();
-			exit;
+				try // on tente la connexion à la BDD
+				{
+					$this->bdd = new PDO("mysql:dbname=" . $xml->db . ";host=" . $xml->host, $xml->user, $xml->password, array(\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION));
+				} catch (\PDOException $e) {
+					die('Problème de connexion BDD, erreur : ' . $e->getMessage());
+				}
+			} catch (\Exception $e) {
+				die('Problème de fichier XML, erreur : ' . $e->getMessage());
+			}
 		}
-		$this->bdd = $bdd;
+		return $this->bdd;
 	}
 }
