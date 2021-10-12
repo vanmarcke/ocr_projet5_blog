@@ -16,10 +16,10 @@ class UserModel extends DatabaseService
      * @param  int $id
      * @return void
      */
-    public function loadUser(int $id)
+    public function loadUser(int $idUser)
     {
         $req = $this->getDb()->prepare('SELECT * FROM `bpf_users` WHERE `id`= :id;');
-        $req->execute(['id' => $id]);
+        $req->execute(['id' => $idUser]);
         $userDatas = $req->fetch(PDO::FETCH_ASSOC);
         return $userDatas;
     }

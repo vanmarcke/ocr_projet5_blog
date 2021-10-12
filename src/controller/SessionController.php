@@ -22,7 +22,6 @@ class SessionController extends TwigController
 		if (!isset($_SESSION['IdConnectedUser'])) {
 			$_SESSION['error'] = 'Vous n\'êtes pas connecté';
 			header('location:Connexion');
-			exit;
 		}
 		// exit if not valide
 		if ($_SESSION['rankConnectedUser'] == 'pending') {

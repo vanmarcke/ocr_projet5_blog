@@ -52,9 +52,9 @@ class UserController extends TwigController
                 $_SESSION['success'] = 'Vous êtes connecté';
                 if ($_SESSION['rankConnectedUser'] == 'admin') {
                     header('location:Administration');
-                } else {
-                    header('location:Accueil');
+                    exit;
                 }
+                header('location:Accueil');
                 exit;
                 // or create a error message
             } else {
