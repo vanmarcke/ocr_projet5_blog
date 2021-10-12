@@ -2,6 +2,7 @@
 
 namespace Projet5\controller;
 
+use Exception;
 use Projet5\controller\TwigController;
 
 /**
@@ -18,16 +19,19 @@ class SessionController extends TwigController
 	{
 		parent::__construct();
 
-		// exit if not login
-		if (!isset($_SESSION['IdConnectedUser'])) {
-			$_SESSION['error'] = 'Vous n\'êtes pas connecté';
-			header('location:Connexion');
-		}
-		// exit if not valide
-		if ($_SESSION['rankConnectedUser'] == 'pending') {
-			$_SESSION['error'] = 'Votre compte n\'a pas encore été validé par un administrateur';
-			header('location:Accueil');
-			exit;
+		try {
+			// exit if not login
+			if (!isset($_SESSION['IdConnectedUser'])) {
+				header('location:Connexion');
+				throw new Exception($_SESSION['error'] = 'Vous n\'êtes pas connecté');
+			}
+			// exit if not valide
+			if ($_SESSION['rankConnectedUser'] == 'pending') {
+				header('location:Accueil');
+				throw new Exception($_SESSION['error'] = 'Votre compte n\'a pas encore été validé par un administrateur');
+			}
+		} catch (Exception $e) {
+			$e->getMessage();
 		}
 	}
 }
