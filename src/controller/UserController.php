@@ -31,12 +31,13 @@ class UserController extends TwigController
         // control
         $email = (isset($_POST["email"])) ? $_POST["email"] : "";
         $password = (isset($_POST["password"])) ? $_POST["password"] : "";
+        $pattern = '/^[[:print:]]+\z/';
 
-        if (!preg_match('/^[[:print:]]+\z/', $email) && false === filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        if (!preg_match($pattern, $email) && false === filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $error['email'] = 'L\'adresse email n\'est pas renseigné ou invalide.';
         }
 
-        if (!preg_match('/^[[:print:]]+\z/', $password) || strlen($password) < 8) {
+        if (!preg_match($pattern, $password) || strlen($password) < 8) {
             $error['password'] = 'Le mot de passe n\'est pas renseigné ou invalide , minimun 8 caractères.';
         }
 
@@ -86,23 +87,24 @@ class UserController extends TwigController
             return;
         }
 
-        // The form is submit, form processing
+        // The form is submit, form processing        
 
         $pseudo = (isset($_POST["pseudo"])) ? $_POST["pseudo"] : "";
         $email = (isset($_POST["email"])) ? $_POST["email"] : "";
         $password = (isset($_POST["password"])) ? $_POST["password"] : "";
         $confirm_password = (isset($_POST["confirm_password"])) ? $_POST["confirm_password"] : "";
+        $pattern = '/^[[:print:]]+\z/';
 
-        if (!preg_match('/^[[:print:]]+\z/', $pseudo)) {
+        if (!preg_match($pattern, $pseudo)) {
             $error['pseudo'] = 'Le pseudo n\'est pas renseigné ou invalide.';
         }
         if (strlen($pseudo) < 3 || strlen($pseudo) > 20) {
             $error['pseudoSize'] = 'Le pseudo doit faire entre 3 et 20 caractères';
         }
-        if (!preg_match('/^[[:print:]]+\z/', $email) && false === filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        if (!preg_match($pattern, $email) && false === filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $error['email'] = 'L\'adresse email n\'est pas renseigné ou invalide.';
         }
-        if (!preg_match('/^[[:print:]]+\z/', $password) || strlen($password) < 8) {
+        if (!preg_match($pattern, $password) || strlen($password) < 8) {
             $error['password'] = 'Le mot de passe n\'est pas renseigné ou invalide, minimum 8 caractères';
         }
         if ($password !== $confirm_password) {
