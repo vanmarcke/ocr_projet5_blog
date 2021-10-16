@@ -22,20 +22,18 @@ class HomepageController extends TwigController
 	/**
 	 * Get Homepage
 	 *
-	 * @return void
+	 * @return object
 	 */
-	public function index($userModel)
+	public function index(object $userModel)
 	{
-		// load userDatas if is connected
+		// load user datas if is connected
 		if (isset($_SESSION['IdConnectedUser'])) {
-			$userDatas = $userModel->loadUser($_SESSION['IdConnectedUser']);
-		} 
-			$userDatas = [];
-		
+			$userModel->loadUser($_SESSION['IdConnectedUser']);
+		}
 
 		// The form is not submitted, display the homepage
 		if (count($_POST) === 0) {
-			echo $this->twig->render('homepage.twig', ['SESSION' => $_SESSION, 'userDatas' => $userDatas]);
+			echo $this->twig->render('homepage.twig', ['SESSION' => $_SESSION]);
 		}
 	}
 }

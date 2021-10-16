@@ -4,8 +4,6 @@ namespace Projet5\controller;
 
 use Projet5\controller\HomepageController;
 use Projet5\controller\UserController;
-
-
 use Projet5\model\UserModel;
 
 /**
@@ -24,7 +22,6 @@ class Router
 		$userModel = new UserModel();
 
 		// ROUTER
-
 		$url = '';
 		if (isset($_GET['url'])) {
 			$url = explode('/', strtolower($_GET['url']));
@@ -36,7 +33,7 @@ class Router
 				$homepageController->openHome($userModel);
 				break;
 
-				/*Accueil*/
+				/*Home*/
 			case 'accueil':
 				$homepageController = new HomepageController();
 				$homepageController->index($userModel);
@@ -54,10 +51,10 @@ class Router
 				$userController->register($userModel);
 				break;
 
-				/*deconnexion*/
+				/*disconnect*/
 			case 'deconnexion':
 				$userController = new UserController();
-				$userController->deconnexion();
+				$userController->disconnect();
 				break;
 
 				/*redirect if page not found*/

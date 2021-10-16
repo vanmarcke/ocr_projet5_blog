@@ -140,13 +140,12 @@ class UserController extends TwigController
     }
 
     /**
-     * deconnexion user
+     * Disconnect user
      *
      * @return void
      */
-    public function deconnexion()
+    public function disconnect()
     {
-        unset($_SESSION['IdConnectedUser']);
         $_SESSION = [];
         $_SESSION['success'] = 'Vous êtes déconnecté';
         header("Location:Accueil");
@@ -154,12 +153,12 @@ class UserController extends TwigController
     }
 
     /**
-     * render shortcut for controllers.
+     * render Template.
      *
-     * @param  string $templateName
-     * @param  array $error
-     * @param  array $form
-     * @param  array $session
+     * @param  string $templateName Template name to render
+     * @param  array $error error information to display
+     * @param  array $form content of the completed form 
+     * @param  array $session user session
      * @return void
      */
     private function render(string $templateName, array $error, array $form, array $session)
