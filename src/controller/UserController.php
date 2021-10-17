@@ -68,8 +68,11 @@ class UserController extends TwigController
             "email" => $email,
             "password" => $password
         ];
-        // display the form with errors and datas form        
-        echo $this->render('connexion.twig', $error, $form, $_SESSION);
+
+
+        // display the form with errors and datas form
+        $templateName = 'connexion.twig';
+        $this->render($templateName, $error, $form, $_SESSION);
     }
 
     /**
@@ -137,8 +140,10 @@ class UserController extends TwigController
                 $error['sql'] = 'le pseudo ou l\'email existe déjà';
             }
         }
-        // display the form with errors and datas form       
-        echo $this->render('register.twig', $error, $form, $_SESSION);
+
+        // display the form with errors and datas form
+        $templateName = 'register.twig';
+        $this->render($templateName, $error, $form, $_SESSION);
     }
 
     /**
@@ -165,6 +170,6 @@ class UserController extends TwigController
      */
     private function render(string $templateName, array $error, array $form, array $session)
     {
-        $this->twig->render($templateName, ['error' => $error, 'form' => $form, 'SESSION' => $session]);
+        echo $this->twig->render($templateName, ['error' => $error, 'form' => $form, 'SESSION' => $session]);
     }
 }
