@@ -36,7 +36,7 @@ class DatabaseService
 			} catch (\Exception $e) {
 				die('Problème de fichier XML, erreur : ' . $e->getMessage());
 			}
-		} 
+		}
 		return $this->bdd;
 	}
 }

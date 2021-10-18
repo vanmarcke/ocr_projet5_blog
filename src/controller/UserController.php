@@ -2,12 +2,12 @@
 
 namespace Projet5\controller;
 
-use Projet5\controller\TwigController;
+use Projet5\controller\Constraints;
 
 /**
  * Manage login, registration and logout of a user 
  */
-class UserController extends TwigController
+class UserController extends Constraints
 {
     /**
      * connexion user
@@ -26,23 +26,19 @@ class UserController extends TwigController
         unset($_SESSION['IdConnectedUser']);
         unset($_SESSION['pseudoConnectedUser']);
         unset($_SESSION['rankConnectedUser']);
-        $error = [];
+        $errors = [];
 
         // control
         $email = (isset($_POST["email"])) ? $_POST["email"] : "";
         $password = (isset($_POST["password"])) ? $_POST["password"] : "";
-        $pattern = '/^[[:print:]]+\z/';
 
-        if (!preg_match($pattern, $email) && false === filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $error['email'] = 'L\'adresse email n\'est pas renseigné ou invalide.';
-        }
+        // Constraints
+        $this->checkEmail($email, $errors);
 
-        if (!preg_match($pattern, $password) || strlen($password) < 8) {
-            $error['password'] = 'Le mot de passe n\'est pas renseigné ou invalide , minimun 8 caractères.';
-        }
+        $this->checkPassword($password, $errors);
 
         // load user if control ok
-        if (empty($error)) {
+        if (empty($errors)) {
             $userDatas = $userModel->loadByEmail($email);
 
             // if password ok, load id user in the session and go homepage
@@ -59,7 +55,7 @@ class UserController extends TwigController
                 exit;
                 // or create a error message
             } else {
-                $error['connexion'] = 'Mot de passe ou email incorrect.';
+                $errors['connexion'] = 'Mot de passe ou email incorrect.';
             }
         }
 
@@ -69,10 +65,8 @@ class UserController extends TwigController
             "password" => $password
         ];
 
-
         // display the form with errors and datas form
-        $templateName = 'connexion.twig';
-        $this->render($templateName, $error, $form, $_SESSION);
+        $this->render('connexion.twig', $errors, $form, $_SESSION);
     }
 
     /**
@@ -83,36 +77,29 @@ class UserController extends TwigController
      */
     public function register($userModel)
     {
-
         // The form is not submitted, posting the registration form
         if (count($_POST) === 0) {
-            echo $this->twig->render('register.twig');
+            $this->render('register.twig');
             return;
         }
 
-        // The form is submit, form processing        
-
+        // The form is submit, form processing
         $pseudo = (isset($_POST["pseudo"])) ? $_POST["pseudo"] : "";
         $email = (isset($_POST["email"])) ? $_POST["email"] : "";
         $password = (isset($_POST["password"])) ? $_POST["password"] : "";
         $confirm_password = (isset($_POST["confirm_password"])) ? $_POST["confirm_password"] : "";
-        $pattern = '/^[[:print:]]+\z/';
+        $errors = [];
 
-        if (!preg_match($pattern, $pseudo)) {
-            $error['pseudo'] = 'Le pseudo n\'est pas renseigné ou invalide.';
-        }
-        if (strlen($pseudo) < 3 || strlen($pseudo) > 20) {
-            $error['pseudoSize'] = 'Le pseudo doit faire entre 3 et 20 caractères';
-        }
-        if (!preg_match($pattern, $email) && false === filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $error['email'] = 'L\'adresse email n\'est pas renseigné ou invalide.';
-        }
-        if (!preg_match($pattern, $password) || strlen($password) < 8) {
-            $error['password'] = 'Le mot de passe n\'est pas renseigné ou invalide, minimum 8 caractères';
-        }
-        if ($password !== $confirm_password) {
-            $error['confirm_password'] = 'Le mot de passe de confirmation n\'est pas identique.';
-        }
+        // Constraints
+        $this->checkPseudo($pseudo, $errors);
+
+        $this->checkPseudoSize($pseudo, $errors);
+
+        $this->checkEmail($email, $errors);
+
+        $this->checkPassword($password, $errors);
+
+        $this->checkConfirmPassword($password, $confirm_password, $errors);
 
         // form information in a table for simplicity with twig
         $form = [
@@ -123,7 +110,7 @@ class UserController extends TwigController
         ];
 
         // if no error, 
-        if (empty($error)) {
+        if (empty($errors)) {
             $userDatas = [
                 'pseudo' => $pseudo,
                 'email' => $email,
@@ -137,13 +124,11 @@ class UserController extends TwigController
                 exit;
                 // or create a new error_sql message
             } catch (\Exception $e) {
-                $error['sql'] = 'le pseudo ou l\'email existe déjà';
+                $errors['sql'] = 'le pseudo ou l\'email existe déjà';
             }
         }
-
         // display the form with errors and datas form
-        $templateName = 'register.twig';
-        $this->render($templateName, $error, $form, $_SESSION);
+        $this->render('register.twig', $errors, $form, $_SESSION);
     }
 
     /**
@@ -162,14 +147,16 @@ class UserController extends TwigController
     /**
      * render Template.
      *
-     * @param  string $templateName Template name to render
-     * @param  array $error error information to display
-     * @param  array $form content of the completed form 
-     * @param  array $session user session
-     * @return void
+     * @param string $templateName Template name to render
+     * @param array $error error information to display
+     * @param array $form content of the completed form
+     * @param array $session user session
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      */
-    private function render(string $templateName, array $error, array $form, array $session)
+    private function render(string $templateName, array $errors = [], array $form = [], array $session = [])
     {
-        echo $this->twig->render($templateName, ['error' => $error, 'form' => $form, 'SESSION' => $session]);
+        echo $this->twig->render($templateName, ['error' => $errors, 'form' => $form, 'SESSION' => $session]);
     }
 }
