@@ -55,7 +55,7 @@ class UserController extends Constraints
                 exit;
                 // or create a error message
             } else {
-                $errors['connexion'] = 'Mot de passe ou email incorrect.';
+                $this->setErrorMessage('connexion', 'Mot de passe ou email incorrect.', $errors);
             }
         }
 
@@ -124,7 +124,7 @@ class UserController extends Constraints
                 exit;
                 // or create a new error_sql message
             } catch (\Exception $e) {
-                $errors['sql'] = 'le pseudo ou l\'email existe déjà';
+                $this->setErrorMessage('sql', 'Le pseudo ou l\'email existe déjà', $errors);
             }
         }
         // display the form with errors and datas form
