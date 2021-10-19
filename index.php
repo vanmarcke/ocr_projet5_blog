@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 // Composer Autoloader
 require_once('vendor/autoload.php');
@@ -7,3 +8,4 @@ require_once('vendor/autoload.php');
 use Projet5\controller\Router;
 $router = new Router();
 $router->run();
+$router->unsetSuccessErrorVariables();
