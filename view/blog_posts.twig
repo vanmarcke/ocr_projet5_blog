@@ -1,0 +1,51 @@
+{% extends 'template_blog.twig' %}
+
+{% block page_title %}
+<title>Les articles</title>
+{% endblock %}
+
+{% block content %}
+
+            {#  Page Header #}
+    <header class="masthead" style="background-image: url('assets/images/home-bg.jpg')">
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="site-heading">
+                        <h1>Mon Blog</h1>
+                        <span class="subheading">Pour commenter un article, il faut être inscrit et connecté !</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>    
+    
+    
+
+    {#  Main Content #}
+    <div class="container">
+      
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                    
+                {#  Post preview #}
+                <div class="post-preview">
+                    <a href="post.html" >
+                        <h2 class="post-title"><a href=""></a></h2>
+                        <h6 class="post-subtitle"></h6>
+                    </a>
+                    <p class="post-meta">
+                        Ecrit par  <br>
+                        Dernière modification le 
+                    </p>
+                </div>
+               
+                
+                {#  Divider #}
+                <hr class="my-4" />
+                {#  Pager #}
+            </div>
+        </div>
+        {% endfor %}
+    </div>    
+{% endblock %}
