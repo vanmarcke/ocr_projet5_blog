@@ -1,0 +1,86 @@
+{% extends 'template_blog.twig' %}
+
+{% block page_title %}
+<title>Administration</title>
+{% endblock %}
+
+{% block content %}
+
+        {#  Page Header #}
+        <header class="masthead" style="background-image: url('assets/images/home-bg.jpg')">
+            <div class="container position-relative px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <div class="site-heading">
+                            <h1>Admin</h1>
+                            <span class="subheading">Contenus soumis à validation</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+    <div class="container">
+     
+            <h3 class="card text-center m-5">Utilisateur(s) à valider</h3>
+    
+                <div class="card text-center">
+                    <div class="card-body" style="background: #d9d9d9;">
+                        <h5 class="card-title"></h5>
+                        <p class="card-text"></p>
+                    </div>
+                    <form class="card-footer" method="post" action="Administration">
+                        <button class="btn btn-success" type="submit" name="idValidateUser" value="">Valider</button>
+                        <button class="btn btn-danger" type="submit" name="idDeleteUser" value="">Supprimer</button>
+                    </form>
+                </div><hr><br>
+    
+
+            <h3 class="card text-center m-5">Post(s) à valider</h3>
+            
+                <div class="card text-center">
+                    <div class="card-body" style="background: #d9d9d9;">
+                        <h5 class="card-title"></h5>
+                        <p class="card-text"></p>
+                        <p class="card-text"></p>
+                        <h6 class="card-subtitle mb-2 text-muted">Ecrit par </h6>
+                    </div>
+                    <form class="card-footer" method="post" action="Administration">
+                        <button class="btn btn-success" type="submit" name="idPublishPost" value="">Valider</button>
+                        <button class="btn btn-danger" type="submit" name="idDeletePost" value="">Supprimer</button>
+                    </form>
+                </div><hr><br>
+         
+
+
+                <h3 class="card text-center m-5">Commentaire(s) à valider</h3>
+           
+                <div class="card text-center">                
+                    <div class="card-body" style="background: #d9d9d9;">
+                        <p class="card-text"></p>
+                    </div>
+                    <form class="card-footer" method="post" action="Administration">
+                        <button class="btn btn-success" type="submit" name="idPublishComment" value="">Valider</button>
+                        <button class="btn btn-danger" type="submit" name="idDeleteComment" value="">Supprimer</button>
+                        <button class="btn btn-warning" type="submit" name="idRefuseComment" value="">Refuser</button>
+                    </form>
+                </div><hr><br>
+       
+            
+
+                <h3 class="card text-center m-5">Commentaire(s) refusé</h3>
+           
+                <div class="card text-center">                
+                    <div class="card-body" style="background: #d9d9d9;">
+                        <p class="card-text"></p>
+                    </div>
+                    <form class="card-footer" method="post" action="Administration">
+                        <button class="btn btn-success" type="submit" name="idPublishComment" value="">Valider</button>
+                        <button class="btn btn-danger" type="submit" name="idDeleteComment" value="">Supprimer</button>                        
+                    </form>
+                </div><hr><br>
+               
+    </div>
+
+{% endblock %}
+
