@@ -1,0 +1,89 @@
+{% extends 'template_blog.twig' %}
+
+{% block page_title %}
+<title>{{post.title}} </title>
+{% endblock %}
+
+{% block content %}
+
+                {#  Page Header #}
+        <header class="masthead" style="background-image: url('assets/images/post-bg.jpg')">
+            <div class="container position-relative px-4 px-lg-5">
+                <div class="row gx-5 gx-lg-7 justify-content-center">
+                    <div class="col-md-12 col-lg-10 col-xl-9">
+                        <div class="post-heading">
+                            <h1>{{ post.title }}</h1>
+                            <h2 class="subheading">{{ post.chapo }}</h2>
+                            <span class="meta">
+                                Ecrit par {{ post.pseudo }} <br>
+	                			Dernière modification le {{ post.last_date_change|date("d/m/Y à H:i") }}  
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>  
+	
+    {{ include('error_message.twig') }}
+
+
+        {#  Post Content #}
+        <article class="mb-8">
+            <div class="container px-8 px-lg-8">
+                <div class="row justify-content-center">
+                    <div class="col-md-10 ">
+                        <p>{{ post.contents|raw }}</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+	<br>
+	<div class="container col-md-8">
+	{# display form if user is registered #}
+	{% if SESSION.rankConnectedUser == 'registered' or SESSION.rankConnectedUser == 'admin'%}
+		<form method="post" action="ajouter-un-commentaire-{{ post.id }}" >
+			<div class="form-group">
+	            <label for="comment">Votre commentaire</label>
+	            <textarea class="form-control" name="contents" id="comment" value="{{userDatas.pseudo}}"></textarea>
+	        </div>
+	        <input class="btn btn-primary" type="submit" value="Envoyer">
+		</form><br>
+	{% endif %}
+	{% for comment in comments %}   
+	    {% if comment.publish == 'valid' %}
+	    	<div class="card">
+	            <div class="card-body" style="background: #d9d9d9;">
+	                <p class="card-text">{{ comment.contents|nl2br }}</p>
+	                <h6 class="card-subtitle mb-2 text-muted">Ecrit par {{ comment.pseudo }}</h6>
+            	</div>
+        	</div><br>
+
+	    {% elseif comment.publish == 'waiting' %}		
+	    	<div class="card">
+	            <div class="card-body" style="background: #d9d9d9;">
+	                <p class="card-text">Ce commentaire est en attente de validation</p>
+	                <h6 class="card-subtitle mb-2 text-muted">Ecrit par {{ comment.pseudo }}</h6>
+            	</div>
+        	</div><br>
+	    {% endif %}
+	{% endfor %}
+	                 
+        
+</div>
+
+<div class="paging">
+	<h3>Page(s)</h3>
+	<p>
+	    {% for page in 1..paging.totalPages %}
+	        {% if page == paging.currentPage %}
+	            <a>{{page}}</a>
+	        {% elseif paging.totalPages == 0 %}
+	        {% else %}
+	            <a href="Article-{{ post.id }}-Page{{page}}">{{page}}</a>
+	        {% endif %}
+	    {% endfor %}
+	</p>
+</div>
+{% endblock %}
+

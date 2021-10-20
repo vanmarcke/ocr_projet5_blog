@@ -51,7 +51,7 @@ class UserController extends Constraints
                     header('location:Administration');
                     exit;
                 }
-                header('location:Accueil');
+                header('location:Articles-Page1');
                 exit;
                 // or create a error message
             } else {

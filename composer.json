@@ -2,7 +2,8 @@
     "name": "projet5/blog",
     "description": "Blog PHP and Twig",
     "require": {
-        "twig/twig": "v2.11.3"
+        "twig/twig": "v2.11.3",
+        "ckeditor/ckeditor": "dev-full/4.13.x"
     },
     "authors": [
         {

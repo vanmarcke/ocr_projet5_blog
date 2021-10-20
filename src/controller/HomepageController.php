@@ -8,17 +8,7 @@ use Projet5\controller\TwigController;
  * Set the page to display first 
  */
 class HomepageController extends TwigController
-{
-	/**
-	 * opening home page entry on site 
-	 *
-	 * @return void
-	 */
-	public function openHome()
-	{
-		header("Location:Accueil");
-	}
-
+{	
 	/**
 	 * Get Homepage
 	 *
