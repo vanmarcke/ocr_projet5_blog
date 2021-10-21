@@ -4,10 +4,21 @@ namespace Projet5\controller;
 
 use Exception;
 
+/**
+ * management of validations by admin 
+ */
 class AdminController extends SessionController
 {
-
-	public function display($userModel, $postModel, $commentModel)
+	/**
+	 * retrieve information awaiting validation by admin 
+	 *
+	 * @param object $userModel
+	 * @param object $postModel
+	 * @param object $commentModel
+	 *
+	 * @return array
+	 */
+	public function display(object $userModel, object $postModel, object $commentModel)
 	{
 		// If I do not follow admin, return to the article page 
 		if ($_SESSION['rankConnectedUser'] !== 'admin') {
@@ -38,7 +49,16 @@ class AdminController extends SessionController
 		]);
 	}
 
-	private function controleForms($userModel, $postModel, $commentModel)
+	/**
+	 * Allows the validation or deletion of elements awaiting validation 
+	 *
+	 * @param object $userModel
+	 * @param object $postModel
+	 * @param object $commentModel
+	 *
+	 * @return array
+	 */
+	private function controleForms(object $userModel, object $postModel, object $commentModel)
 	{
 		try {
 			// valide user if form is submit

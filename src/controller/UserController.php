@@ -72,10 +72,10 @@ class UserController extends Constraints
     /**
      * register user
      *
-     * @param  mixed $userModel
+     * @param  Object $userModel
      * @return void
      */
-    public function register($userModel)
+    public function register(object $userModel)
     {
         // The form is not submitted, posting the registration form
         if (count($_POST) === 0) {

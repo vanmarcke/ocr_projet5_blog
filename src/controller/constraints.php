@@ -17,6 +17,8 @@ class Constraints extends TwigController
     const PASSWORD = 'Le mot de passe ';
     const INVALID = 'n\'est pas renseigné ou invalide';
 
+    // start user constraints
+
     /**
      * checkPseudo
      *
@@ -90,7 +92,69 @@ class Constraints extends TwigController
             $this->setErrorMessage('confirm_password', self::PASSWORD . ' de confirmation n\'est pas identique.', $errors);
         }
     }
+    // end user constraints 
 
+    // start post constraints
+
+    const MIN_VALUE_POST = 1;
+    const MAX_VALUE_TITLE = 100;
+    const MAX_VALUE_CHAPO = 300;
+
+    /**
+     * checkTitle
+     *
+     * @param string $title contains the title sent by the admin 
+     * @param &$errors error information to display
+     *
+     * @return void
+     */
+    protected function checkTitle(string $title, &$errors)
+    {
+        if (strlen($title) < self::MIN_VALUE_POST || strlen($title) > self::MAX_VALUE_TITLE ) {
+            $this->setErrorMessage('title', 'Le titre n\'est pas renseigné ou invalide. Maximum 100 caractères.', $errors);
+        }
+    }
+
+    /**
+     * checkChapo
+     *
+     * @param string $chapo contains the chapo sent by the admin
+     * @param &$errors error information to display
+     *
+     * @return void
+     */
+    protected function checkChapo(string $chapo, &$errors)
+    {
+        if (strlen($chapo) < self::MIN_VALUE_POST || strlen($chapo) > self::MAX_VALUE_CHAPO ) {
+            $this->setErrorMessage('chapo', 'Le chapô n\'est pas renseigné ou invalide. Maximum 300 caractères', $errors);
+        }
+    }
+
+    /**
+     * checkContents
+     *
+     * @param string $contents contains content sent by admin 
+     * @param &$errors error information to display
+     *
+     * @return void
+     */
+    protected function checkContents(string $contents, &$errors)
+    {
+        if (strlen($contents) < self::MIN_VALUE_POST ) {
+            $this->setErrorMessage('contents', 'Le contenu n\'est pas renseigné ou invalide.', $errors);
+        }
+    }
+    // end post constraints
+
+    /**
+     * setErrorMessage
+     *
+     * @param string $key contains the reference key of the error
+     * @param string $message contains the error message
+     * @param &$errors $errors 
+     *
+     * @return array
+     */
     protected function setErrorMessage(string $key, string $message, &$errors)
     {
         $errors[$key] = $message;
