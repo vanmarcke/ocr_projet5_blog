@@ -21,7 +21,7 @@ class PostModel extends DatabaseService
      */
     public function loadAllPost(string $valide, int $startLimit = 0, int $numberPerPage = 30)
     {
-        $req = $this->getDb()->prepare('SELECT bpf_blog_posts.id, title, last_date_change, chapo,contents, bpf_users.pseudo FROM `bpf_blog_posts` LEFT JOIN bpf_users ON bpf_blog_posts.id_bpf_users = bpf_users.id WHERE publish = :publish ORDER BY bpf_blog_posts.id DESC LIMIT :startLimit , :numberPerPage ');
+        $req = $this->getDb()->prepare('SELECT bpf_blog_posts.id, title, last_date_change, chapo, contents, bpf_users.pseudo FROM `bpf_blog_posts` LEFT JOIN bpf_users ON bpf_blog_posts.id_bpf_users = bpf_users.id WHERE publish = :publish ORDER BY bpf_blog_posts.id DESC LIMIT :startLimit , :numberPerPage ');
         $req->bindValue(':publish', $valide);
         $req->bindValue(':startLimit', $startLimit, PDO::PARAM_INT);
         $req->bindValue(':numberPerPage', $numberPerPage, PDO::PARAM_INT);

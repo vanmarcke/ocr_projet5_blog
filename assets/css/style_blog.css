@@ -250,7 +250,7 @@ a:hover {
 
 a:not([href]):not([class]),
 a:not([href]):not([class]):hover {
-  color: inherit;
+  color: #67d550;
   text-decoration: none;
 }
 
@@ -11582,7 +11582,7 @@ blockquote {
   padding: 8px 16px;
   border-radius: 50%;
   text-decoration: none;
-  background-color: #007bff;
+  background-color: rgb(44, 113, 155);
   color: white;
 }
 
@@ -11593,7 +11593,7 @@ blockquote {
 .paging h3 {
   font-weight: 500;
   font-size: 2rem;
-  color: rgb(9, 122, 192);
+  color: rgb(44, 113, 155);
   text-shadow: 1px 1px 2px black;
   text-align: center;
   padding: 15px 0px;

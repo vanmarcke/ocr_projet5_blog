@@ -190,9 +190,10 @@
             $("#contactForm").submit(function (e) {
                 e.preventDefault();
                 var nom = $("#nom").val();
+                var sujet = $("#sujet").val();
                 var email = $("#email").val();
                 var message = $("#message").val();
-                var dataString = nom + email + message;
+                var dataString = nom + sujet + email + message;
                 var msg;
 
                 if (dataString == "") {
@@ -200,6 +201,8 @@
 
                 } else if (nom === "") {
                     msg = $('<div class="echec">Vous devez saisir vos nom et prénom</div>');
+                } else if (sujet == "") {
+                    msg = $('<div class="echec">Vous devez saisir un sujet</div>');
                 } else if (email === "") {
                     msg = $('<div class="echec">Vous devez saisir votre mail</div>');
                 } else if (message === "") {
@@ -221,6 +224,7 @@
                             );
 
                             document.getElementById("nom").value = "";
+                            document.getElementById("sujet").value = "";
                             document.getElementById("email").value = "";
                             document.getElementById("message").value = "";
                         },

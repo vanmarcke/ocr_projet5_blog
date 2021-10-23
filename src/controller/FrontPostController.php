@@ -42,7 +42,7 @@ class FrontPostController extends TwigController
 	 * @param string $idPost contains post id
 	 * @param int $currentPage contains the page number
 	 *
-	 * @return void
+	 * @return array
 	 */
 	public function displayPost(object $postModel, object $commentModel, string $idPost, int $currentPage)
 	{
@@ -81,7 +81,7 @@ class FrontPostController extends TwigController
 	 * @param int $numberRow contains the total number of posts or comments
 	 * @param int $currentPage contains the current page
 	 *
-	 * @return void
+	 * @return array
 	 */
 	private function paging(int $numberPerPage, int $numberRow, int $currentPage = 1)
 	{

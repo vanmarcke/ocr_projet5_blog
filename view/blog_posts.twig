@@ -13,12 +13,20 @@
                 <div class="col-md-10 col-lg-8 col-xl-7">
                     <div class="site-heading">
                         <h1>Mon Blog</h1>
+                        {% if SESSION.rankConnectedUser is not defined %}
                         <span class="subheading">Pour commenter un article, il faut être inscrit et connecté !</span>
+                        {% elseif SESSION.rankConnectedUser == 'registered' %}
+                        <span class="subheading">Votre compte a été validé.</span>
+                        <span class="subheading">N'hésitez pas à commenter les articles !</span>
+                        {% elseif SESSION.rankConnectedUser == 'pending' %}
+                        <span class="subheading">Votre compte est toujours en attente de validation.</span>
+                        <span class="subheading">Vous ne pouvez pas commenter les articles.</span>
+                        {% endif %} 
                     </div>
                 </div>
             </div>
         </div>
-    </header>    
+    </header> 
     
     {{ include('error_message.twig') }}
 
@@ -33,10 +41,11 @@
                     <a href="post.html" >
                         <h2 class="post-title"><a href="Article-{{ post.id }}-page1">{{ post.title }}</a></h2>
                         <h6 class="post-subtitle">{{ post.chapo }}</h6>
+                        <p class="card-text"><strong>Extrait du contenu :</strong> <br>{{ post.contents|striptags|slice(0, 500)|raw }} ...</p>
                     </a>
                     <p class="post-meta">
                         Ecrit par {{ post.pseudo }} <br>
-                        Dernière modification le {{ post.last_date_change|date("d/m/Y à H:i") }}
+                        Dernière modification le {{ post.last_date_change|date("d/m/Y") }}
                     </p>
                 </div>
                 {% if SESSION.rankConnectedUser == 'admin' %}

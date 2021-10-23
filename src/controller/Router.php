@@ -22,7 +22,7 @@ class Router
 	/**
 	 * Execute the route to home page 
 	 *
-	 * @return void
+	 * @return array
 	 */
 	public function run()
 	{
