@@ -15,5 +15,8 @@
         "psr-4": {
             "Projet5\\": "src/"
         }
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^5.3"
     }
 }

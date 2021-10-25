@@ -3,6 +3,7 @@
 namespace Projet5\controller;
 
 use Projet5\controller\Constraints;
+use Projet5\model\UserModel;
 
 /**
  * Manage login, registration and logout of a user 
@@ -12,10 +13,10 @@ class UserController extends Constraints
     /**
      * connexion user
      *
-     * @param  object $userModel
+	 * @param UserModel $userModel
      * @return void
      */
-    public function connexion(object $userModel)
+    public function connexion(UserModel $userModel)
     {
         // The form is not submitted, posting the connexion form
         if (count($_POST) === 0) {
@@ -72,10 +73,10 @@ class UserController extends Constraints
     /**
      * register user
      *
-     * @param  Object $userModel
+	 * @param UserModel $userModel
      * @return void
      */
-    public function register(object $userModel)
+    public function register(UserModel $userModel)
     {
         // The form is not submitted, posting the registration form
         if (count($_POST) === 0) {

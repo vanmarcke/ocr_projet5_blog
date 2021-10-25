@@ -3,6 +3,9 @@
 namespace Projet5\controller;
 
 use Exception;
+use Projet5\model\CommentModel;
+use Projet5\model\PostModel;
+use Projet5\model\UserModel;
 
 /**
  * management of validations by admin 
@@ -12,17 +15,20 @@ class AdminController extends SessionController
 	/**
 	 * retrieve information awaiting validation by admin 
 	 *
-	 * @param object $userModel
-	 * @param object $postModel
-	 * @param object $commentModel
+	 * @param UserModel $userModel
+	 * @param PostModel $postModel
+	 * @param CommentModel $commentModel
 	 *
-	 * @return array
+	 * @throws LoaderError
+	 * @throws RuntimeError
+	 * @throws SyntaxError
+	 * @throws Exception
 	 */
-	public function displayAllElements(object $userModel, object $postModel, object $commentModel)
+	public function displayAllElements(UserModel $userModel, PostModel $postModel, CommentModel $commentModel)
 	{
 		// If I do not follow admin, return to the article page 
 		if ($_SESSION['rankConnectedUser'] !== 'admin') {
-			new Exception($_SESSION['error'] = 'Cette page est réservé à l\'administrateur');
+			$_SESSION['error'] = 'Cette page est réservé à l\'administrateur';
 			header('location:Articles-Page1');
 			exit;
 		}
@@ -52,13 +58,16 @@ class AdminController extends SessionController
 	/**
 	 * retrieve posts pending administrator validation 
 	 *
-	 * @param object $userModel
-	 * @param object $postModel
-	 * @param object $commentModel
+	 * @param UserModel $userModel
+	 * @param PostModel $postModel
+	 * @param CommentModel $commentModel
 	 *
-	 * @return array
+	 * @throws LoaderError
+	 * @throws RuntimeError
+	 * @throws SyntaxError
+	 * @throws Exception
 	 */
-	public function displayWaitingPosts(object $userModel, object $postModel, object $commentModel)
+	public function displayWaitingPosts(UserModel $userModel, PostModel $postModel, CommentModel $commentModel)
 	{
 		// If I do not follow admin, return to the article page 
 		if ($_SESSION['rankConnectedUser'] !== 'admin') {
@@ -72,26 +81,27 @@ class AdminController extends SessionController
 
 		// load invalide posts
 		$invalidePosts = $postModel->loadAllPost($valide = 'waiting');
-		
 
 		// display 
 		echo $this->twig->render('admin_waiting_posts.twig', [
 			'SESSION' => $_SESSION,
 			'invalidePosts' => $invalidePosts
-
 		]);
 	}
 
 	/**
 	 * retrieve users awaiting validation by the admin
 	 *
-	 * @param object $userModel
-	 * @param object $postModel
-	 * @param object $commentModel
+	 * @param UserModel $userModel
+	 * @param PostModel $postModel
+	 * @param CommentModel $commentModel
 	 *
-	 * @return array
+	 * @throws LoaderError
+	 * @throws RuntimeError
+	 * @throws SyntaxError
+	 * @throws Exception
 	 */
-	public function displayPendingUsers(object $userModel, object $postModel, object $commentModel)
+	public function displayPendingUsers(UserModel $userModel, PostModel $postModel, CommentModel $commentModel)
 	{
 		// If I do not follow admin, return to the article page 
 		if ($_SESSION['rankConnectedUser'] !== 'admin') {
@@ -105,7 +115,7 @@ class AdminController extends SessionController
 
 		// load pending users
 		$pendingUsers = $userModel->loadPendingUsers();
-		
+
 		// display 
 		echo $this->twig->render('admin_pending_users.twig', [
 			'SESSION' => $_SESSION,
@@ -116,13 +126,16 @@ class AdminController extends SessionController
 	/**
 	 * retrieve information awaiting validation by admin 
 	 *
-	 * @param object $userModel
-	 * @param object $postModel
-	 * @param object $commentModel
+	 * @param UserModel $userModel
+	 * @param PostModel $postModel
+	 * @param CommentModel $commentModel
 	 *
-	 * @return array
+	 * @throws LoaderError
+	 * @throws RuntimeError
+	 * @throws SyntaxError
+	 * @throws Exception
 	 */
-	public function displayInvalidComments(object $userModel, object $postModel, object $commentModel)
+	public function displayInvalidComments(UserModel $userModel, PostModel $postModel, CommentModel $commentModel)
 	{
 		// If I do not follow admin, return to the article page 
 		if ($_SESSION['rankConnectedUser'] !== 'admin') {
@@ -146,13 +159,16 @@ class AdminController extends SessionController
 	/**
 	 * retrieve information awaiting validation by admin 
 	 *
-	 * @param object $userModel
-	 * @param object $postModel
-	 * @param object $commentModel
+	 * @param UserModel $userModel
+	 * @param PostModel $postModel
+	 * @param CommentModel $commentModel
 	 *
-	 * @return array
+	 * @throws LoaderError
+	 * @throws RuntimeError
+	 * @throws SyntaxError
+	 * @throws Exception
 	 */
-	public function displayRefusedComments(object $userModel, object $postModel, object $commentModel)
+	public function displayRefusedComments(UserModel $userModel, PostModel $postModel, CommentModel $commentModel)
 	{
 		// If I do not follow admin, return to the article page 
 		if ($_SESSION['rankConnectedUser'] !== 'admin') {
@@ -164,7 +180,6 @@ class AdminController extends SessionController
 		// controle if a POST variable exist and execute
 		$this->controleForms($userModel, $postModel, $commentModel);
 
-		
 		// load the refused comments
 		$refuseComments = $commentModel->loadRefuseComments();
 
@@ -178,18 +193,21 @@ class AdminController extends SessionController
 	/**
 	 * Allows the validation or deletion of elements awaiting validation 
 	 *
-	 * @param object $userModel
-	 * @param object $postModel
-	 * @param object $commentModel
+	 * @param UserModel $userModel
+	 * @param PostModel $postModel
+	 * @param CommentModel $commentModel
 	 *
-	 * @return array
+	 * @throws LoaderError
+	 * @throws RuntimeError
+	 * @throws SyntaxError
+	 * @throws Exception
 	 */
-	private function controleForms(object $userModel, object $postModel, object $commentModel)
+	private function controleForms(UserModel $userModel, PostModel $postModel, CommentModel $commentModel)
 	{
 		try {
 			// valide user if form is submit
 			if (isset($_POST['idValidateUser'])) {
-				$userModel->validateUserWithId($_POST['idValidateUser']);			
+				$userModel->validateUserWithId($_POST['idValidateUser']);
 				new Exception($_SESSION['success'] = 'L\'utilisateur a été validé');
 				header('location:admin-pending-users');
 				exit;
@@ -197,7 +215,7 @@ class AdminController extends SessionController
 
 			// delete user if form is submit
 			if (isset($_POST['idDeleteUser'])) {
-				$userModel->deleteUserWithId($_POST['idDeleteUser']);				
+				$userModel->deleteUserWithId($_POST['idDeleteUser']);
 				new Exception($_SESSION['success'] = 'L\'utilisateur a été supprimé');
 				header('location:admin-pending-users');
 				exit;
@@ -205,7 +223,7 @@ class AdminController extends SessionController
 
 			// valide post if form is submit
 			if (isset($_POST['idPublishPost'])) {
-				$postModel->publishPostWithId($_POST['idPublishPost']);				
+				$postModel->publishPostWithId($_POST['idPublishPost']);
 				new Exception($_SESSION['success'] = 'L\'article a été validé');
 				header('location:admin-waiting-posts');
 				exit;
@@ -213,7 +231,7 @@ class AdminController extends SessionController
 
 			// delete post if form is submit
 			if (isset($_POST['idDeletePost'])) {
-				$postModel->deletePostWithId($_POST['idDeletePost']);				
+				$postModel->deletePostWithId($_POST['idDeletePost']);
 				new Exception($_SESSION['success'] = 'L\'article a été supprimé');
 				header('location:admin-waiting-posts');
 				exit;
@@ -221,7 +239,7 @@ class AdminController extends SessionController
 
 			// valide comment if form is submit
 			if (isset($_POST['idPublishComment'])) {
-				$commentModel->publishCommentWithId($_POST['idPublishComment']);				
+				$commentModel->publishCommentWithId($_POST['idPublishComment']);
 				new Exception($_SESSION['success'] = 'Le commentaire a été validé');
 				header('location:admin-waiting-comments');
 				exit;
@@ -237,7 +255,7 @@ class AdminController extends SessionController
 
 			// refuse comment if form is submit
 			if (isset($_POST['idRefuseComment'])) {
-				$commentModel->refuseCommentWithId($_POST['idRefuseComment']);				
+				$commentModel->refuseCommentWithId($_POST['idRefuseComment']);
 				new Exception($_SESSION['success'] = 'Le commentaire a été refusé');
 				header('location:admin-waiting-comments');
 				exit;

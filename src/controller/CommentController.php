@@ -2,6 +2,9 @@
 
 namespace Projet5\controller;
 
+use Projet5\model\CommentModel;
+use Projet5\model\PostModel;
+
 /**
  * Managing the insertion of a comment 
  */
@@ -10,13 +13,13 @@ class CommentController extends SessionController
 	/**
 	 * insert a comment
 	 *
-	 * @param object $postModel
-	 * @param object $commentModel 
+	 * @param PostModel $postModel
+	 * @param CommentModel $commentModel
 	 * @param string $idPost contains the id of the post to comment 
 	 *
-	 * @return void
+	 * @return array
 	 */
-	public function insertComment(object $postModel, object $commentModel, string $idPost)
+	public function insertComment(PostModel $postModel, CommentModel $commentModel, string $idPost)
 	{
 		// The form is submitted, control
 		$contents = (isset($_POST['contents'])) ? $_POST['contents'] : "";

@@ -2,6 +2,8 @@
 
 namespace Projet5\controller;
 
+use Projet5\model\PostModel;
+
 /**
  * Manage postings, updates and deletions
  */
@@ -10,11 +12,11 @@ class BackPostController extends SessionController
 	/**
 	 * adding a new post
 	 *
-	 * @param object $postModel
+	 * @param PostModel $postModel
 	 *
 	 * @return array
 	 */
-	public function addPost(object $postModel)
+	public function addPost(PostModel $postModel)
 	{
 		// The form is not submitted, posting the post form
 		if (count($_POST) === 0) {
@@ -66,11 +68,11 @@ class BackPostController extends SessionController
 	 * modification of a post
 	 *
 	 * @param string $idPost contains post id
-	 * @param object $postModel
+	 * @param PostModel $postModel
 	 *
 	 * @return array
 	 */
-	public function editPost(string $idPost, object $postModel)
+	public function editPost(string $idPost, PostModel $postModel)
 	{
 		// load Post with id
 		$post = $postModel->loadPost($idPost);
@@ -129,9 +131,9 @@ class BackPostController extends SessionController
 	 * delete a post
 	 *
 	 * @param string $idPost contains post id
-	 * @param object $postModel
+	 * @param PostModel $postModel
 	 */
-	public function deletePost(string $idPost, object $postModel)
+	public function deletePost(string $idPost, PostModel $postModel)
 	{
 		// load Post with id
 		$post = $postModel->loadPost($idPost);

@@ -3,6 +3,7 @@
 namespace Projet5\controller;
 
 use Projet5\controller\TwigController;
+use Projet5\model\UserModel;
 
 /**
  * Set the page to display first 
@@ -12,9 +13,9 @@ class HomepageController extends TwigController
 	/**
 	 * Get Homepage
 	 *
-	 * @return object
+	 * @param UserModel $userModel
 	 */
-	public function index(object $userModel)
+	public function index(UserModel $userModel)
 	{
 		// load user datas if is connected
 		if (isset($_SESSION['IdConnectedUser'])) {
