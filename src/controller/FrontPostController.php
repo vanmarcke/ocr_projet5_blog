@@ -20,12 +20,13 @@ class FrontPostController extends TwigController
 	public function displayPosts(object $postModel, int $currentPage)
 	{
 		// count number of row valide
-		$countPosts = $postModel->countAllPost($valide = 'valid');
+		$valide = 'valid';
+		$countPosts = $postModel->countAllPost($valide);
 		$numberPosts = $countPosts->rowCount();
 		// take Limits for request SQL
 		$paging = $this->paging(POST_PER_PAGE, $numberPosts, $currentPage);
 
-		$posts = $postModel->loadAllPost($valide = 'valid', $paging['startLimit'], POST_PER_PAGE);
+		$posts = $postModel->loadAllPost($valide, $paging['startLimit'], POST_PER_PAGE);
 
 		echo $this->twig->render('blog_posts.twig', [
 			'SESSION' => $_SESSION,
