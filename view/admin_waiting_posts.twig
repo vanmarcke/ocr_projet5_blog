@@ -1,0 +1,39 @@
+{% extends 'template_admin.twig' %}
+
+{% block page_title %}
+	<title>Admin-articles</title>
+{% endblock %}
+
+{% block content %}
+
+	<div class="container">
+
+		{{ include('error_message.twig') }}
+
+		<h3 class="card text-center m-5">Post(s) à valider</h3>
+		{% for invalidePost in invalidePosts %}
+			<div class="card">
+				<div class="card-body" style="background: #d9d9d9;">
+					<h5 class="card-title text-center">
+						<strong>Titre :</strong>
+						{{invalidePost.title}}</h5>
+					<p class="card-text">
+						<strong>Chapo :</strong>
+						{{invalidePost.chapo}}</p>
+					<p class="card-text">
+						<strong>Extrait du contenu :</strong>
+						<br>
+						{{invalidePost.contents|striptags|slice(0, 490)|raw}}...</p>
+					<h6 class="card-subtitle mb-2 text-muted">Ecrit par
+						{{invalidePost.pseudo}}
+						le
+						{{invalidePost.date_comment|date("d/m/Y")}}</h6>
+				</div>
+				<form class="card-footer text-center" method="post" action="Administration">
+					<button class="btn btn-success text-center" type="submit" name="idPublishPost" value="{{invalidePost.id}}">Valider</button>
+					<button class="btn btn-danger" type="submit" name="idDeletePost" value="{{invalidePost.id}}">Supprimer</button>
+				</form>
+			</div><hr><br>
+		{% endfor %}
+	</div>
+{% endblock %}

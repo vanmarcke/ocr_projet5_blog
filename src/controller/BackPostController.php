@@ -46,7 +46,7 @@ class BackPostController extends SessionController
 			]);
 
 			$_SESSION['success'] = 'L\'article à bien été envoyé, il est maintenant en attente de validation par un administrateur';
-			header('location:Administration');
+			header('location:admin-waiting-posts');
 			exit;
 		}
 
@@ -108,7 +108,7 @@ class BackPostController extends SessionController
 				'contents' => $contents
 			]);
 			$_SESSION['success'] = 'L\'article à été mis à jour';
-			header('location:Article-' . $post['id'] . '-page1');
+			header('location:administration');
 			exit;
 		}
 

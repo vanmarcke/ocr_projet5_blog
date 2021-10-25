@@ -1,33 +1,19 @@
-{% extends 'template_blog.twig' %}
+{% extends 'template_admin.twig' %}
 
 {% block page_title %}
 	{% if add is defined %}
 		<title>Ajouter-un-article</title>
 	{% elseif edit is defined %}
-		<title>Modifier l'article numero {{post.id}} </title>
+		<title>Modifier l'article numero
+			{{post.id}}
+		</title>
 	{% endif %}
 {% endblock %}
 
 {% block content %}
 
-			{#  Page Header #}
-	<header class="masthead" style="background-image: url('assets/images/home-bg.jpg')">
-		<div class="container position-relative px-4 px-lg-5">
-			<div class="row gx-4 gx-lg-5 justify-content-center">
-				<div class="col-md-10 col-lg-8 col-xl-7">
-					<div class="site-heading">
-						<h1>New Article</h1>
-						<span class="subheading">Sera soumis à validation !</span>
-						<span class="subheading">Retrouvez votre article dans Administration !</span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</header>
-	
-    {{ include('error_message.twig') }}
-
 	<div class="container">
+		{{ include('error_message.twig') }}
 		{% if add is defined %}
 			<h2>Ecrivez votre article</h2>
 		{% elseif edit is defined %}
@@ -35,13 +21,13 @@
 		{% endif %}
 
 		{% if add is defined %}
-			<form method="post" action="Ajouter-un-article" >
-		{% elseif edit is defined %}
-			<form method="post" action="Modifier-Article-{{post.id}}{{form.id_post}}" >
-		{% endif %}
+			<form method="post" action="Ajouter-un-article">
+			{% elseif edit is defined %}
+				<form method="post" action="Modifier-Article-{{post.id}}{{form.id_post}}">
+				{% endif %}
 				<div class="form-group">
 					<label for="title">Titre</label>
-					<input class="form-control" type="text" name="title" id="title" value="{{post.title}}{{form.title}}" />
+					<input class="form-control" type="text" name="title" id="title" value="{{post.title}}{{form.title}}"/>
 					<small class="text-danger">{{ error.title }}</small>
 				</div>
 				<div class="form-group">
@@ -54,13 +40,12 @@
 					<textarea type="text" class="ckeditor" name="contents" id="contents">{{post.contents}}{{form.contents}}</textarea>
 					<small class="text-danger">{{ error.contents }}</small>
 
-				<script> CKEDITOR.replace( 'contents' ); </script>
+					<script>
+						CKEDITOR.replace('contents');
+					</script>
 				</div>
 
-				
-                
 				<input class="btn btn-primary" type="submit" value="Envoyer">
 			</form>
-	</div>
-{% endblock %}
-
+		</div>
+	{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'template_admin.twig' %}
+
+{% block page_title %}
+	<title>Admin-commentaires</title>
+{% endblock %}
+
+{% block content %}
+
+	<div class="container">
+
+		{{ include('error_message.twig') }}
+
+		<h3 class="card text-center m-5">Commentaire(s) à valider</h3>
+		{% for invalideComment in invalideComments %}
+			<div class="card text-center">
+				<div class="card-body" style="background: #d9d9d9;">
+					<p class="card-text">{{invalideComment.contents|nl2br}}</p>
+					<h6 class="card-subtitle mb-2 text-muted">Ecrit par
+						{{invalideComment.pseudo}}
+						le
+						{{invalideComment.date_comment|date("d/m/Y")}}</h6>
+				</div>
+				<form class="card-footer" method="post" action="Administration">
+					<button class="btn btn-success" type="submit" name="idPublishComment" value="{{invalideComment.id}}">Valider</button>
+					<button class="btn btn-danger" type="submit" name="idDeleteComment" value="{{invalideComment.id}}">Supprimer</button>
+					<button class="btn btn-warning" type="submit" name="idRefuseComment" value="{{invalideComment.id}}">Refuser</button>
+				</form>
+			</div><hr><br>
+		{% endfor %}
+	</div>
+{% endblock %}

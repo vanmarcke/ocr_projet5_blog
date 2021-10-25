@@ -100,7 +100,28 @@ class Router
 			/*administratrion*/
 		} elseif ($url[0] == 'administration') {
 			$adminController = new AdminController();
-			$adminController->display($userModel, $postModel, $commentModel);
+			$adminController->displayAllElements($userModel, $postModel, $commentModel);
+
+			/*admin-posts*/
+		} elseif ($url[0] == 'admin-waiting-posts') {
+			$adminController = new AdminController();
+			$adminController->displayWaitingPosts($userModel, $postModel, $commentModel);
+
+			/*admin-users*/
+		} elseif ($url[0] == 'admin-pending-users') {
+			$adminController = new AdminController();
+			$adminController->displayPendingUsers($userModel, $postModel, $commentModel);
+
+			/*admin-waiting-comments-*/
+		} elseif ($url[0] == 'admin-waiting-comments') {
+			$adminController = new AdminController();
+			$adminController->displayInvalidComments($userModel, $postModel, $commentModel);
+
+			/*admin-refused-comments-*/
+		} elseif ($url[0] == 'admin-refused-comments') {
+			$adminController = new AdminController();
+			$adminController->displayRefusedComments($userModel, $postModel, $commentModel);
+
 		} else {
 			$_SESSION['error'] = 'Erreur 404 - Page non trouvé';
 			$homepageController = new HomepageController();

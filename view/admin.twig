@@ -1,91 +1,95 @@
-{% extends 'template_blog.twig' %}
+{% extends 'template_admin.twig' %}
 
 {% block page_title %}
-<title>Administration</title>
+	<title>Administration</title>
 {% endblock %}
 
 {% block content %}
 
-        {#  Page Header #}
-        <header class="masthead" style="background-image: url('assets/images/home-bg.jpg')">
-            <div class="container position-relative px-4 px-lg-5">
-                <div class="row gx-4 gx-lg-5 justify-content-center">
-                    <div class="col-md-10 col-lg-8 col-xl-7">
-                        <div class="site-heading">
-                            <h1>Admin</h1>
-                            <span class="subheading">Contenus soumis à validation</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
-        
-        {{ include('error_message.twig') }}
+	<div class="container">
 
-    <div class="container">
-     
-            <h3 class="card text-center m-5">Utilisateur(s) à valider</h3>
-            {% for pendingUser in pendingUsers %}
-                <div class="card text-center">
-                    <div class="card-body" style="background: #d9d9d9;">
-                        <h5 class="card-title">{{pendingUser.pseudo}}</h5>
-                        <p class="card-text">{{pendingUser.email}}</p>
-                    </div>
-                    <form class="card-footer" method="post" action="Administration">
-                        <button class="btn btn-success" type="submit" name="idValidateUser" value="{{pendingUser.id}}">Valider</button>
-                        <button class="btn btn-danger" type="submit" name="idDeleteUser" value="{{pendingUser.id}}">Supprimer</button>
-                    </form>
-                </div><hr><br>
-            {% endfor %}
-       
+		{{ include('error_message.twig') }}
 
-            <h3 class="card text-center m-5">Post(s) à valider</h3>
-            {% for invalidePost in invalidePosts %}
-                <div class="card">
-                    <div class="card-body" style="background: #d9d9d9;">
-                        <h5 class="card-title text-center">Titre : {{invalidePost.title}}</h5>
-                        <p class="card-text"><strong>Chapo :</strong> <br> {{invalidePost.chapo}}</p>
-                        <p class="card-text"><strong>Extrait du contenu :</strong> <br> {{invalidePost.contents|striptags|slice(0, 490)|raw }} ...</p>
-                        <h6 class="card-subtitle mb-2 text-muted">Ecrit par {{invalidePost.pseudo}} le {{invalidePost.date_comment|date("d/m/Y")}}</h6>
-                    </div>
-                    <form class="card-footer text-center" method="post" action="Administration">
-                        <button class="btn btn-success text-center" type="submit" name="idPublishPost" value="{{invalidePost.id}}">Valider</button>
-                        <button class="btn btn-danger" type="submit" name="idDeletePost" value="{{invalidePost.id}}">Supprimer</button>
-                    </form>
-                </div><hr><br>
-            {% endfor %}
+		<h1 class="card text-center m-5">Liste des éléments en attentes de validation</h1>
+
+		<h3 class="card text-center m-5">Utilisateur(s) à valider</h3>
+		{% for pendingUser in pendingUsers %}
+			<div class="card text-center">
+				<div class="card-body" style="background: #d9d9d9;">
+					<h5 class="card-title">{{pendingUser.pseudo}}</h5>
+					<p class="card-text">{{pendingUser.email}}</p>
+				</div>
+				<form class="card-footer" method="post" action="Administration">
+					<button class="btn btn-success" type="submit" name="idValidateUser" value="{{pendingUser.id}}">Valider</button>
+					<button class="btn btn-danger" type="submit" name="idDeleteUser" value="{{pendingUser.id}}">Supprimer</button>
+				</form>
+			</div><hr><br>
+		{% endfor %}
 
 
-                <h3 class="card text-center m-5">Commentaire(s) à valider</h3>
-            {% for invalideComment in invalideComments %}
-                <div class="card text-center">                
-                    <div class="card-body" style="background: #d9d9d9;">
-                        <p class="card-text">{{invalideComment.contents|nl2br}}</p>
-                        <h6 class="card-subtitle mb-2 text-muted">Ecrit par {{invalideComment.pseudo}} le {{invalideComment.date_comment|date("d/m/Y")}}</h6>
-                    </div>
-                    <form class="card-footer" method="post" action="Administration">
-                        <button class="btn btn-success" type="submit" name="idPublishComment" value="{{invalideComment.id}}">Valider</button>
-                        <button class="btn btn-danger" type="submit" name="idDeleteComment" value="{{invalideComment.id}}">Supprimer</button>
-                        <button class="btn btn-warning" type="submit" name="idRefuseComment" value="{{invalideComment.id}}">Refuser</button>
-                    </form>
-                </div><hr><br>
-            {% endfor %}
-            
+		<h3 class="card text-center m-5">Post(s) à valider</h3>
+		{% for invalidePost in invalidePosts %}
+			<div class="card">
+				<div class="card-body" style="background: #d9d9d9;">
+					<h5 class="card-title text-center">
+						<strong>Titre :</strong>
+						{{invalidePost.title}}</h5>
+					<p class="card-text">
+						<strong>Chapo :</strong>
+						{{invalidePost.chapo}}</p>
+					<p class="card-text">
+						<strong>Extrait du contenu :</strong>
+						<br>
+						{{invalidePost.contents|striptags|slice(0, 490)|raw}}
+						...</p>
+					<h6 class="card-subtitle mb-2 text-muted">Ecrit par
+						{{invalidePost.pseudo}}
+						le
+						{{invalidePost.date_comment|date("d/m/Y")}}</h6>
+				</div>
+				<form class="card-footer text-center" method="post" action="Administration">
+					<button class="btn btn-success text-center" type="submit" name="idPublishPost" value="{{invalidePost.id}}">Valider</button>
+					<button class="btn btn-danger" type="submit" name="idDeletePost" value="{{invalidePost.id}}">Supprimer</button>
+				</form>
+			</div><hr><br>
+		{% endfor %}
 
-                <h3 class="card text-center m-5">Commentaire(s) refusé</h3>
-            {% for refuseComments in refuseComments %}
-                <div class="card text-center">                
-                    <div class="card-body" style="background: #d9d9d9;">
-                        <p class="card-text">{{refuseComments.contents|nl2br}}</p>
-                        <h6 class="card-subtitle mb-2 text-muted">Ecrit par {{refuseComments.pseudo}} le {{invalideComment.date_comment|date("d/m/Y")}}</h6>
-                    </div>
-                    <form class="card-footer" method="post" action="Administration">
-                        <button class="btn btn-success" type="submit" name="idPublishComment" value="{{refuseComments.id}}">Valider</button>
-                        <button class="btn btn-danger" type="submit" name="idDeleteComment" value="{{refuseComments.id}}">Supprimer</button>                        
-                    </form>
-                </div><hr><br>
-            {% endfor %}            
-    </div>
+
+		<h3 class="card text-center m-5">Commentaire(s) à valider</h3>
+		{% for invalideComment in invalideComments %}
+			<div class="card text-center">
+				<div class="card-body" style="background: #d9d9d9;">
+					<p class="card-text">{{invalideComment.contents|nl2br}}</p>
+					<h6 class="card-subtitle mb-2 text-muted">Ecrit par
+						{{invalideComment.pseudo}}
+						le
+						{{invalideComment.date_comment|date("d/m/Y")}}</h6>
+				</div>
+				<form class="card-footer" method="post" action="Administration">
+					<button class="btn btn-success" type="submit" name="idPublishComment" value="{{invalideComment.id}}">Valider</button>
+					<button class="btn btn-danger" type="submit" name="idDeleteComment" value="{{invalideComment.id}}">Supprimer</button>
+					<button class="btn btn-warning" type="submit" name="idRefuseComment" value="{{invalideComment.id}}">Refuser</button>
+				</form>
+			</div><hr><br>
+		{% endfor %}
+
+
+		<h3 class="card text-center m-5">Commentaire(s) refusé</h3>
+		{% for refuseComments in refuseComments %}
+			<div class="card text-center">
+				<div class="card-body" style="background: #d9d9d9;">
+					<p class="card-text">{{refuseComments.contents|nl2br}}</p>
+					<h6 class="card-subtitle mb-2 text-muted">Ecrit par
+						{{refuseComments.pseudo}}
+						le
+						{{invalideComment.date_comment|date("d/m/Y")}}</h6>
+				</div>
+				<form class="card-footer" method="post" action="Administration">
+					<button class="btn btn-success" type="submit" name="idPublishComment" value="{{refuseComments.id}}">Valider</button>
+					<button class="btn btn-danger" type="submit" name="idDeleteComment" value="{{refuseComments.id}}">Supprimer</button>
+				</form>
+			</div><hr><br>
+		{% endfor %}
+	</div>
 
 {% endblock %}
-
