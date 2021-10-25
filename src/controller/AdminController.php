@@ -22,7 +22,7 @@ class AdminController extends SessionController
 	{
 		// If I do not follow admin, return to the article page 
 		if ($_SESSION['rankConnectedUser'] !== 'admin') {
-			$_SESSION['error'] = 'Cette page est réservé à l\'administrateur';
+			new Exception($_SESSION['error'] = 'Cette page est réservé à l\'administrateur');
 			header('location:Articles-Page1');
 			exit;
 		}
