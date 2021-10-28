@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b8aa886c8b58f2d88049755c1626c5ac",
+    "content-hash": "dd64535644aca70f92a60272dbf5bff6",
     "packages": [
         {
             "name": "ckeditor/ckeditor",
-            "version": "dev-full/4.13.x",
+            "version": "dev-full/stable",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ckeditor/ckeditor4-releases.git",
-                "reference": "ca793fa3217a61d24c0029e865f051ddf74fa368"
+                "reference": "bb7a85ccf2b31888acaff3198f35cf4e4c9a510e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ckeditor/ckeditor4-releases/zipball/ca793fa3217a61d24c0029e865f051ddf74fa368",
-                "reference": "ca793fa3217a61d24c0029e865f051ddf74fa368",
+                "url": "https://api.github.com/repos/ckeditor/ckeditor4-releases/zipball/bb7a85ccf2b31888acaff3198f35cf4e4c9a510e",
+                "reference": "bb7a85ccf2b31888acaff3198f35cf4e4c9a510e",
                 "shasum": ""
             },
             "type": "library",
@@ -52,7 +52,7 @@
                 "source": "https://github.com/ckeditor/ckeditor4",
                 "wiki": "https://ckeditor.com/docs/ckeditor4/latest/"
             },
-            "time": "2019-12-09T13:20:05+00:00"
+            "time": "2021-08-12T12:11:10+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",

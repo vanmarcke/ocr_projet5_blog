@@ -1,9 +1,9 @@
 {% extends 'template_admin.twig' %}
 
 {% block page_title %}
-	{% if add is defined %}
+	{% if post.id is not defined %}
 		<title>Ajouter-un-article</title>
-	{% elseif edit is defined %}
+	{% else %}
 		<title>Modifier l'article numero
 			{{post.id}}
 		</title>
@@ -14,15 +14,15 @@
 
 	<div class="container">
 		{{ include('error_message.twig') }}
-		{% if add is defined %}
+		{% if post.id is not defined %}
 			<h2>Ecrivez votre article</h2>
-		{% elseif edit is defined %}
+		{% else %}
 			<h2>Modifier votre article</h2>
 		{% endif %}
 
-		{% if add is defined %}
+		{% if post.id is not defined %}
 			<form method="post" action="Ajouter-un-article">
-			{% elseif edit is defined %}
+			{% else %}
 				<form method="post" action="Modifier-Article-{{post.id}}{{form.id_post}}">
 				{% endif %}
 				<div class="form-group">

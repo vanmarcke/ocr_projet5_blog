@@ -19,6 +19,10 @@ use Projet5\model\CommentModel;
  */
 class Router
 {
+	// Set the number of pages for post and comment views 
+	const POST_PER_PAGE = 4;
+	const COMMENT_PER_PAGE = 5;
+
 	/**
 	 * Execute the route to home page 
 	 *
@@ -26,10 +30,6 @@ class Router
 	 */
 	public function run()
 	{
-
-		// contains the configuration of the number of posts and comments per page 
-		require("app/ConfigPages.php");
-
 		// Models variables
 		$userModel = new UserModel();
 		$postModel = new PostModel();
@@ -121,7 +121,6 @@ class Router
 		} elseif ($url[0] == 'admin-refused-comments') {
 			$adminController = new AdminController();
 			$adminController->displayRefusedComments($userModel, $postModel, $commentModel);
-
 		} else {
 			$_SESSION['error'] = 'Erreur 404 - Page non trouvé';
 			$homepageController = new HomepageController();
@@ -132,7 +131,6 @@ class Router
 	// unset success variables after display
 	public function unsetSuccessErrorVariables()
 	{
-
 		unset($_SESSION['success']);
 		unset($_SESSION['error']);
 	}

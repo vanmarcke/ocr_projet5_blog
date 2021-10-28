@@ -13,7 +13,7 @@ class UserController extends Constraints
     /**
      * connexion user
      *
-	 * @param UserModel $userModel
+     * @param UserModel $userModel
      * @return void
      */
     public function connexion(UserModel $userModel)
@@ -73,7 +73,7 @@ class UserController extends Constraints
     /**
      * register user
      *
-	 * @param UserModel $userModel
+     * @param UserModel $userModel
      * @return void
      */
     public function register(UserModel $userModel)

@@ -10,6 +10,7 @@ use Projet5\service\DatabaseService;
  */
 class UserModel extends DatabaseService
 {
+    const USER_RIGHT_ADMIN = 'admin';
     /**
      * loadUser
      *
@@ -59,7 +60,10 @@ class UserModel extends DatabaseService
      */
     public function insert(array $datas)
     {
-        $req = $this->getDb()->prepare('INSERT INTO bpf_users(pseudo, email, password, rank) VALUES(:pseudo, :email, :password, :rank)');
+        $req = $this->getDb()->prepare(
+            'INSERT INTO bpf_users(pseudo, email, password, rank) 
+            VALUES(:pseudo, :email, :password, :rank)'
+        );
         $req->bindValue(':pseudo', $datas['pseudo']);
         $req->bindValue(':email', $datas['email']);
         $req->bindValue(':password', password_hash($datas['password'], PASSWORD_DEFAULT));

@@ -21,7 +21,12 @@ class CommentModel extends DatabaseService
      */
     public function loadAllCommentsWithIdPost(string $idPost, int $startLimit = 0, int $numberPerPage = 50)
     {
-        $req = $this->getDb()->prepare('SELECT bpf_comments.id, contents, date_comment, publish, bpf_users.pseudo FROM `bpf_comments` LEFT JOIN bpf_users ON bpf_comments.id_bpf_users = bpf_users.id WHERE id_bpf_blog_posts=:idPost and publish ="valid" or publish ="waiting" ORDER BY bpf_comments.id DESC LIMIT :startLimit , :numberPerPage ');
+        $req = $this->getDb()->prepare(
+            'SELECT bpf_comments.id, contents, date_comment, publish, bpf_users.pseudo 
+            FROM `bpf_comments` LEFT JOIN bpf_users ON bpf_comments.id_bpf_users = bpf_users.id 
+            WHERE id_bpf_blog_posts=:idPost ORDER BY bpf_comments.id 
+            DESC LIMIT :startLimit , :numberPerPage'
+        );
         $req->bindValue(':idPost', $idPost);
         $req->bindValue(':startLimit', $startLimit, PDO::PARAM_INT);
         $req->bindValue(':numberPerPage', $numberPerPage, PDO::PARAM_INT);
@@ -36,7 +41,11 @@ class CommentModel extends DatabaseService
      */
     public function loadInvalidComments()
     {
-        $req = $this->getDb()->prepare('SELECT bpf_comments.id, contents, date_comment, publish, bpf_users.pseudo FROM `bpf_comments` LEFT JOIN bpf_users ON bpf_comments.id_bpf_users = bpf_users.id WHERE publish = "waiting" ');
+        $req = $this->getDb()->prepare(
+            'SELECT bpf_comments.id, contents, date_comment, publish, bpf_users.pseudo 
+            FROM `bpf_comments` LEFT JOIN bpf_users ON bpf_comments.id_bpf_users = bpf_users.id 
+            WHERE publish = "waiting"'
+        );
         $req->execute();
         return $req;
     }
@@ -48,7 +57,11 @@ class CommentModel extends DatabaseService
      */
     public function loadRefuseComments()
     {
-        $req = $this->getDb()->prepare('SELECT bpf_comments.id, contents, date_comment, publish, bpf_users.pseudo FROM `bpf_comments` LEFT JOIN bpf_users ON bpf_comments.id_bpf_users = bpf_users.id WHERE publish = "refused" ');
+        $req = $this->getDb()->prepare(
+            'SELECT bpf_comments.id, contents, date_comment, publish, bpf_users.pseudo 
+            FROM `bpf_comments` LEFT JOIN bpf_users ON bpf_comments.id_bpf_users = bpf_users.id 
+            WHERE publish = "refused"'
+        );
         $req->execute();
         return $req;
     }
@@ -62,7 +75,10 @@ class CommentModel extends DatabaseService
      */
     public function insertComment(array $datas)
     {
-        $req = $this->getDb()->prepare('INSERT INTO bpf_comments(contents, publish, id_bpf_blog_posts, id_bpf_users) VALUES(:contents, :publish, :id_blog_post, :id_user)');
+        $req = $this->getDb()->prepare(
+            'INSERT INTO bpf_comments(contents, publish, id_bpf_blog_posts, id_bpf_users) 
+            VALUES(:contents, :publish, :id_blog_post, :id_user)'
+        );
         $req->bindValue(':contents', $datas['contents']);
         $req->bindValue(':publish', 'waiting');
         $req->bindValue(':id_blog_post', $datas['id_blog_post']);

@@ -6,6 +6,9 @@ use Exception;
 use Projet5\model\CommentModel;
 use Projet5\model\PostModel;
 use Projet5\model\UserModel;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 /**
  * management of validations by admin 
@@ -27,7 +30,7 @@ class AdminController extends SessionController
 	public function displayAllElements(UserModel $userModel, PostModel $postModel, CommentModel $commentModel)
 	{
 		// If I do not follow admin, return to the article page 
-		if ($_SESSION['rankConnectedUser'] !== 'admin') {
+		if ($_SESSION['rankConnectedUser'] !== UserModel::USER_RIGHT_ADMIN) {
 			$_SESSION['error'] = 'Cette page est réservé à l\'administrateur';
 			header('location:Articles-Page1');
 			exit;
@@ -39,20 +42,21 @@ class AdminController extends SessionController
 		// load pending users
 		$pendingUsers = $userModel->loadPendingUsers();
 		// load invalide posts
-		$invalidePosts = $postModel->loadAllPost($valide = 'waiting');
+		$invalidePosts = $postModel->loadAllPost($valide = PostModel::POST_STATUS_WAITING);
 		// load invalide comments
 		$invalideComments = $commentModel->loadInvalidComments();
 		// load the refused comments
 		$refuseComments = $commentModel->loadRefuseComments();
 
 		// display 
-		echo $this->twig->render('admin.twig', [
-			'SESSION' => $_SESSION,
-			'pendingUsers' => $pendingUsers,
-			'invalidePosts' => $invalidePosts,
-			'invalideComments' => $invalideComments,
-			'refuseComments' => $refuseComments
-		]);
+		$this->render(
+			'admin.twig',
+			$_SESSION,
+			$pendingUsers,
+			$invalidePosts,
+			$invalideComments,
+			$refuseComments
+		);
 	}
 
 	/**
@@ -70,7 +74,7 @@ class AdminController extends SessionController
 	public function displayWaitingPosts(UserModel $userModel, PostModel $postModel, CommentModel $commentModel)
 	{
 		// If I do not follow admin, return to the article page 
-		if ($_SESSION['rankConnectedUser'] !== 'admin') {
+		if ($_SESSION['rankConnectedUser'] !== UserModel::USER_RIGHT_ADMIN) {
 			$_SESSION['error'] = 'Cette page est réservé à l\'administrateur';
 			header('location:Articles-Page1');
 			exit;
@@ -80,13 +84,20 @@ class AdminController extends SessionController
 		$this->controleForms($userModel, $postModel, $commentModel);
 
 		// load invalide posts
-		$invalidePosts = $postModel->loadAllPost($valide = 'waiting');
+		$invalidePosts = $postModel->loadAllPost($valide = PostModel::POST_STATUS_WAITING);
+		$pendingUsers = [];
+		$invalideComments = [];
+		$refuseComments = [];
 
 		// display 
-		echo $this->twig->render('admin_waiting_posts.twig', [
-			'SESSION' => $_SESSION,
-			'invalidePosts' => $invalidePosts
-		]);
+		$this->render(
+			'admin_waiting_posts.twig',
+			$_SESSION,
+			$pendingUsers,
+			$invalidePosts,
+			$invalideComments,
+			$refuseComments
+		);
 	}
 
 	/**
@@ -104,7 +115,7 @@ class AdminController extends SessionController
 	public function displayPendingUsers(UserModel $userModel, PostModel $postModel, CommentModel $commentModel)
 	{
 		// If I do not follow admin, return to the article page 
-		if ($_SESSION['rankConnectedUser'] !== 'admin') {
+		if ($_SESSION['rankConnectedUser'] !== UserModel::USER_RIGHT_ADMIN) {
 			$_SESSION['error'] = 'Cette page est réservé à l\'administrateur';
 			header('location:Articles-Page1');
 			exit;
@@ -115,12 +126,19 @@ class AdminController extends SessionController
 
 		// load pending users
 		$pendingUsers = $userModel->loadPendingUsers();
+		$invalidePosts = [];
+		$invalideComments = [];
+		$refuseComments = [];
 
 		// display 
-		echo $this->twig->render('admin_pending_users.twig', [
-			'SESSION' => $_SESSION,
-			'pendingUsers' => $pendingUsers
-		]);
+		$this->render(
+			'admin_pending_users.twig',
+			$_SESSION,
+			$pendingUsers,
+			$invalidePosts,
+			$invalideComments,
+			$refuseComments
+		);
 	}
 
 	/**
@@ -138,7 +156,7 @@ class AdminController extends SessionController
 	public function displayInvalidComments(UserModel $userModel, PostModel $postModel, CommentModel $commentModel)
 	{
 		// If I do not follow admin, return to the article page 
-		if ($_SESSION['rankConnectedUser'] !== 'admin') {
+		if ($_SESSION['rankConnectedUser'] !== UserModel::USER_RIGHT_ADMIN) {
 			$_SESSION['error'] = 'Cette page est réservé à l\'administrateur';
 			header('location:Articles-Page1');
 			exit;
@@ -148,12 +166,19 @@ class AdminController extends SessionController
 		$this->controleForms($userModel, $postModel, $commentModel);
 
 		$invalideComments = $commentModel->loadInvalidComments();
+		$pendingUsers = [];
+		$invalidePosts = [];
+		$refuseComments = [];
 
 		// display 
-		echo $this->twig->render('admin_waiting_comments.twig', [
-			'SESSION' => $_SESSION,
-			'invalideComments' => $invalideComments
-		]);
+		$this->render(
+			'admin_waiting_comments.twig',
+			$_SESSION,
+			$pendingUsers,
+			$invalidePosts,
+			$invalideComments,
+			$refuseComments
+		);
 	}
 
 	/**
@@ -171,7 +196,7 @@ class AdminController extends SessionController
 	public function displayRefusedComments(UserModel $userModel, PostModel $postModel, CommentModel $commentModel)
 	{
 		// If I do not follow admin, return to the article page 
-		if ($_SESSION['rankConnectedUser'] !== 'admin') {
+		if ($_SESSION['rankConnectedUser'] !== UserModel::USER_RIGHT_ADMIN) {
 			$_SESSION['error'] = 'Cette page est réservé à l\'administrateur';
 			header('location:Articles-Page1');
 			exit;
@@ -182,12 +207,19 @@ class AdminController extends SessionController
 
 		// load the refused comments
 		$refuseComments = $commentModel->loadRefuseComments();
+		$pendingUsers = [];
+		$invalidePosts = [];
+		$invalideComments = [];
 
 		// display 
-		echo $this->twig->render('admin_refused_comments.twig', [
-			'SESSION' => $_SESSION,
-			'refuseComments' => $refuseComments
-		]);
+		$this->render(
+			'admin_refused_comments.twig',
+			$_SESSION,
+			$pendingUsers,
+			$invalidePosts,
+			$invalideComments,
+			$refuseComments
+		);
 	}
 
 	/**
@@ -204,64 +236,90 @@ class AdminController extends SessionController
 	 */
 	private function controleForms(UserModel $userModel, PostModel $postModel, CommentModel $commentModel)
 	{
-		try {
-			// valide user if form is submit
-			if (isset($_POST['idValidateUser'])) {
-				$userModel->validateUserWithId($_POST['idValidateUser']);
-				new Exception($_SESSION['success'] = 'L\'utilisateur a été validé');
-				header('location:admin-pending-users');
-				exit;
-			}
-
-			// delete user if form is submit
-			if (isset($_POST['idDeleteUser'])) {
-				$userModel->deleteUserWithId($_POST['idDeleteUser']);
-				new Exception($_SESSION['success'] = 'L\'utilisateur a été supprimé');
-				header('location:admin-pending-users');
-				exit;
-			}
-
-			// valide post if form is submit
-			if (isset($_POST['idPublishPost'])) {
-				$postModel->publishPostWithId($_POST['idPublishPost']);
-				new Exception($_SESSION['success'] = 'L\'article a été validé');
-				header('location:admin-waiting-posts');
-				exit;
-			}
-
-			// delete post if form is submit
-			if (isset($_POST['idDeletePost'])) {
-				$postModel->deletePostWithId($_POST['idDeletePost']);
-				new Exception($_SESSION['success'] = 'L\'article a été supprimé');
-				header('location:admin-waiting-posts');
-				exit;
-			}
-
-			// valide comment if form is submit
-			if (isset($_POST['idPublishComment'])) {
-				$commentModel->publishCommentWithId($_POST['idPublishComment']);
-				new Exception($_SESSION['success'] = 'Le commentaire a été validé');
-				header('location:admin-waiting-comments');
-				exit;
-			}
-
-			// delete comment if form is submit
-			if (isset($_POST['idDeleteComment'])) {
-				$commentModel->deleteCommentWithId($_POST['idDeleteComment']);
-				new Exception($_SESSION['success'] = 'Le commentaire a été supprimé');
-				header('location:admin-waiting-comments');
-				exit;
-			}
-
-			// refuse comment if form is submit
-			if (isset($_POST['idRefuseComment'])) {
-				$commentModel->refuseCommentWithId($_POST['idRefuseComment']);
-				new Exception($_SESSION['success'] = 'Le commentaire a été refusé');
-				header('location:admin-waiting-comments');
-				exit;
-			}
-		} catch (Exception $e) {
-			$e->getMessage();
+		// valide user if form is submit
+		if (isset($_POST['idValidateUser'])) {
+			$userModel->validateUserWithId($_POST['idValidateUser']);
+			$_SESSION['success'] = 'L\'utilisateur a été validé';
+			header('location:admin-pending-users');
+			exit;
 		}
+
+		// delete user if form is submit
+		elseif (isset($_POST['idDeleteUser'])) {
+			$userModel->deleteUserWithId($_POST['idDeleteUser']);
+			$_SESSION['success'] = 'L\'utilisateur a été supprimé';
+			header('location:admin-pending-users');
+			exit;
+		}
+
+		// valide post if form is submit
+		elseif (isset($_POST['idPublishPost'])) {
+			$postModel->publishPostWithId($_POST['idPublishPost']);
+			$_SESSION['success'] = 'L\'article a été validé';
+			header('location:admin-waiting-posts');
+			exit;
+		}
+
+		// delete post if form is submit
+		elseif (isset($_POST['idDeletePost'])) {
+			$postModel->deletePostWithId($_POST['idDeletePost']);
+			$_SESSION['success'] = 'L\'article a été supprimé';
+			header('location:admin-waiting-posts');
+			exit;
+		}
+
+		// valide comment if form is submit
+		elseif (isset($_POST['idPublishComment'])) {
+			$commentModel->publishCommentWithId($_POST['idPublishComment']);
+			$_SESSION['success'] = 'Le commentaire a été validé';
+			header('location:admin-waiting-comments');
+			exit;
+		}
+
+		// delete comment if form is submit
+		elseif (isset($_POST['idDeleteComment'])) {
+			$commentModel->deleteCommentWithId($_POST['idDeleteComment']);
+			$_SESSION['success'] = 'Le commentaire a été supprimé';
+			header('location:admin-waiting-comments');
+			exit;
+		}
+
+		// refuse comment if form is submit
+		elseif (isset($_POST['idRefuseComment'])) {
+			$commentModel->refuseCommentWithId($_POST['idRefuseComment']);
+			$_SESSION['success'] = 'Le commentaire a été refusé';
+			header('location:admin-waiting-comments');
+			exit;
+		}
+	}
+
+	/**
+	 * render Template.
+	 *
+	 * @param string $templateName Template name to render
+	 * @param array $error error information to display
+	 *
+	 * @param array $session user session
+	 * @throws LoaderError
+	 * @throws RuntimeError
+	 * @throws SyntaxError
+	 */
+	private function render(
+		string $templateName,
+		array $errors = [],
+		$pendingUsers = [],
+		$invalidePosts = [],
+		$invalideComments = [],
+		$refuseComments = [],
+		array $session = []
+	) {
+		echo $this->twig->render($templateName, [
+			'error' => $errors,
+			'pendingUsers' => $pendingUsers,
+			'invalidePosts' => $invalidePosts,
+			'invalideComments' => $invalideComments,
+			'refuseComments' => $refuseComments,
+			'SESSION' => $_SESSION
+		]);
 	}
 }

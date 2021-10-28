@@ -24,9 +24,9 @@ class FrontPostController extends TwigController
 		$countPosts = $postModel->countAllPost($valide);
 		$numberPosts = $countPosts->rowCount();
 		// take Limits for request SQL
-		$paging = $this->paging(POST_PER_PAGE, $numberPosts, $currentPage);
+		$paging = $this->paging(Router::POST_PER_PAGE, $numberPosts, $currentPage);
 
-		$posts = $postModel->loadAllPost($valide, $paging['startLimit'], POST_PER_PAGE);
+		$posts = $postModel->loadAllPost($valide, $paging['startLimit'], Router::POST_PER_PAGE);
 
 		echo $this->twig->render('blog_posts.twig', [
 			'SESSION' => $_SESSION,
@@ -63,9 +63,9 @@ class FrontPostController extends TwigController
 		// count number of row
 		$numberComments = $comments->rowCount();
 		// take Limits for request SQL
-		$paging = $this->paging(COMMENT_PER_PAGE, $numberComments, $currentPage);
+		$paging = $this->paging(Router::COMMENT_PER_PAGE, $numberComments, $currentPage);
 		// load comments with limit
-		$comments = $commentModel->loadAllCommentsWithIdPost($idPost, $paging['startLimit'], COMMENT_PER_PAGE);
+		$comments = $commentModel->loadAllCommentsWithIdPost($idPost, $paging['startLimit'], Router::COMMENT_PER_PAGE);
 		// display post and comments 
 		echo $this->twig->render('post.twig', [
 			'SESSION' => $_SESSION,

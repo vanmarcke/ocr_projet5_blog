@@ -14,13 +14,18 @@ class BackPostController extends SessionController
 	 *
 	 * @param PostModel $postModel
 	 *
-	 * @return array
+	 * @throws LoaderError
+	 * @throws RuntimeError
+	 * @throws SyntaxError
+	 * @throws Exception
 	 */
 	public function addPost(PostModel $postModel)
 	{
 		// The form is not submitted, posting the post form
 		if (count($_POST) === 0) {
-			echo $this->twig->render('insert_post.twig', ['SESSION' => $_SESSION, 'add' => 'add']);
+			// echo $this->twig->render('insert_post.twig', ['SESSION' => $_SESSION]);
+	        // return;
+			$this->render('insert_post.twig', $_SESSION);
 			return;
 		}
 
@@ -61,7 +66,8 @@ class BackPostController extends SessionController
 		];
 
 		// display the form with errors and datas form
-		$this->render('insert_post.twig', $errors, $form, $_SESSION, ['add' => 'add']);
+		// echo $this->twig->render('insert_post.twig', ['error' => $errors, 'form' => $form, 'SESSION' => $_SESSION]);
+		$this->render('insert_post.twig', $errors, $form, $_SESSION);
 	}
 
 	/**
@@ -70,7 +76,10 @@ class BackPostController extends SessionController
 	 * @param string $idPost contains post id
 	 * @param PostModel $postModel
 	 *
-	 * @return array
+	 * @throws LoaderError
+	 * @throws RuntimeError
+	 * @throws SyntaxError
+	 * @throws Exception
 	 */
 	public function editPost(string $idPost, PostModel $postModel)
 	{
@@ -85,7 +94,7 @@ class BackPostController extends SessionController
 		}
 		// The form is not submitted, posting the post form
 		if (count($_POST) === 0) {
-			echo $this->twig->render('insert_post.twig', ['SESSION' => $_SESSION, 'post' => $post, 'edit' => 'edit']);
+			echo $this->twig->render('insert_post.twig', ['SESSION' => $_SESSION, 'post' => $post]);
 			return;
 		}
 
@@ -110,7 +119,7 @@ class BackPostController extends SessionController
 				'contents' => $contents
 			]);
 			$_SESSION['success'] = 'L\'article à été mis à jour';
-			header('location:administration');
+			header('location:Article-page1');
 			exit;
 		}
 
@@ -123,8 +132,8 @@ class BackPostController extends SessionController
 		];
 
 		// display the post with error and datas form
-		// echo $this->twig->render('insert_post.twig', ['error' => $error, 'SESSION' => $_SESSION, 'form' => $form, 'edit' => 'edit']);
-		$this->render('insert_post.twig', $errors, $form, $_SESSION, ['edit' => 'edit']);
+		// echo $this->twig->render('insert_post.twig', ['error' => $errors, 'SESSION' => $_SESSION, 'form' => $form]);
+		$this->render('insert_post.twig', $errors, $form, $_SESSION);
 	}
 
 	/**
@@ -132,6 +141,11 @@ class BackPostController extends SessionController
 	 *
 	 * @param string $idPost contains post id
 	 * @param PostModel $postModel
+	 * 
+	 * @throws LoaderError
+	 * @throws RuntimeError
+	 * @throws SyntaxError
+	 * @throws Exception
 	 */
 	public function deletePost(string $idPost, PostModel $postModel)
 	{
@@ -176,6 +190,6 @@ class BackPostController extends SessionController
      */
     private function render(string $templateName, array $errors = [], array $form = [], array $session = [])
     {
-        echo $this->twig->render($templateName, ['error' => $errors, 'form' => $form, 'SESSION' => $_SESSION, 'add' => 'add', 'edit' => 'edit']);
+        echo $this->twig->render($templateName, ['error' => $errors, 'form' => $form, 'SESSION' => $_SESSION]);
     }
 }
