@@ -29,12 +29,8 @@ class AdminController extends SessionController
 	 */
 	public function displayAllElements(UserModel $userModel, PostModel $postModel, CommentModel $commentModel)
 	{
-		// If I do not follow admin, return to the article page 
-		if ($_SESSION['rankConnectedUser'] !== UserModel::USER_RIGHT_ADMIN) {
-			$_SESSION['error'] = 'Cette page est réservé à l\'administrateur';
-			header('location:Articles-Page1');
-			exit;
-		}
+		// If I do not follow admin, return to the article page
+		$this->redirectNoAdmin();
 
 		// controle if a POST variable exist and execute
 		$this->controleForms($userModel, $postModel, $commentModel);
@@ -42,7 +38,7 @@ class AdminController extends SessionController
 		// load pending users
 		$pendingUsers = $userModel->loadPendingUsers();
 		// load invalide posts
-		$invalidePosts = $postModel->loadAllPost($valide = PostModel::POST_STATUS_WAITING);
+		$invalidePosts = $postModel->loadAllPost($valide = self::POST_STATUS_WAITING);
 		// load invalide comments
 		$invalideComments = $commentModel->loadInvalidComments();
 		// load the refused comments
@@ -73,18 +69,14 @@ class AdminController extends SessionController
 	 */
 	public function displayWaitingPosts(UserModel $userModel, PostModel $postModel, CommentModel $commentModel)
 	{
-		// If I do not follow admin, return to the article page 
-		if ($_SESSION['rankConnectedUser'] !== UserModel::USER_RIGHT_ADMIN) {
-			$_SESSION['error'] = 'Cette page est réservé à l\'administrateur';
-			header('location:Articles-Page1');
-			exit;
-		}
+		// If I do not follow admin, return to the article page
+		$this->redirectNoAdmin();
 
 		// controle if a POST variable exist and execute
 		$this->controleForms($userModel, $postModel, $commentModel);
 
 		// load invalide posts
-		$invalidePosts = $postModel->loadAllPost($valide = PostModel::POST_STATUS_WAITING);
+		$invalidePosts = $postModel->loadAllPost($valide = self::POST_STATUS_WAITING);
 		$pendingUsers = [];
 		$invalideComments = [];
 		$refuseComments = [];
@@ -114,12 +106,8 @@ class AdminController extends SessionController
 	 */
 	public function displayPendingUsers(UserModel $userModel, PostModel $postModel, CommentModel $commentModel)
 	{
-		// If I do not follow admin, return to the article page 
-		if ($_SESSION['rankConnectedUser'] !== UserModel::USER_RIGHT_ADMIN) {
-			$_SESSION['error'] = 'Cette page est réservé à l\'administrateur';
-			header('location:Articles-Page1');
-			exit;
-		}
+		// If I do not follow admin, return to the article page
+		$this->redirectNoAdmin();
 
 		// controle if a POST variable exist and execute
 		$this->controleForms($userModel, $postModel, $commentModel);
@@ -155,12 +143,8 @@ class AdminController extends SessionController
 	 */
 	public function displayInvalidComments(UserModel $userModel, PostModel $postModel, CommentModel $commentModel)
 	{
-		// If I do not follow admin, return to the article page 
-		if ($_SESSION['rankConnectedUser'] !== UserModel::USER_RIGHT_ADMIN) {
-			$_SESSION['error'] = 'Cette page est réservé à l\'administrateur';
-			header('location:Articles-Page1');
-			exit;
-		}
+		// If I do not follow admin, return to the article page
+		$this->redirectNoAdmin();
 
 		// controle if a POST variable exist and execute
 		$this->controleForms($userModel, $postModel, $commentModel);
@@ -195,12 +179,8 @@ class AdminController extends SessionController
 	 */
 	public function displayRefusedComments(UserModel $userModel, PostModel $postModel, CommentModel $commentModel)
 	{
-		// If I do not follow admin, return to the article page 
-		if ($_SESSION['rankConnectedUser'] !== UserModel::USER_RIGHT_ADMIN) {
-			$_SESSION['error'] = 'Cette page est réservé à l\'administrateur';
-			header('location:Articles-Page1');
-			exit;
-		}
+		// If I do not follow admin, return to the article page
+		$this->redirectNoAdmin();
 
 		// controle if a POST variable exist and execute
 		$this->controleForms($userModel, $postModel, $commentModel);
@@ -241,7 +221,6 @@ class AdminController extends SessionController
 			$userModel->validateUserWithId($_POST['idValidateUser']);
 			$_SESSION['success'] = 'L\'utilisateur a été validé';
 			header('location:admin-pending-users');
-			exit;
 		}
 
 		// delete user if form is submit
@@ -249,7 +228,6 @@ class AdminController extends SessionController
 			$userModel->deleteUserWithId($_POST['idDeleteUser']);
 			$_SESSION['success'] = 'L\'utilisateur a été supprimé';
 			header('location:admin-pending-users');
-			exit;
 		}
 
 		// valide post if form is submit
@@ -257,7 +235,6 @@ class AdminController extends SessionController
 			$postModel->publishPostWithId($_POST['idPublishPost']);
 			$_SESSION['success'] = 'L\'article a été validé';
 			header('location:admin-waiting-posts');
-			exit;
 		}
 
 		// delete post if form is submit
@@ -265,7 +242,6 @@ class AdminController extends SessionController
 			$postModel->deletePostWithId($_POST['idDeletePost']);
 			$_SESSION['success'] = 'L\'article a été supprimé';
 			header('location:admin-waiting-posts');
-			exit;
 		}
 
 		// valide comment if form is submit
@@ -273,7 +249,6 @@ class AdminController extends SessionController
 			$commentModel->publishCommentWithId($_POST['idPublishComment']);
 			$_SESSION['success'] = 'Le commentaire a été validé';
 			header('location:admin-waiting-comments');
-			exit;
 		}
 
 		// delete comment if form is submit
@@ -281,7 +256,6 @@ class AdminController extends SessionController
 			$commentModel->deleteCommentWithId($_POST['idDeleteComment']);
 			$_SESSION['success'] = 'Le commentaire a été supprimé';
 			header('location:admin-waiting-comments');
-			exit;
 		}
 
 		// refuse comment if form is submit
@@ -289,7 +263,6 @@ class AdminController extends SessionController
 			$commentModel->refuseCommentWithId($_POST['idRefuseComment']);
 			$_SESSION['success'] = 'Le commentaire a été refusé';
 			header('location:admin-waiting-comments');
-			exit;
 		}
 	}
 

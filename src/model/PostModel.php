@@ -10,8 +10,6 @@ use Projet5\service\DatabaseService;
  */
 class PostModel extends DatabaseService
 {
-    const POST_STATUS_WAITING = 'waiting';
-
     /**
      * load all posts , param valide is 'publish'
      *

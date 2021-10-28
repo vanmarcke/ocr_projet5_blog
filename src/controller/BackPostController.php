@@ -21,10 +21,11 @@ class BackPostController extends SessionController
 	 */
 	public function addPost(PostModel $postModel)
 	{
+		// If I do not follow admin, return to the article page
+		$this->redirectNoAdmin();
+
 		// The form is not submitted, posting the post form
 		if (count($_POST) === 0) {
-			// echo $this->twig->render('insert_post.twig', ['SESSION' => $_SESSION]);
-	        // return;
 			$this->render('insert_post.twig', $_SESSION);
 			return;
 		}
@@ -66,7 +67,6 @@ class BackPostController extends SessionController
 		];
 
 		// display the form with errors and datas form
-		// echo $this->twig->render('insert_post.twig', ['error' => $errors, 'form' => $form, 'SESSION' => $_SESSION]);
 		$this->render('insert_post.twig', $errors, $form, $_SESSION);
 	}
 
@@ -86,12 +86,9 @@ class BackPostController extends SessionController
 		// load Post with id
 		$post = $postModel->loadPost($idPost);
 
-		// if the user wants to modify an article
-		if ($post['pseudo'] !== $_SESSION['pseudoConnectedUser']) {
-			$_SESSION['error'] = 'Vous n\'avez pas les droits pour modifier cet article';
-			header('location:Articles-Page1');
-			exit;
-		}
+		// If I do not follow admin, return to the article page
+		$this->redirectNoAdmin();
+
 		// The form is not submitted, posting the post form
 		if (count($_POST) === 0) {
 			echo $this->twig->render('insert_post.twig', ['SESSION' => $_SESSION, 'post' => $post]);
@@ -109,7 +106,7 @@ class BackPostController extends SessionController
 
 		$this->checkChapo($chapo, $errors);
 
-		$this->checkContents($contents, $errors);		
+		$this->checkContents($contents, $errors);
 
 		// if no error, update the post
 		if (empty($errors)) {
@@ -132,7 +129,6 @@ class BackPostController extends SessionController
 		];
 
 		// display the post with error and datas form
-		// echo $this->twig->render('insert_post.twig', ['error' => $errors, 'SESSION' => $_SESSION, 'form' => $form]);
 		$this->render('insert_post.twig', $errors, $form, $_SESSION);
 	}
 
@@ -152,12 +148,8 @@ class BackPostController extends SessionController
 		// load Post with id
 		$post = $postModel->loadPost($idPost);
 
-		// if the user wants to delete an article
-		if ($post['pseudo'] !== $_SESSION['pseudoConnectedUser']) {
-			$_SESSION['error'] = 'Vous n\'avez pas les droits pour supprimer cet article';
-			header('location:Articles-Page1');
-			exit;
-		}
+		// If I do not follow admin, return to the article page
+		$this->redirectNoAdmin();
 
 		// Not delete post if form is cancel and redirect
 		if (isset($_POST['cancel'])) {
@@ -178,18 +170,18 @@ class BackPostController extends SessionController
 	}
 
 	/**
-     * render Template.
-     *
-     * @param string $templateName Template name to render
-     * @param array $error error information to display
-     * @param array $form content of the completed form
-     * @param array $session user session
-     * @throws LoaderError
-     * @throws RuntimeError
-     * @throws SyntaxError
-     */
-    private function render(string $templateName, array $errors = [], array $form = [], array $session = [])
-    {
-        echo $this->twig->render($templateName, ['error' => $errors, 'form' => $form, 'SESSION' => $_SESSION]);
-    }
+	 * render Template.
+	 *
+	 * @param string $templateName Template name to render
+	 * @param array $error error information to display
+	 * @param array $form content of the completed form
+	 * @param array $session user session
+	 * @throws LoaderError
+	 * @throws RuntimeError
+	 * @throws SyntaxError
+	 */
+	private function render(string $templateName, array $errors = [], array $form = [], array $session = [])
+	{
+		echo $this->twig->render($templateName, ['error' => $errors, 'form' => $form, 'SESSION' => $_SESSION]);
+	}
 }

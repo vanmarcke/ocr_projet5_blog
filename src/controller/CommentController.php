@@ -28,7 +28,7 @@ class CommentController extends SessionController
 		$this->checkComment($contents, $errors);
 
 		// insert the comment and redirect
-		if (empty($errors)) {
+		if (!empty($contents)) {
 			$commentModel->insertComment([
 				'contents' => $contents,
 				'id_blog_post' => $idPost,

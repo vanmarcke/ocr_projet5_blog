@@ -9,8 +9,7 @@ use Projet5\service\DatabaseService;
  * Reading, inserting, updating and deleting users 
  */
 class UserModel extends DatabaseService
-{
-    const USER_RIGHT_ADMIN = 'admin';
+{    
     /**
      * loadUser
      *
