@@ -27,7 +27,7 @@
 					<h6 class="card-subtitle mb-2 text-muted">Ecrit par
 						{{invalidePost.pseudo}}
 						le
-						{{invalidePost.date_comment|date("d/m/Y")}}</h6>
+						{{invalidePost.last_date_change|date("d/m/Y")}}</h6>
 				</div>
 				<form class="card-footer text-center" method="post" action="Administration">
 					<button class="btn btn-success text-center" type="submit" name="idPublishPost" value="{{invalidePost.id}}">Valider</button>
