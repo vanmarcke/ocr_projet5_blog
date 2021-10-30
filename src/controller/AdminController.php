@@ -2,7 +2,6 @@
 
 namespace Projet5\controller;
 
-use Exception;
 use Projet5\model\CommentModel;
 use Projet5\model\PostModel;
 use Projet5\model\UserModel;
@@ -25,7 +24,6 @@ class AdminController extends SessionController
 	 * @throws LoaderError
 	 * @throws RuntimeError
 	 * @throws SyntaxError
-	 * @throws Exception
 	 */
 	public function displayAllElements(UserModel $userModel, PostModel $postModel, CommentModel $commentModel)
 	{
@@ -65,7 +63,6 @@ class AdminController extends SessionController
 	 * @throws LoaderError
 	 * @throws RuntimeError
 	 * @throws SyntaxError
-	 * @throws Exception
 	 */
 	public function displayWaitingPosts(UserModel $userModel, PostModel $postModel, CommentModel $commentModel)
 	{
@@ -92,7 +89,6 @@ class AdminController extends SessionController
 	 * @throws LoaderError
 	 * @throws RuntimeError
 	 * @throws SyntaxError
-	 * @throws Exception
 	 */
 	public function displayPendingUsers(UserModel $userModel, PostModel $postModel, CommentModel $commentModel)
 	{
@@ -119,7 +115,6 @@ class AdminController extends SessionController
 	 * @throws LoaderError
 	 * @throws RuntimeError
 	 * @throws SyntaxError
-	 * @throws Exception
 	 */
 	public function displayInvalidComments(UserModel $userModel, PostModel $postModel, CommentModel $commentModel)
 	{
@@ -146,7 +141,6 @@ class AdminController extends SessionController
 	 * @throws LoaderError
 	 * @throws RuntimeError
 	 * @throws SyntaxError
-	 * @throws Exception
 	 */
 	public function displayRefusedComments(UserModel $userModel, PostModel $postModel, CommentModel $commentModel)
 	{
@@ -173,7 +167,6 @@ class AdminController extends SessionController
 	 * @throws LoaderError
 	 * @throws RuntimeError
 	 * @throws SyntaxError
-	 * @throws Exception
 	 */
 	private function controleForms(UserModel $userModel, PostModel $postModel, CommentModel $commentModel)
 	{
@@ -181,49 +174,49 @@ class AdminController extends SessionController
 				// valide user if form is submit
 			case (isset($_POST['idValidateUser'])): {
 					$userModel->validateUserWithId($_POST['idValidateUser']);
-					$_SESSION['success'] = 'L\'utilisateur a été validé';
+					$_SESSION['success'] = self::USER . self::VALID;
 					header('location:admin-pending-users');
 				}
 
 				// delete user if form is submit
 			case (isset($_POST['idDeleteUser'])): {
 					$userModel->deleteUserWithId($_POST['idDeleteUser']);
-					$_SESSION['success'] = 'L\'utilisateur a été supprimé';
+					$_SESSION['success'] = self::USER . self::SUPPR;
 					header('location:admin-pending-users');
 				}
 
 				// valide post if form is submit
 			case (isset($_POST['idPublishPost'])): {
 					$postModel->publishPostWithId($_POST['idPublishPost']);
-					$_SESSION['success'] = 'L\'article a été validé';
+					$_SESSION['success'] = self::POST . self::VALID;
 					header('location:admin-waiting-posts');
 				}
 
 				// delete post if form is submit
 			case (isset($_POST['idDeletePost'])): {
 					$postModel->deletePostWithId($_POST['idDeletePost']);
-					$_SESSION['success'] = 'L\'article a été supprimé';
+					$_SESSION['success'] = self::POST . self::SUPPR;
 					header('location:admin-waiting-posts');
 				}
 
 				// valide comment if form is submit
 			case (isset($_POST['idPublishComment'])): {
 					$commentModel->publishCommentWithId($_POST['idPublishComment']);
-					$_SESSION['success'] = 'Le commentaire a été validé';
+					$_SESSION['success'] = self::COMM . self::VALID;
 					header('location:admin-waiting-comments');
 				}
 
 				// delete comment if form is submit
 			case (isset($_POST['idDeleteComment'])): {
 					$commentModel->deleteCommentWithId($_POST['idDeleteComment']);
-					$_SESSION['success'] = 'Le commentaire a été supprimé';
+					$_SESSION['success'] = self::COMM . self::SUPPR;
 					header('location:admin-waiting-comments');
 				}
 
 				// refuse comment if form is submit
 			case (isset($_POST['idRefuseComment'])): {
 					$commentModel->refuseCommentWithId($_POST['idRefuseComment']);
-					$_SESSION['success'] = 'Le commentaire a été refusé';
+					$_SESSION['success'] = self::COMM . self::REFU;
 					header('location:admin-waiting-comments');
 				}
 		}

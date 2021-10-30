@@ -53,7 +53,7 @@ class BackPostController extends SessionController
 				'id_user' => $id_user
 			]);
 
-			$_SESSION['success'] = 'L\'article à bien été envoyé, il est maintenant en attente de validation par un administrateur';
+			$_SESSION['success'] = self::MESSAGE_VALID_OK . ' envoyé, il est maintenant en attente de validation par un administrateur';
 			header('location:admin-waiting-posts');
 			exit;
 		}
@@ -115,7 +115,7 @@ class BackPostController extends SessionController
 				'chapo' => $chapo,
 				'contents' => $contents
 			]);
-			$_SESSION['success'] = 'L\'article à été mis à jour';
+			$_SESSION['success'] = self::MESSAGE_VALID_OK . ' mis à jour';
 			header('location:Article-page1');
 			exit;
 		}
@@ -160,7 +160,7 @@ class BackPostController extends SessionController
 		// delete post if form is submit and redirect
 		if (isset($_POST['idDeletePost'])) {
 			$postModel->deletePostWithId($_POST['idDeletePost']);
-			$_SESSION['success'] = 'L\'article à été supprimé';
+			$_SESSION['success'] = self::MESSAGE_VALID_OK . ' supprimé';
 			header('location:Articles-Page1');
 			exit;
 		}

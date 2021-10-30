@@ -2,6 +2,7 @@
 
 namespace Projet5\controller;
 
+use Exception;
 use Projet5\controller\TwigController;
 
 /**
@@ -17,6 +18,9 @@ class Constraints extends TwigController
     const PSEUDO = 'Le pseudo ';
     const PASSWORD = 'Le mot de passe ';
     const INVALID = 'n\'est pas renseigné ou invalide';
+    const USER = 'L\'utilisateur a été ';
+    const VALID = 'validé';
+    const SUPPR = 'supprimé';
 
     /**
      * checkPseudo
@@ -97,6 +101,8 @@ class Constraints extends TwigController
     const MIN_VALUE_POST = 1;
     const MAX_VALUE_TITLE = 100;
     const MAX_VALUE_CHAPO = 300;
+    const VALUE_POST_VALID = 'valid';
+    const POST = 'L\'article a été ';
 
     /**
      * checkTitle
@@ -108,7 +114,7 @@ class Constraints extends TwigController
      */
     protected function checkTitle(string $title, &$errors)
     {
-        if (strlen($title) < self::MIN_VALUE_POST || strlen($title) > self::MAX_VALUE_TITLE ) {
+        if (strlen($title) < self::MIN_VALUE_POST || strlen($title) > self::MAX_VALUE_TITLE) {
             $this->setErrorMessage('title', 'Le titre n\'est pas renseigné ou invalide. Maximum 100 caractères.', $errors);
         }
     }
@@ -123,7 +129,7 @@ class Constraints extends TwigController
      */
     protected function checkChapo(string $chapo, &$errors)
     {
-        if (strlen($chapo) < self::MIN_VALUE_POST || strlen($chapo) > self::MAX_VALUE_CHAPO ) {
+        if (strlen($chapo) < self::MIN_VALUE_POST || strlen($chapo) > self::MAX_VALUE_CHAPO) {
             $this->setErrorMessage('chapo', 'Le chapô n\'est pas renseigné ou invalide. Maximum 300 caractères', $errors);
         }
     }
@@ -138,7 +144,7 @@ class Constraints extends TwigController
      */
     protected function checkContents(string $contents, &$errors)
     {
-        if (strlen($contents) < self::MIN_VALUE_POST ) {
+        if (strlen($contents) < self::MIN_VALUE_POST) {
             $this->setErrorMessage('contents', 'Le contenu n\'est pas renseigné ou invalide.', $errors);
         }
     }
@@ -147,7 +153,9 @@ class Constraints extends TwigController
     // ***** start comment constraints *****
     const MIN_VALUE_COMMENT = 1;
     const MAX_VALUE_COMMENT = 1000;
-    
+    const COMM = 'Le commentaire a été ';
+    const REFU = 'refusé';
+
     /**
      * checkComment
      *
@@ -158,29 +166,34 @@ class Constraints extends TwigController
      */
     protected function checkComment(string $contents, &$errors)
     {
-        if (strlen($contents) < self::MIN_VALUE_COMMENT || strlen($contents) > self::MAX_VALUE_COMMENT ) {
-			$this->setErrorMessage('contents', 'Le commentaire n\'est pas renseigné ou invalide. Maximum 1000 caractères.', $errors);
-		}
+        if (strlen($contents) < self::MIN_VALUE_COMMENT || strlen($contents) > self::MAX_VALUE_COMMENT) {
+            $this->setErrorMessage('contents', 'Le commentaire n\'est pas renseigné ou invalide. Maximum 1000 caractères.', $errors);
+        }
     }
     // ***** end comment constraints *****
 
     const USER_RIGHT_ADMIN = 'admin';
     const POST_STATUS_WAITING = 'waiting';
+    const MESSAGE_VALID_OK = 'L\'article à bien été';
     const MESSAGE_NO_ADMIN = 'Cette page est réservé à l\'administrateur';
-    
+
     /**
      * redirectNoAdmin redirect to blog page if user is not admin 
      *
      * @return string error message
      */
     protected function redirectNoAdmin()
-    {        
-        // If I do not follow admin, return to the article page 
-		if ($_SESSION['rankConnectedUser'] !== self::USER_RIGHT_ADMIN) {
-			$_SESSION['error'] = self::MESSAGE_NO_ADMIN;
-			header('location:Articles-Page1');
-			exit;
-		}
+    {
+        try {
+            // If I do not follow admin, return to the article page 
+            if ($_SESSION['rankConnectedUser'] !== self::USER_RIGHT_ADMIN) {
+                new Exception($_SESSION['error'] = self::MESSAGE_NO_ADMIN);
+                header('location:Articles-Page1');
+                exit;
+            }
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
     }
 
     /**

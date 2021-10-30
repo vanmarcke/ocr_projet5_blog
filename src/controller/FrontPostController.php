@@ -2,26 +2,27 @@
 
 namespace Projet5\controller;
 
-use Projet5\controller\TwigController;
+use Projet5\controller\Constraints;
+use Projet5\model\CommentModel;
+use Projet5\model\PostModel;
 
 /**
  * display of posts and pagination management 
  */
-class FrontPostController extends TwigController
+class FrontPostController extends Constraints
 {
 	/**
 	 * Displays the list of posts 
 	 *
-	 * @param object $postModel
+	 * @param PostModel $postModel
 	 * @param int $currentPage contains the page number
 	 *
-	 * @return array
+	 * @return array  contains post data 
 	 */
-	public function displayPosts(object $postModel, int $currentPage)
+	public function displayPosts(PostModel $postModel, int $currentPage)
 	{
 		// count number of row valide
-		$valide = 'valid';
-		$countPosts = $postModel->countAllPost($valide);
+		$countPosts = $postModel->countAllPost($valide = self::VALUE_POST_VALID);
 		$numberPosts = $countPosts->rowCount();
 		// take Limits for request SQL
 		$paging = $this->paging(Router::POST_PER_PAGE, $numberPosts, $currentPage);
@@ -38,21 +39,21 @@ class FrontPostController extends TwigController
 	/**
 	 * Displays a post
 	 *
-	 * @param object $postModel
-	 * @param object $commentModel
+	 * @param PostModel $postModel
+	 * @param CommentModel $commentModel
 	 * @param string $idPost contains post id
 	 * @param int $currentPage contains the page number
 	 *
-	 * @return array
+	 * @return array contains post data
 	 */
-	public function displayPost(object $postModel, object $commentModel, string $idPost, int $currentPage)
+	public function displayPost(PostModel $postModel, CommentModel $commentModel, string $idPost, int $currentPage)
 	{
 		// load the post
 		$post = $postModel->loadPost($idPost);
 
 
 		// if post not valide display a error message
-		if ($post['publish'] == 'waiting') {
+		if ($post['publish'] == self::POST_STATUS_WAITING) {
 			$_SESSION['error'] = 'L\'article est en attente de validation par un administrateur';
 			header('location:Articles-Page1');
 			exit;
