@@ -26,7 +26,7 @@ class BackPostController extends SessionController
 
 		// The form is not submitted, posting the post form
 		if (count($_POST) === 0) {
-			$this->render('insert_post.twig', $_SESSION);
+			$this->render('insert_post.twig', [], [], $_SESSION, []);
 			return;
 		}
 
@@ -67,7 +67,7 @@ class BackPostController extends SessionController
 		];
 
 		// display the form with errors and datas form
-		$this->render('insert_post.twig', $errors, $form, $_SESSION);
+		$this->render('insert_post.twig', $errors, $form, $_SESSION, []);
 	}
 
 	/**
@@ -91,7 +91,8 @@ class BackPostController extends SessionController
 
 		// The form is not submitted, posting the post form
 		if (count($_POST) === 0) {
-			echo $this->twig->render('insert_post.twig', ['SESSION' => $_SESSION, 'post' => $post]);
+			// echo $this->twig->render('insert_post.twig', ['SESSION' => $_SESSION, 'post' => $post]);
+			$this->render('insert_post.twig', [], [], $_SESSION, $post);
 			return;
 		}
 
@@ -129,7 +130,7 @@ class BackPostController extends SessionController
 		];
 
 		// display the post with error and datas form
-		$this->render('insert_post.twig', $errors, $form, $_SESSION);
+		$this->render('insert_post.twig', $errors, $form, $_SESSION, []);
 	}
 
 	/**
@@ -166,7 +167,7 @@ class BackPostController extends SessionController
 		}
 
 		// display the confirm delete message
-		echo $this->twig->render('delete_post.twig', ['SESSION' => $_SESSION, 'post' => $post]);
+		$this->render('delete_post.twig', [], [], $_SESSION, $post);
 	}
 
 	/**
@@ -180,8 +181,8 @@ class BackPostController extends SessionController
 	 * @throws RuntimeError
 	 * @throws SyntaxError
 	 */
-	private function render(string $templateName, array $errors = [], array $form = [], array $session = [])
+	private function render(string $templateName, array $errors = [], array $form = [], array $session = [], array $post = [])
 	{
-		echo $this->twig->render($templateName, ['error' => $errors, 'form' => $form, 'SESSION' => $_SESSION]);
+		echo $this->twig->render($templateName, ['error' => $errors, 'form' => $form, 'SESSION' => $session, 'post' => $post]);
 	}
 }

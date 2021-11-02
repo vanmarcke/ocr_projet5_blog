@@ -184,15 +184,11 @@ class Constraints extends TwigController
      */
     protected function redirectNoAdmin()
     {
-        try {
-            // If I do not follow admin, return to the article page 
-            if ($_SESSION['rankConnectedUser'] !== self::USER_RIGHT_ADMIN) {
-                new Exception($_SESSION['error'] = self::MESSAGE_NO_ADMIN);
-                header('location:Articles-Page1');
-                exit;
-            }
-        } catch (Exception $e) {
-            $e->getMessage();
+        // If I do not follow admin, return to the article page
+        if ($_SESSION['rankConnectedUser'] !== self::USER_RIGHT_ADMIN) {
+            $_SESSION['error'] = self::MESSAGE_NO_ADMIN;
+            header('location:Articles-Page1');
+            exit;
         }
     }
 

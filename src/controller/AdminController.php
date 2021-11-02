@@ -45,11 +45,12 @@ class AdminController extends SessionController
 		// display 
 		$this->render(
 			'admin.twig',
-			$_SESSION,
+			[],
 			$pendingUsers,
 			$invalidePosts,
 			$invalideComments,
-			$refuseComments
+			$refuseComments,
+			$_SESSION
 		);
 	}
 
@@ -76,7 +77,7 @@ class AdminController extends SessionController
 		$invalidePosts = $postModel->loadAllPost($valide = self::POST_STATUS_WAITING);
 
 		// display 
-		$this->render('admin_waiting_posts.twig', $_SESSION, [], $invalidePosts);
+		$this->render('admin_waiting_posts.twig', [], [], $invalidePosts, [], [], $_SESSION);
 	}
 
 	/**
@@ -102,7 +103,7 @@ class AdminController extends SessionController
 		$pendingUsers = $userModel->loadPendingUsers();
 
 		// display 
-		$this->render('admin_pending_users.twig', $_SESSION, $pendingUsers);
+		$this->render('admin_pending_users.twig', [], $pendingUsers, [], [], [], $_SESSION);
 	}
 
 	/**
@@ -128,7 +129,7 @@ class AdminController extends SessionController
 		$invalideComments = $commentModel->loadInvalidComments();
 
 		// display 
-		$this->render('admin_waiting_comments.twig', $_SESSION, [], [], $invalideComments);
+		$this->render('admin_waiting_comments.twig', [], [], [], $invalideComments, [], $_SESSION);
 	}
 
 	/**
@@ -154,7 +155,7 @@ class AdminController extends SessionController
 		$refuseComments = $commentModel->loadRefuseComments();
 
 		// display 
-		$this->render('admin_refused_comments.twig', $_SESSION, [], [], [], $refuseComments);
+		$this->render('admin_refused_comments.twig', [], [], [], [], $refuseComments, $_SESSION);
 	}
 
 	/**
@@ -248,7 +249,7 @@ class AdminController extends SessionController
 			'invalidePosts' => $invalidePosts,
 			'invalideComments' => $invalideComments,
 			'refuseComments' => $refuseComments,
-			'SESSION' => $_SESSION
+			'SESSION' => $session
 		]);
 	}
 }
