@@ -20,7 +20,7 @@ class UserController extends Constraints
     {
         // The form is not submitted, posting the connexion form
         if (count($_POST) === 0) {
-            echo $this->twig->render('connexion.twig', ['SESSION' => $_SESSION]);
+            $this->render('connexion.twig', [], [], $_SESSION);
             return;
         }
         // unset session for security and inialise $error
