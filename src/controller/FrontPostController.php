@@ -101,7 +101,7 @@ class FrontPostController extends Constraints
 	 * @throws RuntimeError
 	 * @throws SyntaxError
 	 */
-	private function render($templateName, array $session, $posts, $comments, array $paging)
+	private function render($templateName, array $session, $posts, $comments = [], array $paging)
 	{
 		echo $this->twig->render($templateName, ['SESSION' => $session, 'posts' => $posts, 'comments' => $comments, 'paging' => $paging]);
 	}
