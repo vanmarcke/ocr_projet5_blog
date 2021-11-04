@@ -21,12 +21,15 @@ class BackPostController extends SessionController
 	 */
 	public function addPost(PostModel $postModel)
 	{
-		// If I do not follow admin, return to the article page
-		$this->redirectNoAdmin();
+		// If I do not follow admin, return to the home page
+		if (!$this->isAdmin($_SESSION['rankConnectedUser'])) {
+			$this->render('homepage.twig', $_SESSION);
+			return;
+		}
 
 		// The form is not submitted, posting the post form
 		if (count($_POST) === 0) {
-			$this->render('insert_post.twig', [], [], $_SESSION, []);
+			$this->render('insert_post.twig', $_SESSION);
 			return;
 		}
 
@@ -67,7 +70,7 @@ class BackPostController extends SessionController
 		];
 
 		// display the form with errors and datas form
-		$this->render('insert_post.twig', $errors, $form, $_SESSION, []);
+		$this->render('insert_post.twig', $_SESSION, $errors, $form);
 	}
 
 	/**
@@ -86,13 +89,15 @@ class BackPostController extends SessionController
 		// load Post with id
 		$post = $postModel->loadPost($idPost);
 
-		// If I do not follow admin, return to the article page
-		$this->redirectNoAdmin();
+		// If I do not follow admin, return to the home page
+		if (!$this->isAdmin($_SESSION['rankConnectedUser'])) {
+			$this->render('homepage.twig', $_SESSION);
+			return;
+		}
 
 		// The form is not submitted, posting the post form
 		if (count($_POST) === 0) {
-			// echo $this->twig->render('insert_post.twig', ['SESSION' => $_SESSION, 'post' => $post]);
-			$this->render('insert_post.twig', [], [], $_SESSION, $post);
+			$this->render('insert_post.twig', $_SESSION, [], [], $post);
 			return;
 		}
 
@@ -130,7 +135,7 @@ class BackPostController extends SessionController
 		];
 
 		// display the post with error and datas form
-		$this->render('insert_post.twig', $errors, $form, $_SESSION, []);
+		$this->render('insert_post.twig', $_SESSION, $errors, $form);
 	}
 
 	/**
@@ -149,8 +154,11 @@ class BackPostController extends SessionController
 		// load Post with id
 		$post = $postModel->loadPost($idPost);
 
-		// If I do not follow admin, return to the article page
-		$this->redirectNoAdmin();
+		// If I do not follow admin, return to the home page
+		if (!$this->isAdmin($_SESSION['rankConnectedUser'])) {
+			$this->render('homepage.twig', $_SESSION);
+			return;
+		}
 
 		// Not delete post if form is cancel and redirect
 		if (isset($_POST['cancel'])) {
@@ -167,7 +175,7 @@ class BackPostController extends SessionController
 		}
 
 		// display the confirm delete message
-		$this->render('delete_post.twig', [], [], $_SESSION, $post);
+		$this->render('delete_post.twig', $_SESSION, [], [], $post);
 	}
 
 	/**
@@ -181,8 +189,8 @@ class BackPostController extends SessionController
 	 * @throws RuntimeError
 	 * @throws SyntaxError
 	 */
-	private function render(string $templateName, array $errors = [], array $form = [], array $session = [], array $post = [])
+	private function render(string $templateName, array $session, array $errors = [], array $form = [], array $post = [])
 	{
-		echo $this->twig->render($templateName, ['error' => $errors, 'form' => $form, 'SESSION' => $session, 'post' => $post]);
+		echo $this->twig->render($templateName, ['SESSION' => $session, 'error' => $errors, 'form' => $form, 'post' => $post]);
 	}
 }

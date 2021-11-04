@@ -20,7 +20,7 @@ class UserController extends Constraints
     {
         // The form is not submitted, posting the connexion form
         if (count($_POST) === 0) {
-            $this->render('connexion.twig', [], [], $_SESSION);
+            $this->render('connexion.twig', $_SESSION);
             return;
         }
         // unset session for security and inialise $error
@@ -67,7 +67,7 @@ class UserController extends Constraints
         ];
 
         // display the form with errors and datas form
-        $this->render('connexion.twig', $errors, $form, $_SESSION);
+        $this->render('connexion.twig', $_SESSION, $errors, $form);
     }
 
     /**
@@ -80,7 +80,7 @@ class UserController extends Constraints
     {
         // The form is not submitted, posting the registration form
         if (count($_POST) === 0) {
-            $this->render('register.twig');
+            $this->render('register.twig', $_SESSION);
             return;
         }
 
@@ -129,7 +129,7 @@ class UserController extends Constraints
             }
         }
         // display the form with errors and datas form
-        $this->render('register.twig', $errors, $form, $_SESSION);
+        $this->render('register.twig', $_SESSION, $errors, $form);
     }
 
     /**
@@ -156,8 +156,8 @@ class UserController extends Constraints
      * @throws RuntimeError
      * @throws SyntaxError
      */
-    private function render(string $templateName, array $errors = [], array $form = [], array $session = [])
+    private function render(string $templateName, array $session, array $errors = [], array $form = [])
     {
-        echo $this->twig->render($templateName, ['error' => $errors, 'form' => $form, 'SESSION' => $session]);
+        echo $this->twig->render($templateName, ['SESSION' => $session, 'error' => $errors, 'form' => $form]);
     }
 }

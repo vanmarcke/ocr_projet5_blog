@@ -27,8 +27,11 @@ class AdminController extends SessionController
 	 */
 	public function displayAllElements(UserModel $userModel, PostModel $postModel, CommentModel $commentModel)
 	{
-		// If I do not follow admin, return to the article page
-		$this->redirectNoAdmin();
+		// If I do not follow admin, return to the home page
+		if (!$this->isAdmin($_SESSION['rankConnectedUser'])) {
+			$this->render('homepage.twig', $_SESSION);
+			return;
+		}
 
 		// controle if a POST variable exist and execute
 		$this->controleForms($userModel, $postModel, $commentModel);
@@ -45,12 +48,12 @@ class AdminController extends SessionController
 		// display 
 		$this->render(
 			'admin.twig',
+			$_SESSION,
 			[],
 			$pendingUsers,
 			$invalidePosts,
 			$invalideComments,
-			$refuseComments,
-			$_SESSION
+			$refuseComments
 		);
 	}
 
@@ -67,8 +70,11 @@ class AdminController extends SessionController
 	 */
 	public function displayWaitingPosts(UserModel $userModel, PostModel $postModel, CommentModel $commentModel)
 	{
-		// If I do not follow admin, return to the article page
-		$this->redirectNoAdmin();
+		// If I do not follow admin, return to the home page
+		if (!$this->isAdmin($_SESSION['rankConnectedUser'])) {
+			$this->render('homepage.twig', $_SESSION);
+			return;
+		}
 
 		// controle if a POST variable exist and execute
 		$this->controleForms($userModel, $postModel, $commentModel);
@@ -77,7 +83,7 @@ class AdminController extends SessionController
 		$invalidePosts = $postModel->loadAllPost($valide = self::POST_STATUS_WAITING);
 
 		// display 
-		$this->render('admin_waiting_posts.twig', [], [], $invalidePosts, [], [], $_SESSION);
+		$this->render('admin_waiting_posts.twig', $_SESSION, [], [], $invalidePosts, [], []);
 	}
 
 	/**
@@ -93,8 +99,11 @@ class AdminController extends SessionController
 	 */
 	public function displayPendingUsers(UserModel $userModel, PostModel $postModel, CommentModel $commentModel)
 	{
-		// If I do not follow admin, return to the article page
-		$this->redirectNoAdmin();
+		// If I do not follow admin, return to the home page
+		if (!$this->isAdmin($_SESSION['rankConnectedUser'])) {
+			$this->render('homepage.twig', $_SESSION);
+			return;
+		}
 
 		// controle if a POST variable exist and execute
 		$this->controleForms($userModel, $postModel, $commentModel);
@@ -103,7 +112,7 @@ class AdminController extends SessionController
 		$pendingUsers = $userModel->loadPendingUsers();
 
 		// display 
-		$this->render('admin_pending_users.twig', [], $pendingUsers, [], [], [], $_SESSION);
+		$this->render('admin_pending_users.twig', $_SESSION, [], $pendingUsers, [], [], []);
 	}
 
 	/**
@@ -119,8 +128,11 @@ class AdminController extends SessionController
 	 */
 	public function displayInvalidComments(UserModel $userModel, PostModel $postModel, CommentModel $commentModel)
 	{
-		// If I do not follow admin, return to the article page
-		$this->redirectNoAdmin();
+		// If I do not follow admin, return to the home page
+		if (!$this->isAdmin($_SESSION['rankConnectedUser'])) {
+			$this->render('homepage.twig', $_SESSION);
+			return;
+		}
 
 		// controle if a POST variable exist and execute
 		$this->controleForms($userModel, $postModel, $commentModel);
@@ -129,7 +141,7 @@ class AdminController extends SessionController
 		$invalideComments = $commentModel->loadInvalidComments();
 
 		// display 
-		$this->render('admin_waiting_comments.twig', [], [], [], $invalideComments, [], $_SESSION);
+		$this->render('admin_waiting_comments.twig', $_SESSION, [], [], [], $invalideComments, []);
 	}
 
 	/**
@@ -145,8 +157,11 @@ class AdminController extends SessionController
 	 */
 	public function displayRefusedComments(UserModel $userModel, PostModel $postModel, CommentModel $commentModel)
 	{
-		// If I do not follow admin, return to the article page
-		$this->redirectNoAdmin();
+		// If I do not follow admin, return to the home page
+		if (!$this->isAdmin($_SESSION['rankConnectedUser'])) {
+			$this->render('homepage.twig', $_SESSION);
+			return;
+		}
 
 		// controle if a POST variable exist and execute
 		$this->controleForms($userModel, $postModel, $commentModel);
@@ -155,7 +170,7 @@ class AdminController extends SessionController
 		$refuseComments = $commentModel->loadRefuseComments();
 
 		// display 
-		$this->render('admin_refused_comments.twig', [], [], [], [], $refuseComments, $_SESSION);
+		$this->render('admin_refused_comments.twig', $_SESSION, [], [], [], [], $refuseComments);
 	}
 
 	/**
@@ -236,20 +251,20 @@ class AdminController extends SessionController
 	 */
 	private function render(
 		string $templateName,
+		array $session,
 		array $errors = [],
 		$pendingUsers = [],
 		$invalidePosts = [],
 		$invalideComments = [],
-		$refuseComments = [],
-		array $session = []
+		$refuseComments = []
 	) {
 		echo $this->twig->render($templateName, [
+			'SESSION' => $session,
 			'error' => $errors,
 			'pendingUsers' => $pendingUsers,
 			'invalidePosts' => $invalidePosts,
 			'invalideComments' => $invalideComments,
-			'refuseComments' => $refuseComments,
-			'SESSION' => $session
+			'refuseComments' => $refuseComments
 		]);
 	}
 }
