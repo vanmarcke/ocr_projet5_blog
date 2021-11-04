@@ -182,9 +182,9 @@ class BackPostController extends SessionController
 	 * render Template.
 	 *
 	 * @param string $templateName Template name to render
+	 * @param array $session user session
 	 * @param array $error error information to display
 	 * @param array $form content of the completed form
-	 * @param array $session user session
 	 * @throws LoaderError
 	 * @throws RuntimeError
 	 * @throws SyntaxError

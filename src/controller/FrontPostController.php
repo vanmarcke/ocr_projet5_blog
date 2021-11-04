@@ -3,7 +3,6 @@
 namespace Projet5\controller;
 
 use Projet5\controller\Constraints;
-use Projet5\model\CommentModel;
 use Projet5\model\PostModel;
 
 /**
@@ -14,12 +13,12 @@ class FrontPostController extends Constraints
 	/**
 	 * Displays the list of posts 
 	 *
-	 * @param PostModel $postModel
+	 * @param $postModel
 	 * @param int $currentPage contains the page number
 	 *
 	 * @return array  contains post data 
 	 */
-	public function displayPosts(PostModel $postModel, int $currentPage)
+	public function displayPosts($postModel, int $currentPage)
 	{
 		// count number of row valide
 		$countPosts = $postModel->countAllPost($valide = self::VALUE_POST_VALID);
@@ -29,24 +28,20 @@ class FrontPostController extends Constraints
 
 		$posts = $postModel->loadAllPost($valide, $paging['startLimit'], Router::POST_PER_PAGE);
 
-		echo $this->twig->render('blog_posts.twig', [
-			'SESSION' => $_SESSION,
-			'posts' => $posts,
-			'paging' => $paging
-		]);
+		$this->render('blog_posts.twig', $_SESSION, $posts, [], $paging);
 	}
 
 	/**
 	 * Displays a post
 	 *
 	 * @param PostModel $postModel
-	 * @param CommentModel $commentModel
+	 * @param $commentModel
 	 * @param string $idPost contains post id
 	 * @param int $currentPage contains the page number
 	 *
 	 * @return array contains post data
 	 */
-	public function displayPost(PostModel $postModel, CommentModel $commentModel, string $idPost, int $currentPage)
+	public function displayPost(PostModel $postModel, $commentModel, string $idPost, int $currentPage)
 	{
 		// load the post
 		$post = $postModel->loadPost($idPost);
@@ -68,12 +63,7 @@ class FrontPostController extends Constraints
 		// load comments with limit
 		$comments = $commentModel->loadAllCommentsWithIdPost($idPost, $paging['startLimit'], Router::COMMENT_PER_PAGE);
 		// display post and comments 
-		echo $this->twig->render('post.twig', [
-			'SESSION' => $_SESSION,
-			'post' => $post,
-			'comments' => $comments,
-			'paging' => $paging
-		]);
+		$this->render('post.twig', $_SESSION, $post, $comments, $paging);
 	}
 
 	/**
@@ -97,5 +87,22 @@ class FrontPostController extends Constraints
 			'currentPage' => $currentPage,
 			'totalPages' => $totalPages
 		];
+	}
+
+	/**
+	 * render Template
+	 *
+	 * @param $templateName Template name to render
+	 * @param array $session user session
+	 * @param $posts contains post data 
+	 * @param $comments contains comment data
+	 * @param array $paging contains the data of the number of pages 
+	 * @throws LoaderError
+	 * @throws RuntimeError
+	 * @throws SyntaxError
+	 */
+	private function render($templateName, array $session, $posts, $comments, array $paging)
+	{
+		echo $this->twig->render($templateName, ['SESSION' => $session, 'posts' => $posts, 'comments' => $comments, 'paging' => $paging]);
 	}
 }
