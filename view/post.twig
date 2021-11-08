@@ -1,7 +1,7 @@
 {% extends 'template_blog.twig' %}
 
 {% block page_title %}
-	<title>{{posts.title}}
+	<title>{{post.title}}
 	</title>
 {% endblock %}
 
@@ -13,14 +13,14 @@
 			<div class="row gx-5 gx-lg-7 justify-content-center">
 				<div class="col-md-12 col-lg-10 col-xl-9">
 					<div class="post-heading">
-						<h1>{{ posts.title }}</h1>
-						<h2 class="subheading">{{ posts.chapo }}</h2>
+						<h1>{{ post.title }}</h1>
+						<h2 class="subheading">{{ post.chapo }}</h2>
 						<span class="meta">
 							Ecrit par
-							{{ posts.pseudo }}
+							{{ post.pseudo }}
 							<br>
 							Dernière modification le
-							{{ posts.last_date_change|date("d/m/Y à H:i") }}
+							{{ post.last_date_change|date("d/m/Y à H:i") }}
 						</span>
 					</div>
 				</div>
@@ -35,7 +35,7 @@
 		<div class="container px-8 px-lg-8">
 			<div class="row justify-content-center">
 				<div class="col-md-10 ">
-					<p>{{ posts.contents|raw }}</p>
+					<p>{{ post.contents|raw }}</p>
 				</div>
 			</div>
 		</div>
@@ -46,7 +46,7 @@
 		class="container col-md-8">
 		{# display form if user is registered #}
 		{% if SESSION.rankConnectedUser == 'registered' or SESSION.rankConnectedUser == 'admin'%}
-			<form method="post" action="ajouter-un-commentaire-{{ posts.id }}">
+			<form method="post" action="ajouter-un-commentaire-{{ post.id }}">
 				<div class="form-group">
 					<label for="comment">Votre commentaire</label>
 					<textarea class="form-control" name="contents" id="comment" value="{{userDatas.pseudo}}"></textarea>
@@ -88,7 +88,7 @@
 					<a>{{page}}</a>
 				{% elseif paging.totalPages == 0 %}
 				{% else %}
-					<a href="Article-{{ post.id }}-Page{{page}}">{{page}}</a>
+					<a href="Article-{{ post.id }}-Page{{ page }}">{{ page }}</a>
 				{% endif %}
 			{% endfor %}
 		</p>

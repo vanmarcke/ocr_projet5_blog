@@ -122,7 +122,7 @@ class BackPostController extends SessionController
 				'contents' => $contents
 			]);
 			$_SESSION['success'] = self::MESSAGE_VALID_OK . ' mis à jour';
-			header('location:Article-page1');
+			header('location:Article-'.$post['id'].'-page1');
 			exit;
 		}
 

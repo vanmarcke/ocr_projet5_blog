@@ -28,7 +28,7 @@ class FrontPostController extends Constraints
 
 		$posts = $postModel->loadAllPost($valide, $paging['startLimit'], Router::POST_PER_PAGE);
 
-		$this->render('blog_posts.twig', $_SESSION, $posts, [], $paging);
+		$this->render('blog_posts.twig', $_SESSION, [], $posts, [], $paging);
 	}
 
 	/**
@@ -46,7 +46,6 @@ class FrontPostController extends Constraints
 		// load the post
 		$post = $postModel->loadPost($idPost);
 
-
 		// if post not valide display a error message
 		if ($post['publish'] == self::POST_STATUS_WAITING) {
 			$_SESSION['error'] = 'L\'article est en attente de validation par un administrateur';
@@ -63,7 +62,7 @@ class FrontPostController extends Constraints
 		// load comments with limit
 		$comments = $commentModel->loadAllCommentsWithIdPost($idPost, $paging['startLimit'], Router::COMMENT_PER_PAGE);
 		// display post and comments 
-		$this->render('post.twig', $_SESSION, $post, $comments, $paging);
+		$this->render('post.twig', $_SESSION, $post, [], $comments, $paging);
 	}
 
 	/**
@@ -94,15 +93,16 @@ class FrontPostController extends Constraints
 	 *
 	 * @param $templateName Template name to render
 	 * @param array $session user session
-	 * @param $posts contains post data 
+	 * @param $post contains post data
+	 * @param $posts contains posts data 
 	 * @param $comments contains comment data
 	 * @param array $paging contains the data of the number of pages 
 	 * @throws LoaderError
 	 * @throws RuntimeError
 	 * @throws SyntaxError
 	 */
-	private function render($templateName, array $session, $posts, $comments = [], array $paging)
+	private function render($templateName, array $session, $post = [], $posts = [], $comments = [], array $paging)
 	{
-		echo $this->twig->render($templateName, ['SESSION' => $session, 'posts' => $posts, 'comments' => $comments, 'paging' => $paging]);
+		echo $this->twig->render($templateName, ['SESSION' => $session, 'post' => $post, 'posts' => $posts, 'comments' => $comments, 'paging' => $paging]);
 	}
 }
