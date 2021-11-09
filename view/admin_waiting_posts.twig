@@ -29,7 +29,7 @@
 						le
 						{{invalidePost.last_date_change|date("d/m/Y")}}</h6>
 				</div>
-				<form class="card-footer text-center" method="post" action="Administration">
+				<form class="card-footer text-center" method="post" action="admin-waiting-posts">
 					<a class="btn btn-primary" href="Modifier-Article-{{ invalidePost.id }}">Modifier</a>				
 					<button class="btn btn-success" type="submit" name="idPublishPost" value="{{invalidePost.id}}">Valider</button>
 					<button class="btn btn-danger" type="submit" name="idDeletePost" value="{{invalidePost.id}}">Supprimer</button>

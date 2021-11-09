@@ -191,49 +191,49 @@ class AdminController extends SessionController
 			case (isset($_POST['idValidateUser'])): {
 					$userModel->validateUserWithId($_POST['idValidateUser']);
 					$_SESSION['success'] = self::USER . self::VALID;
-					header('location:admin-pending-users');
+					break;
 				}
 
 				// delete user if form is submit
 			case (isset($_POST['idDeleteUser'])): {
 					$userModel->deleteUserWithId($_POST['idDeleteUser']);
 					$_SESSION['success'] = self::USER . self::SUPPR;
-					header('location:admin-pending-users');
+					break;
 				}
 
 				// valide post if form is submit
 			case (isset($_POST['idPublishPost'])): {
 					$postModel->publishPostWithId($_POST['idPublishPost']);
 					$_SESSION['success'] = self::POST . self::VALID;
-					header('location:admin-waiting-posts');
+					break;
 				}
 
 				// delete post if form is submit
 			case (isset($_POST['idDeletePost'])): {
 					$postModel->deletePostWithId($_POST['idDeletePost']);
 					$_SESSION['success'] = self::POST . self::SUPPR;
-					header('location:admin-waiting-posts');
+					break;
 				}
 
 				// valide comment if form is submit
 			case (isset($_POST['idPublishComment'])): {
 					$commentModel->publishCommentWithId($_POST['idPublishComment']);
 					$_SESSION['success'] = self::COMM . self::VALID;
-					header('location:admin-waiting-comments');
+					break;
 				}
 
 				// delete comment if form is submit
 			case (isset($_POST['idDeleteComment'])): {
 					$commentModel->deleteCommentWithId($_POST['idDeleteComment']);
 					$_SESSION['success'] = self::COMM . self::SUPPR;
-					header('location:admin-waiting-comments');
+					break;
 				}
 
 				// refuse comment if form is submit
 			case (isset($_POST['idRefuseComment'])): {
 					$commentModel->refuseCommentWithId($_POST['idRefuseComment']);
 					$_SESSION['success'] = self::COMM . self::REFU;
-					header('location:admin-waiting-comments');
+					break;
 				}
 		}
 	}

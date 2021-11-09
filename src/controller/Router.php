@@ -139,7 +139,7 @@ class Router
 					$adminController->displayRefusedComments($userModel, $postModel, $commentModel);
 					break;
 				}
-			default; {
+			default: {
 					$_SESSION['error'] = 'Erreur 404 - Page non trouvé';
 					$homepageController = new HomepageController();
 					$homepageController->index($userModel);
