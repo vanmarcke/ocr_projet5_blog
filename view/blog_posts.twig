@@ -59,8 +59,8 @@
 					</div>
 					{% if SESSION.rankConnectedUser == 'admin' %}
 						<div class="card-footer">
-							<a class="card-link" href="Modifier-Article-{{ post.id }}">Modifier</a>
-							<a class="card-link text-danger" href="Supprimer-Article-{{ post.id }}">Supprimer</a>
+							<a class="btn btn-primary" href="Modifier-Article-{{ post.id }}">Modifier</a>
+							<a class="btn btn-danger" href="Supprimer-Article-{{ post.id }}">Supprimer</a>
 						</div>
 					{% endif %}
 					{#  Divider #}

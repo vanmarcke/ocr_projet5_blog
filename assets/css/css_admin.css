@@ -3320,6 +3320,27 @@ input[type="button"].btn-block {
   }
 }
 
+@media (max-width: 576px) {
+  .btn {
+    font-size: 14px;
+  }
+  h1 {
+    font-size: 15px;
+  }
+  h2 {
+    font-size: 20px;
+  }
+  h3 {
+    font-size: 15px;
+  }
+  h5 {
+    font-size: 15px;
+  }
+  p {
+    font-size: 13px;
+  }
+}
+
 @media (min-width: 768px) {
   .dropdown-menu-md-left {
     right: auto;

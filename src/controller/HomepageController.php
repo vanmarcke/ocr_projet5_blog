@@ -9,7 +9,7 @@ use Projet5\model\UserModel;
  * Set the page to display first 
  */
 class HomepageController extends TwigController
-{	
+{
 	/**
 	 * Get Homepage
 	 *
@@ -24,7 +24,21 @@ class HomepageController extends TwigController
 
 		// The form is not submitted, display the homepage
 		if (count($_POST) === 0) {
-			echo $this->twig->render('homepage.twig', ['SESSION' => $_SESSION]);
+			$this->render('homepage.twig', $_SESSION);
 		}
+	}
+
+	/**
+	 * render Template
+	 *
+	 * @param $templateName Template name to render
+	 * @param array $session user session	
+	 * @throws LoaderError
+	 * @throws RuntimeError
+	 * @throws SyntaxError
+	 */
+	private function render($templateName, array $session)
+	{
+		echo $this->twig->render($templateName, ['SESSION' => $session]);
 	}
 }

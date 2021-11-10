@@ -48,7 +48,7 @@ class FrontPostController extends Constraints
 
 		// if post not valide display a error message
 		if ($post['publish'] == self::POST_STATUS_WAITING) {
-			$_SESSION['error'] = 'L\'article est en attente de validation par un administrateur';
+			$_SESSION['error'] = 'L\'article est en attente de validation';
 			header('location:Articles-Page1');
 			exit;
 		}
