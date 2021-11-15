@@ -1,5 +1,6 @@
 {
     "name": "projet5/blog",
+    "license": "MIT",
     "description": "Blog PHP and Twig",
     "require": {
         "twig/twig": "v2.11.3",
@@ -8,7 +9,9 @@
     "authors": [
         {
             "name": "Frédéric Vanmarcke",
-            "email": "fvanmarcke72@gmail.com"
+            "email": "fvanmarcke72@gmail.com",
+            "homepage": "https://vmkdev.com/",
+            "role": "Developer"
         }
     ],
     "autoload": {
