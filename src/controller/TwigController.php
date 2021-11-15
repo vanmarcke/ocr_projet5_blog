@@ -21,7 +21,7 @@ class TwigController
 		// twig
 		$loader = new FilesystemLoader('view');
 		$twig = new Environment($loader, [
-		    'debug' => true,
+			'debug' => true,
 			'cache' => false //__DIR__ .'/tmp'
 		]);
 		$twig->addExtension(new DebugExtension());
