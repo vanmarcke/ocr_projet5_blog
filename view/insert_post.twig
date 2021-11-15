@@ -13,7 +13,7 @@
 {% block content %}
 
 	<div class="container">
-		{{ include('error_message.twig') }}
+		{{ include('message_display.twig') }}
 		{% if post.id is not defined %}
 			<h2>Ecrivez votre article</h2>
 		{% else %}

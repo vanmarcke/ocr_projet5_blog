@@ -3,9 +3,13 @@
 	<head>
 		<meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-		<meta name="description" content="Je m'appelle Frédéric Vanmarcke, je suis Développeur web front / Full-Stack à Rambouillet.
-					Après 18 ans dans la métallurgie, j’effectue une reconversion professionnelle, en intégrant une formation
-					de Développeur WEB largement dominée par un public plus jeune.">
+		{% if post.chapo == NULL %}
+		<meta name="description" content="Développeur / Intégrateur Web à Rambouillet. 
+		Découvrez mes réalisations web. Consultez mon BLOG, 
+		il contient quelques Tutos qui pourront vous êtres utiles."/>
+		{% else %}
+		{% block meta_description %}{% endblock %}
+		{% endif %}
 		<meta name="author" content="Frédéric Vanmarcke">
 		<link
 		rel="icon" type="image/x-icon" href="assets/favicon.ico"/>

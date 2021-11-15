@@ -1,8 +1,11 @@
 {% extends 'template_blog.twig' %}
 
+{% block meta_description %}
+	<meta name="description" content="{{ post.chapo }}"/>
+{% endblock %}
+
 {% block page_title %}
-	<title>{{post.title}}
-	</title>
+	<title>{{ post.title }}</title>
 {% endblock %}
 
 {% block content %}
@@ -28,7 +31,7 @@
 		</div>
 	</header>
 
-	{{ include('error_message.twig') }}
+	{{ include('message_display.twig') }}
 
 	{#  Post Content #}
 	<article class="mb-8">
