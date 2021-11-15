@@ -121,8 +121,8 @@ class UserController extends Constraints
             try {
                 $userModel->insert($userDatas);
                 $_SESSION['success'] = 'Votre compte à été créé, cependant il doit être validé par un administrateur pour pouvoir écrire des commentaires';
-                header('location:Connexion');
-                exit;
+                $this->render('connexion.twig', $_SESSION, $errors, $form);
+                return;
                 // or create a new error_sql message
             } catch (\Exception $e) {
                 $this->setErrorMessage('sql', 'Le pseudo ou l\'email existe déjà', $errors);
@@ -141,8 +141,8 @@ class UserController extends Constraints
     {
         $_SESSION = [];
         $_SESSION['success'] = 'Vous êtes déconnecté';
-        header("Location:Accueil");
-        exit;
+        $this->render('homepage.twig', $_SESSION);
+        return;
     }
 
     /**
