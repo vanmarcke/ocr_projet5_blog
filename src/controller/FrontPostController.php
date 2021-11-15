@@ -47,10 +47,10 @@ class FrontPostController extends Constraints
 		$post = $postModel->loadPost($idPost);
 
 		// if post not valide display a error message
-		if ($post['publish'] == self::POST_STATUS_WAITING) {
-			$_SESSION['error'] = 'L\'article est en attente de validation';
-			header('location:Articles-Page1');
-			exit;
+		if ($post['publish'] == self::POST_STATUS_WAITING or $post == null) {
+			$_SESSION['error'] = 'Cet article n\'existe pas ou est en attente de validation';
+			$this->render('homepage.twig', $_SESSION, $post, [], [], []);
+			return;
 		}
 
 		// load comments for this post
