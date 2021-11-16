@@ -1,0 +1,51 @@
+{% extends 'template_admin.twig' %}
+
+{% block page_title %}
+	{% if post.id is not defined %}
+		<title>Ajouter-un-article</title>
+	{% else %}
+		<title>Modifier l'article numero
+			{{post.id}}
+		</title>
+	{% endif %}
+{% endblock %}
+
+{% block content %}
+
+	<div class="container">
+		{{ include('message_display.twig') }}
+		{% if post.id is not defined %}
+			<h2>Ecrivez votre article</h2>
+		{% else %}
+			<h2>Modifier votre article</h2>
+		{% endif %}
+
+		{% if post.id is not defined %}
+			<form method="post" action="Ajouter-un-article">
+			{% else %}
+				<form method="post" action="Modifier-Article-{{post.id}}{{form.id_post}}">
+				{% endif %}
+				<div class="form-group">
+					<label for="title">Titre</label>
+					<input class="form-control" type="text" name="title" id="title" value="{{post.title}}{{form.title}}"/>
+					<small class="text-danger">{{ error.title }}</small>
+				</div>
+				<div class="form-group">
+					<label for="chapo">Châpo</label>
+					<input class="form-control" type="text" name="chapo" id="chapo" value="{{post.chapo}}{{form.chapo}}"/>
+					<small class="text-danger">{{ error.chapo }}</small>
+				</div>
+				<div class="form-group">
+					<label for="contents">Contenu</label>
+					<textarea type="text" class="ckeditor" name="contents" id="contents">{{post.contents}}{{form.contents}}</textarea>
+					<small class="text-danger">{{ error.contents }}</small>
+
+					<script>
+						CKEDITOR.replace('contents');
+					</script>
+				</div>
+
+				<input class="btn btn-primary" type="submit" value="Envoyer">
+			</form>
+		</div>
+	{% endblock %}

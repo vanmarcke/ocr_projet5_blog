@@ -3,12 +3,12 @@
 namespace Projet5\controller;
 
 use Exception;
-use Projet5\controller\TwigController;
+use Projet5\controller\Constraints;
 
 /**
  * Check the validity of the session
  */
-class SessionController extends TwigController
+class SessionController extends Constraints
 {
 	/**
 	 * redirection according to user status 

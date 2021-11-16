@@ -3,6 +3,7 @@
 namespace Projet5\controller;
 
 use Projet5\controller\Constraints;
+use Projet5\model\UserModel;
 
 /**
  * Manage login, registration and logout of a user 
@@ -12,14 +13,14 @@ class UserController extends Constraints
     /**
      * connexion user
      *
-     * @param  object $userModel
+     * @param UserModel $userModel
      * @return void
      */
-    public function connexion(object $userModel)
+    public function connexion(UserModel $userModel)
     {
         // The form is not submitted, posting the connexion form
         if (count($_POST) === 0) {
-            echo $this->twig->render('connexion.twig', ['SESSION' => $_SESSION]);
+            $this->render('connexion.twig', $_SESSION);
             return;
         }
         // unset session for security and inialise $error
@@ -51,7 +52,7 @@ class UserController extends Constraints
                     header('location:Administration');
                     exit;
                 }
-                header('location:Accueil');
+                header('location:Articles-Page1');
                 exit;
                 // or create a error message
             } else {
@@ -66,20 +67,20 @@ class UserController extends Constraints
         ];
 
         // display the form with errors and datas form
-        $this->render('connexion.twig', $errors, $form, $_SESSION);
+        $this->render('connexion.twig', $_SESSION, $errors, $form);
     }
 
     /**
      * register user
      *
-     * @param  mixed $userModel
+     * @param UserModel $userModel
      * @return void
      */
-    public function register($userModel)
+    public function register(UserModel $userModel)
     {
         // The form is not submitted, posting the registration form
         if (count($_POST) === 0) {
-            $this->render('register.twig');
+            $this->render('register.twig', $_SESSION);
             return;
         }
 
@@ -120,15 +121,15 @@ class UserController extends Constraints
             try {
                 $userModel->insert($userDatas);
                 $_SESSION['success'] = 'Votre compte à été créé, cependant il doit être validé par un administrateur pour pouvoir écrire des commentaires';
-                header('location:Connexion');
-                exit;
+                $this->render('connexion.twig', $_SESSION, $errors, $form);
+                return;
                 // or create a new error_sql message
             } catch (\Exception $e) {
                 $this->setErrorMessage('sql', 'Le pseudo ou l\'email existe déjà', $errors);
             }
         }
         // display the form with errors and datas form
-        $this->render('register.twig', $errors, $form, $_SESSION);
+        $this->render('register.twig', $_SESSION, $errors, $form);
     }
 
     /**
@@ -140,8 +141,8 @@ class UserController extends Constraints
     {
         $_SESSION = [];
         $_SESSION['success'] = 'Vous êtes déconnecté';
-        header("Location:Accueil");
-        exit;
+        $this->render('homepage.twig', $_SESSION);
+        return;
     }
 
     /**
@@ -155,8 +156,8 @@ class UserController extends Constraints
      * @throws RuntimeError
      * @throws SyntaxError
      */
-    private function render(string $templateName, array $errors = [], array $form = [], array $session = [])
+    private function render(string $templateName, array $session, array $errors = [], array $form = [])
     {
-        echo $this->twig->render($templateName, ['error' => $errors, 'form' => $form, 'SESSION' => $session]);
+        echo $this->twig->render($templateName, ['SESSION' => $session, 'error' => $errors, 'form' => $form]);
     }
 }

@@ -6,10 +6,10 @@ use PDO;
 use Projet5\service\DatabaseService;
 
 /**
- * User read and insert
+ * Reading, inserting, updating and deleting users 
  */
 class UserModel extends DatabaseService
-{
+{    
     /**
      * loadUser
      *
@@ -59,11 +59,41 @@ class UserModel extends DatabaseService
      */
     public function insert(array $datas)
     {
-        $req = $this->getDb()->prepare('INSERT INTO bpf_users(pseudo, email, password, rank) VALUES(:pseudo, :email, :password, :rank)');
+        $req = $this->getDb()->prepare(
+            'INSERT INTO bpf_users(pseudo, email, password, rank) 
+            VALUES(:pseudo, :email, :password, :rank)'
+        );
         $req->bindValue(':pseudo', $datas['pseudo']);
         $req->bindValue(':email', $datas['email']);
         $req->bindValue(':password', password_hash($datas['password'], PASSWORD_DEFAULT));
         $req->bindValue(':rank', 'pending');
+        $req->execute();
+    }
+
+    /**
+     * validate a new user
+     *
+     * @param  int $idUser User identifier
+     * @return array of user informations
+     */
+    public function validateUserWithId(int $idUser)
+    {
+        $req = $this->getDb()->prepare('UPDATE bpf_Users SET rank=:rank WHERE id=:idUser');
+        $req->bindValue(':rank', 'registered');
+        $req->bindValue(':idUser', $idUser);
+        $req->execute();
+    }
+
+    /**
+     * delete a user
+     *
+     * @param  int $idUser User identifier
+     * @return array of user informations
+     */
+    public function deleteUserWithId(int $idUser)
+    {
+        $req = $this->getDb()->prepare('DELETE FROM bpf_Users WHERE id=:idUser');
+        $req->bindValue(':idUser', $idUser);
         $req->execute();
     }
 }
