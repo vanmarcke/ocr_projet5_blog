@@ -3,6 +3,7 @@
 namespace Projet5\controller;
 
 use Projet5\controller\TwigController;
+use Projet5\model\UserModel;
 
 /**
  * Set the page to display first 
@@ -10,21 +11,11 @@ use Projet5\controller\TwigController;
 class HomepageController extends TwigController
 {
 	/**
-	 * opening home page entry on site 
-	 *
-	 * @return void
-	 */
-	public function openHome()
-	{
-		header("Location:Accueil");
-	}
-
-	/**
 	 * Get Homepage
 	 *
-	 * @return object
+	 * @param UserModel $userModel
 	 */
-	public function index(object $userModel)
+	public function index(UserModel $userModel)
 	{
 		// load user datas if is connected
 		if (isset($_SESSION['IdConnectedUser'])) {
@@ -33,7 +24,21 @@ class HomepageController extends TwigController
 
 		// The form is not submitted, display the homepage
 		if (count($_POST) === 0) {
-			echo $this->twig->render('homepage.twig', ['SESSION' => $_SESSION]);
+			$this->render('homepage.twig', $_SESSION);
 		}
+	}
+
+	/**
+	 * render Template
+	 *
+	 * @param $templateName Template name to render
+	 * @param array $session user session	
+	 * @throws LoaderError
+	 * @throws RuntimeError
+	 * @throws SyntaxError
+	 */
+	private function render($templateName, array $session)
+	{
+		echo $this->twig->render($templateName, ['SESSION' => $session]);
 	}
 }
