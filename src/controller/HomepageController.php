@@ -29,6 +29,25 @@ class HomepageController extends TwigController
 	}
 
 	/**
+	 * Get error404
+	 *
+	 */
+	public function error404()
+	{
+		$this->render('error_404.twig', $_SESSION);
+	}
+
+	/**
+	 * Get error500
+	 *
+	 */
+	public function error500()
+	{
+		$this->render('error_500.twig', $_SESSION);
+	}
+
+
+	/**
 	 * render Template
 	 *
 	 * @param $templateName Template name to render

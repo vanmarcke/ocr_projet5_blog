@@ -3,13 +3,14 @@
 namespace Projet5\model;
 
 use PDO;
+use PDOException;
 use Projet5\service\DatabaseService;
 
 /**
  * Reading, inserting, updating and deleting users 
  */
 class UserModel extends DatabaseService
-{    
+{
     /**
      * loadUser
      *
@@ -18,10 +19,14 @@ class UserModel extends DatabaseService
      */
     public function loadUser(int $idUser)
     {
-        $req = $this->getDb()->prepare('SELECT * FROM `bpf_users` WHERE `id`= :id;');
-        $req->execute(['id' => $idUser]);
-        $userDatas = $req->fetch(PDO::FETCH_ASSOC);
-        return $userDatas;
+        try {
+            $req = $this->getDb()->prepare('SELECT * FROM `bpf_users` WHERE `id`= :id;');
+            $req->execute(['id' => $idUser]);
+            $userDatas = $req->fetch(PDO::FETCH_ASSOC);
+            return $userDatas;
+        } catch (PDOException $e) {
+            header('location:error-500');
+        }
     }
 
     /**
@@ -32,11 +37,15 @@ class UserModel extends DatabaseService
      */
     public function loadByEmail(string $email)
     {
-        $req = $this->getDb()->prepare('SELECT id FROM bpf_users WHERE email = :email');
-        $req->bindValue(':email', $email);
-        $req->execute();
-        $row = $req->fetch(PDO::FETCH_ASSOC);
-        return $this->loadUser($row['id']);
+        try {
+            $req = $this->getDb()->prepare('SELECT id FROM bpf_users WHERE email = :email');
+            $req->bindValue(':email', $email);
+            $req->execute();
+            $row = $req->fetch(PDO::FETCH_ASSOC);
+            return $this->loadUser($row['id']);
+        } catch (PDOException $e) {
+            header('location:error-500');
+        }
     }
 
     /**
@@ -46,9 +55,13 @@ class UserModel extends DatabaseService
      */
     public function loadPendingUsers()
     {
-        $req = $this->getDb()->prepare('SELECT * FROM `bpf_users` WHERE `rank`= "pending" ');
-        $req->execute();
-        return $req;
+        try {
+            $req = $this->getDb()->prepare('SELECT * FROM `bpf_users` WHERE `rank`= "pending" ');
+            $req->execute();
+            return $req;
+        } catch (PDOException $e) {
+            header('location:error-500');
+        }
     }
 
     /**
@@ -59,15 +72,19 @@ class UserModel extends DatabaseService
      */
     public function insert(array $datas)
     {
-        $req = $this->getDb()->prepare(
-            'INSERT INTO bpf_users(pseudo, email, password, rank) 
+        try {
+            $req = $this->getDb()->prepare(
+                'INSERT INTO bpf_users(pseudo, email, password, rank) 
             VALUES(:pseudo, :email, :password, :rank)'
-        );
-        $req->bindValue(':pseudo', $datas['pseudo']);
-        $req->bindValue(':email', $datas['email']);
-        $req->bindValue(':password', password_hash($datas['password'], PASSWORD_DEFAULT));
-        $req->bindValue(':rank', 'pending');
-        $req->execute();
+            );
+            $req->bindValue(':pseudo', $datas['pseudo']);
+            $req->bindValue(':email', $datas['email']);
+            $req->bindValue(':password', password_hash($datas['password'], PASSWORD_DEFAULT));
+            $req->bindValue(':rank', 'pending');
+            $req->execute();
+        } catch (PDOException $e) {
+            header('location:error-500');
+        }
     }
 
     /**
@@ -78,10 +95,14 @@ class UserModel extends DatabaseService
      */
     public function validateUserWithId(int $idUser)
     {
-        $req = $this->getDb()->prepare('UPDATE bpf_Users SET rank=:rank WHERE id=:idUser');
-        $req->bindValue(':rank', 'registered');
-        $req->bindValue(':idUser', $idUser);
-        $req->execute();
+        try {
+            $req = $this->getDb()->prepare('UPDATE bpf_users SET rank=:rank WHERE id=:idUser');
+            $req->bindValue(':rank', 'registered');
+            $req->bindValue(':idUser', $idUser);
+            $req->execute();
+        } catch (PDOException $e) {
+            header('location:error-500');
+        }
     }
 
     /**
@@ -92,8 +113,12 @@ class UserModel extends DatabaseService
      */
     public function deleteUserWithId(int $idUser)
     {
-        $req = $this->getDb()->prepare('DELETE FROM bpf_Users WHERE id=:idUser');
-        $req->bindValue(':idUser', $idUser);
-        $req->execute();
+        try {
+            $req = $this->getDb()->prepare('DELETE FROM bpf_users WHERE id=:idUser');
+            $req->bindValue(':idUser', $idUser);
+            $req->execute();
+        } catch (PDOException $e) {
+            header('location:error-500');
+        }
     }
 }

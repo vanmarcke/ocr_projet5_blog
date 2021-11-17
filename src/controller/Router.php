@@ -139,10 +139,19 @@ class Router
 					$adminController->displayRefusedComments($userModel, $postModel, $commentModel);
 					break;
 				}
-			default: {
-					$_SESSION['error'] = 'Erreur 404 - Page non trouvé';
+			case ($url[0] == 'error-404'): {
 					$homepageController = new HomepageController();
-					$homepageController->index($userModel);
+					$homepageController->error404();
+					break;
+				}
+			case ($url[0] == 'error-500'): {
+					$homepageController = new HomepageController();
+					$homepageController->error500();
+					break;
+				}
+			default: {
+					$homepageController = new HomepageController();
+					$homepageController->error404();
 					break;
 				}
 		}

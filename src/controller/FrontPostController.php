@@ -49,8 +49,8 @@ class FrontPostController extends Constraints
 		// if post not valide display a error message
 		if ($post['publish'] === self::POST_STATUS_WAITING || $post == null) {
 			$_SESSION['error'] = 'Cet article n\'existe pas ou est en attente de validation';
-			$this->render('homepage.twig', $_SESSION, [], [], [], []);
-			return;
+			header('location:Articles-Page1');
+			exit;
 		}
 
 		// load comments for this post

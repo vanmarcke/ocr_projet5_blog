@@ -3,6 +3,7 @@
 namespace Projet5\model;
 
 use PDO;
+use PDOException;
 use Projet5\service\DatabaseService;
 
 /**
@@ -21,19 +22,24 @@ class PostModel extends DatabaseService
      */
     public function loadAllPost(string $valide, int $startLimit = 0, int $numberPerPage = 30)
     {
-        $req = $this->getDb()->prepare(
-            'SELECT bpf_blog_posts.id, title, last_date_change, chapo, contents, bpf_users.pseudo 
-            FROM `bpf_blog_posts` 
-            LEFT JOIN bpf_users ON bpf_blog_posts.id_bpf_users = bpf_users.id 
-            WHERE publish = :publish 
-            ORDER BY bpf_blog_posts.id 
-            DESC LIMIT :startLimit , :numberPerPage '
-        );
-        $req->bindValue(':publish', $valide);
-        $req->bindValue(':startLimit', $startLimit, PDO::PARAM_INT);
-        $req->bindValue(':numberPerPage', $numberPerPage, PDO::PARAM_INT);
-        $req->execute();
-        return $req;
+
+        try {
+            $req = $this->getDb()->prepare(
+                'SELECT bpf_blog_posts.id, title, last_date_change, chapo, contents, bpf_users.pseudo 
+                    FROM `bpf_blog_posts` 
+                    LEFT JOIN bpf_users ON bpf_blog_posts.id_bpf_users = bpf_users.id 
+                    WHERE publish = :publish 
+                    ORDER BY bpf_blog_posts.id 
+                    DESC LIMIT :startLimit , :numberPerPage '
+            );
+            $req->bindValue(':publish', $valide);
+            $req->bindValue(':startLimit', $startLimit, PDO::PARAM_INT);
+            $req->bindValue(':numberPerPage', $numberPerPage, PDO::PARAM_INT);
+            $req->execute();
+            return $req;
+        } catch (PDOException $e) {
+            header('location:error-500');
+        }
     }
 
     /**
@@ -45,10 +51,14 @@ class PostModel extends DatabaseService
      */
     public function countAllPost(string $valide)
     {
-        $req = $this->getDb()->prepare('SELECT id FROM `bpf_blog_posts` WHERE publish = :publish');
-        $req->bindValue(':publish', $valide);
-        $req->execute();
-        return $req;
+        try {
+            $req = $this->getDb()->prepare('SELECT id FROM `bpf_blog_posts` WHERE publish = :publish');
+            $req->bindValue(':publish', $valide);
+            $req->execute();
+            return $req;
+        } catch (PDOException $e) {
+            header('location:error-500');
+        }
     }
 
     /**
@@ -60,16 +70,20 @@ class PostModel extends DatabaseService
      */
     public function loadPost(int $idPost)
     {
-        $req = $this->getDb()->prepare(
-            'SELECT bpf_blog_posts.id, title, last_date_change, chapo, contents, publish, bpf_users.pseudo 
+        try {
+            $req = $this->getDb()->prepare(
+                'SELECT bpf_blog_posts.id, title, last_date_change, chapo, contents, publish, bpf_users.pseudo 
             FROM bpf_blog_posts 
             LEFT JOIN bpf_users ON bpf_blog_posts.id_bpf_users = bpf_users.id 
             WHERE bpf_blog_posts.id = :idPost'
-        );
-        $req->bindValue(':idPost', $idPost);
-        $req->execute();
-        $row = $req->fetch(PDO::FETCH_ASSOC);
-        return $row;
+            );
+            $req->bindValue(':idPost', $idPost);
+            $req->execute();
+            $row = $req->fetch(PDO::FETCH_ASSOC);
+            return $row;
+        } catch (PDOException $e) {
+            header('location:error-500');
+        }
     }
 
     /**
@@ -81,16 +95,20 @@ class PostModel extends DatabaseService
      */
     public function insertPost(array $datas)
     {
-        $req = $this->getDb()->prepare(
-            'INSERT INTO bpf_blog_posts(title, last_date_change, chapo, contents, publish, id_bpf_users) 
+        try {
+            $req = $this->getDb()->prepare(
+                'INSERT INTO bpf_blog_posts(title, last_date_change, chapo, contents, publish, id_bpf_users) 
             VALUES(:title, NOW(), :chapo, :contents, :publish, :id_user)'
-        );
-        $req->bindValue(':title', $datas['title']);
-        $req->bindValue(':chapo', $datas['chapo']);
-        $req->bindValue(':contents', $datas['contents']);
-        $req->bindValue(':publish', 'waiting');
-        $req->bindValue(':id_user', $datas['id_user']);
-        $req->execute();
+            );
+            $req->bindValue(':title', $datas['title']);
+            $req->bindValue(':chapo', $datas['chapo']);
+            $req->bindValue(':contents', $datas['contents']);
+            $req->bindValue(':publish', 'waiting');
+            $req->bindValue(':id_user', $datas['id_user']);
+            $req->execute();
+        } catch (PDOException $e) {
+            header('location:error-500');
+        }
     }
 
     /**
@@ -103,16 +121,20 @@ class PostModel extends DatabaseService
      */
     public function updatePost(int $idPost, array $datas)
     {
-        $req = $this->getDb()->prepare(
-            'UPDATE bpf_blog_posts 
+        try {
+            $req = $this->getDb()->prepare(
+                'UPDATE bpf_blog_posts 
             SET title=:title, last_date_change=NOW(), chapo=:chapo, contents=:contents 
             WHERE id=:idPost'
-        );
-        $req->bindValue(':title', $datas['title']);
-        $req->bindValue(':chapo', $datas['chapo']);
-        $req->bindValue(':contents', $datas['contents']);
-        $req->bindValue(':idPost', $idPost);
-        $req->execute();
+            );
+            $req->bindValue(':title', $datas['title']);
+            $req->bindValue(':chapo', $datas['chapo']);
+            $req->bindValue(':contents', $datas['contents']);
+            $req->bindValue(':idPost', $idPost);
+            $req->execute();
+        } catch (PDOException $e) {
+            header('location:error-500');
+        }
     }
 
     /**
@@ -124,10 +146,14 @@ class PostModel extends DatabaseService
      */
     public function publishPostWithId(int $idPost)
     {
-        $req = $this->getDb()->prepare('UPDATE bpf_blog_posts SET publish=:publish WHERE id=:idPost');
-        $req->bindValue(':publish', 'valid');
-        $req->bindValue(':idPost', $idPost);
-        $req->execute();
+        try {
+            $req = $this->getDb()->prepare('UPDATE bpf_blog_posts SET publish=:publish WHERE id=:idPost');
+            $req->bindValue(':publish', 'valid');
+            $req->bindValue(':idPost', $idPost);
+            $req->execute();
+        } catch (PDOException $e) {
+            header('location:error-500');
+        }
     }
 
     /**
@@ -137,8 +163,12 @@ class PostModel extends DatabaseService
      */
     public function deletePostWithId(int $idPost)
     {
-        $req = $this->getDb()->prepare('DELETE FROM bpf_blog_posts WHERE id=:idPost');
-        $req->bindValue(':idPost', $idPost);
-        $req->execute();
+        try {
+            $req = $this->getDb()->prepare('DELETE FROM bpf_blog_posts WHERE id=:idPost');
+            $req->bindValue(':idPost', $idPost);
+            $req->execute();
+        } catch (PDOException $e) {
+            header('location:error-500');
+        }
     }
 }

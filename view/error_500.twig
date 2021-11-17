@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<title>Erreur 500</title>
+
+		<!-- Custom stlylesheet -->
+		<link type="text/css" rel="stylesheet" href="assets/css/style_error_500.css"/>
+
+	</head>
+
+	<body>
+
+		<p>HTTP:
+			<span>500</span>
+		</p>
+		<code>
+			<span>this_page</span>.<em>$_SESSION['error']</em>
+			= true;</code>
+		<code>
+			<span>if</span>
+			(<b>cela_est_une_erreur_serveur</b>) {<span>essayez_encore()</span>;}</code>
+		<code>
+			<span>else if (<b>il_y_a_une_autre_erreur</b>)</span>
+			{<em>alert</em>(<i>"Nous sommes vraiment désolés pour ça."</i>);
+			<span>window</span>.<em>location</em>
+			= Blog;}</code>
+		<center>
+			<a href="Articles-Page1">Retour Blog</a>
+		</center>
+
+	</body>
+
+	<script src="assets/js/error_500.js"></script>
+
+</html>
