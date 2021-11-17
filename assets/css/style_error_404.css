@@ -8,20 +8,6 @@ body {
   margin: 0;
 }
 
-#notfound {
-  position: relative;
-  height: 100vh;
-}
-
-#notfound .notfound {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-}
-
 .notfound {
   max-width: 410px;
   width: 100%;
@@ -37,7 +23,7 @@ body {
 .notfound .notfound-404 h1 {
   font-family: 'Montserrat', sans-serif;
   font-size: 230px;
-  margin: 0px;
+  margin: 0;
   font-weight: 900;
   position: absolute;
   left: 50%;
@@ -92,4 +78,18 @@ body {
   .notfound .notfound-404 h1 {
     font-size: 112px;
   }
+}
+
+#notfound {
+  position: relative;
+  height: 100vh;
+}
+
+#notfound .notfound {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
