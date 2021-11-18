@@ -53,7 +53,7 @@
 				<div class="form-group">
 					<label for="comment">Votre commentaire</label>
 					<textarea class="form-control" name="contents" id="comment" value="{{userDatas.pseudo}}"></textarea>
-				</div>
+				</div><br>
 				<input class="btn btn-primary" type="submit" value="Envoyer">
 			</form><br>
 		{% endif %}
@@ -70,16 +70,14 @@
 				</div><br>
 
 			{% elseif comment.publish == 'waiting' %}
-				<div class="card">
-					<div class="card-body" style="background: #d9d9d9;">
-						<p class="card-text">Ce commentaire est en attente de validation</p>
-						<h6 class="card-subtitle mb-2 text-muted">Ecrit par
-							{{ comment.pseudo }}
-							le
-							{{ comment.date_comment|date("d/m/Y")}}</h6>
-					</div>
-				</div><br>
+				<small>
+					<i class="card-text">Un nouveau commentaire écrit par
+						{{ comment.pseudo }}
+						est en attente de validation...</i>
+				</small>
+				<hr class="my-4"/>
 			{% endif %}
+
 		{% endfor %}
 	</div>
 
