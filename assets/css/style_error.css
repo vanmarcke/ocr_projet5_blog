@@ -14,13 +14,13 @@ body {
   text-align: center;
 }
 
-.notfound .notfound-404 {
+.notfound .notfound-error {
   height: 280px;
   position: relative;
   z-index: -1;
 }
 
-.notfound .notfound-404 h1 {
+.notfound .notfound-error h1 {
   font-family: 'Montserrat', sans-serif;
   font-size: 230px;
   margin: 0;
@@ -71,11 +71,11 @@ body {
 }
 
 @media only screen and (max-width: 767px) {
-  .notfound .notfound-404 {
+  .notfound .notfound-error {
     height: 142px;
   }
 
-  .notfound .notfound-404 h1 {
+  .notfound .notfound-error h1 {
     font-size: 112px;
   }
 }
