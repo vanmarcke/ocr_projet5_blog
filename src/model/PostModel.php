@@ -124,12 +124,13 @@ class PostModel extends DatabaseService
         try {
             $req = $this->getDb()->prepare(
                 'UPDATE bpf_blog_posts 
-            SET title=:title, last_date_change=NOW(), chapo=:chapo, contents=:contents 
+            SET title=:title, last_date_change=NOW(), chapo=:chapo, contents=:contents, id_bpf_users=:id_user 
             WHERE id=:idPost'
             );
             $req->bindValue(':title', $datas['title']);
             $req->bindValue(':chapo', $datas['chapo']);
             $req->bindValue(':contents', $datas['contents']);
+            $req->bindValue(':id_user', $datas['id_user']);
             $req->bindValue(':idPost', $idPost);
             $req->execute();
         } catch (PDOException $e) {

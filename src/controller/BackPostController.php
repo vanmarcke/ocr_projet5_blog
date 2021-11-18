@@ -105,6 +105,7 @@ class BackPostController extends SessionController
 		$title = (isset($_POST['title'])) ? $_POST['title'] : "";
 		$chapo = (isset($_POST['chapo'])) ? $_POST['chapo'] : "";
 		$contents = (isset($_POST['contents'])) ? $_POST['contents'] : "";
+		$id_user = (isset($_SESSION['IdConnectedUser'])) ? $_SESSION['IdConnectedUser'] : "";
 		$errors = [];
 
 		// Constraints
@@ -119,7 +120,8 @@ class BackPostController extends SessionController
 			$postModel->updatePost($idPost, [
 				'title' => $title,
 				'chapo' => $chapo,
-				'contents' => $contents
+				'contents' => $contents,
+				'id_user' => $id_user
 			]);
 			$_SESSION['success'] = self::MESSAGE_VALID_OK . ' mis à jour';
 			header('location:Article-'.$post['id'].'-page1');
@@ -131,6 +133,7 @@ class BackPostController extends SessionController
 			'title' => $title,
 			'chapo' => $chapo,
 			'contents' => $contents,
+			'id_user' => $id_user,
 			'id_post' => $idPost
 		];
 
