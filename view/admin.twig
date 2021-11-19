@@ -17,7 +17,7 @@
 			<div class="card text-center border-left-primary">
 				<div class="card-body" style="background: #d9d9d9;">
 					<h5 class="card-title">{{pendingUser.pseudo}}</h5>
-					<p class="card-text">{{pendingUser.email}}</p>
+					<a href="mailto:{{pendingUser.email}}" class="btn btn-outline-dark">{{pendingUser.email}}</a>
 				</div>
 				<form class="card-footer" method="post" action="Administration">
 					<button class="btn btn-success" type="submit" name="idValidateUser" value="{{pendingUser.id}}">Valider</button>
