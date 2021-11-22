@@ -47,7 +47,7 @@ class UserController extends Constraints
                 $_SESSION['IdConnectedUser'] = $userDatas['id'];
                 $_SESSION['pseudoConnectedUser'] = $userDatas['pseudo'];
                 $_SESSION['rankConnectedUser'] = $userDatas['rank'];
-                $_SESSION['success'] = 'Vous êtes connecté';
+                $_SESSION['success'] = 'Hello ' .$_SESSION['pseudoConnectedUser'] . ', vous êtes connecté';
                 if ($_SESSION['rankConnectedUser'] == 'admin') {
                     header('location:Administration');
                     exit;
