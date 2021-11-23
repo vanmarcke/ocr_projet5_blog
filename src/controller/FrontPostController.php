@@ -20,6 +20,17 @@ class FrontPostController extends Constraints
 	 */
 	public function displayPosts($postModel, int $currentPage)
 	{
+		// if database error display an error message
+        if ($postModel->countAllPost('') == false) {
+            $this->render('error_500.twig', $_SESSION, []);
+            return;
+        }
+	
+		if ($postModel->loadAllPost('') == false) {
+			$this->render('error_500.twig', $_SESSION, []);
+			return;
+		}
+
 		// count number of row valide
 		$countPosts = $postModel->countAllPost($valide = self::VALUE_POST_VALID);
 		$numberPosts = $countPosts->rowCount();
@@ -48,9 +59,9 @@ class FrontPostController extends Constraints
 
 		// if the post does not exist display an error message 		
 		if ($postModel->loadPost($idPost) == false) {
-            $this->render('error_404.twig', $_SESSION, []);
-            return;
-        }
+			$this->render('error_404.twig', $_SESSION, []);
+			return;
+		}
 
 		// if the post is waiting display an error message 
 		if ($post['publish'] === self::POST_STATUS_WAITING) {
@@ -58,6 +69,13 @@ class FrontPostController extends Constraints
 			header('location:Articles-Page1');
 			exit;
 		}
+
+		// if database error display an error message 
+		if ($commentModel->loadAllCommentsWithIdPost($idPost) == false) {
+			$this->render('error_500.twig', $_SESSION, []);
+			return;
+		}
+
 
 		// load comments for this post
 		$comments = $commentModel->loadAllCommentsWithIdPost($idPost);

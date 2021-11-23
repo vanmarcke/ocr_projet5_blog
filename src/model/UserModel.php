@@ -60,7 +60,7 @@ class UserModel extends DatabaseService
             $req->execute();
             return $req;
         } catch (PDOException $e) {
-            header('location:error-500');
+          return false;
         }
     }
 

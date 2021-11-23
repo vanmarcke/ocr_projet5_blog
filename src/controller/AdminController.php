@@ -36,13 +36,33 @@ class AdminController extends SessionController
 		// controle if a POST variable exist and execute
 		$this->controleForms($userModel, $postModel, $commentModel);
 
+		// if database error display an error message
+		switch (true) {
+			case ($userModel->loadPendingUsers() == false): {
+					$this->render('error_500.twig', $_SESSION, []);
+					break;
+				}
+			case ($postModel->loadAllPost('') == false): {
+					$this->render('error_500.twig', $_SESSION, []);
+					break;
+				}
+			case ($commentModel->loadInvalidComments() == false): {
+					$this->render('error_500.twig', $_SESSION, []);
+					break;
+				}
+			case ($commentModel->loadRefuseComments() == false): {
+					$this->render('error_500.twig', $_SESSION, []);
+					break;
+				}
+		}
+
 		// load pending users
 		$pendingUsers = $userModel->loadPendingUsers();
-		// load invalide posts
+		// load invalide posts        
 		$invalidePosts = $postModel->loadAllPost($valide = self::POST_STATUS_WAITING);
-		// load invalide comments
+		// load invalide comments        
 		$invalideComments = $commentModel->loadInvalidComments();
-		// load the refused comments
+		// load the refused comments        
 		$refuseComments = $commentModel->loadRefuseComments();
 
 		// display 
@@ -79,6 +99,12 @@ class AdminController extends SessionController
 		// controle if a POST variable exist and execute
 		$this->controleForms($userModel, $postModel, $commentModel);
 
+		// if database error display an error message 
+        if ($postModel->loadAllPost('') == false) {
+            $this->render('error_500.twig', $_SESSION, []);
+            return;
+        }
+
 		// load invalide posts
 		$invalidePosts = $postModel->loadAllPost($valide = self::POST_STATUS_WAITING);
 
@@ -107,6 +133,12 @@ class AdminController extends SessionController
 
 		// controle if a POST variable exist and execute
 		$this->controleForms($userModel, $postModel, $commentModel);
+
+		// if database error display an error message 
+        if ($userModel->loadPendingUsers() == false) {
+            $this->render('error_500.twig', $_SESSION, []);
+            return;
+        }
 
 		// load pending users
 		$pendingUsers = $userModel->loadPendingUsers();
@@ -137,6 +169,12 @@ class AdminController extends SessionController
 		// controle if a POST variable exist and execute
 		$this->controleForms($userModel, $postModel, $commentModel);
 
+		// if database error display an error message 
+        if ($commentModel->loadInvalidComments() == false) {
+            $this->render('error_500.twig', $_SESSION, []);
+            return;
+        }
+
 		// load invalide comments
 		$invalideComments = $commentModel->loadInvalidComments();
 
@@ -165,6 +203,12 @@ class AdminController extends SessionController
 
 		// controle if a POST variable exist and execute
 		$this->controleForms($userModel, $postModel, $commentModel);
+
+		// if database error display an error message 
+        if ($commentModel->loadRefuseComments() == false) {
+            $this->render('error_500.twig', $_SESSION, []);
+            return;
+        }
 
 		// load the refused comments
 		$refuseComments = $commentModel->loadRefuseComments();
