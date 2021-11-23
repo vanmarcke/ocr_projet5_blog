@@ -175,7 +175,6 @@ class Constraints extends TwigController
     const USER_RIGHT_ADMIN = 'admin';
     const POST_STATUS_WAITING = 'waiting';
     const MESSAGE_VALID_OK = 'L\'article à bien été';
-    const MESSAGE_NO_ADMIN = 'Cette page est réservée à l\'administrateur';
 
     /**
      * isAdmin checks if admin is true otherwise returns an error if admin is false  
@@ -189,7 +188,6 @@ class Constraints extends TwigController
         if ($rankUser === self::USER_RIGHT_ADMIN) {
             return true;
         }
-        $_SESSION['error'] = self::MESSAGE_NO_ADMIN;
         return false;
     }
 

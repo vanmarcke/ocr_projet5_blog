@@ -34,10 +34,17 @@ class CommentController extends SessionController
 				'id_blog_post' => $idPost,
 				'id_user' => $_SESSION['IdConnectedUser']
 			]);
-			// redirect on post
-			$_SESSION['success'] = 'Votre commentaire à été envoyé, il est en attente de validation par un administrateur';
-			header('location:Article-' . $idPost . '-Page1');
-			exit;
+			if (!$this->isAdmin($_SESSION['rankConnectedUser'])) {
+				// redirect on post if user
+				$_SESSION['success'] = 'Votre commentaire à été enregistré, il est en attente de validation par un administrateur';
+				header('location:Article-' . $idPost . '-Page1');
+				exit;
+			} else {
+				// redirect on post if admin
+				$_SESSION['success'] = 'Votre commentaire à été ajouté';
+				header('location:Article-' . $idPost . '-Page1');
+				exit;
+			}
 		} else {
 			// redirect on post with error
 			$_SESSION['error'] = $errors['contents'];

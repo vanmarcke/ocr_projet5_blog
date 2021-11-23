@@ -94,10 +94,17 @@ class CommentModel extends DatabaseService
             VALUES(:contents, :publish, :id_blog_post, :id_user)'
             );
             $req->bindValue(':contents', $datas['contents']);
-            $req->bindValue(':publish', 'waiting');
-            $req->bindValue(':id_blog_post', $datas['id_blog_post']);
-            $req->bindValue(':id_user', $datas['id_user']);
-            $req->execute();
+            if (!$this->isAdmin($_SESSION['rankConnectedUser'])) {
+                $req->bindValue(':publish', 'waiting');
+                $req->bindValue(':id_blog_post', $datas['id_blog_post']);
+                $req->bindValue(':id_user', $datas['id_user']);
+                $req->execute();
+            } else {
+                $req->bindValue(':publish', 'valid');
+                $req->bindValue(':id_blog_post', $datas['id_blog_post']);
+                $req->bindValue(':id_user', $datas['id_user']);
+                $req->execute();
+            }
         } catch (PDOException $e) {
             header('location:error-500');
         }

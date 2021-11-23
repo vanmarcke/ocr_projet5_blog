@@ -22,16 +22,14 @@
     
     {{ include('message_display.twig') }}
 
-    <div class="container">
-        <div class="card">
+    <div class="container">        
             <div class="card-body">
                 <h5 class="card-title">Voulez vous vraiment supprimer l'article ?</h5>
             </div>
             <form class="card-footer" method="post" action="Supprimer-Article-{{post.id}}">
                 <button class="btn btn-primary" type="submit" name="idDeletePost" value="{{post.id}}">Supprimer</button>
                 <button class="btn btn-danger" type="submit" name="cancel" value="{{post.id}}">Annuler</button>
-            </form>
-        </div>
+            </form>        
     </div>
 
 {% endblock %}

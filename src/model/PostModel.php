@@ -82,7 +82,7 @@ class PostModel extends DatabaseService
             $row = $req->fetch(PDO::FETCH_ASSOC);
             return $row;
         } catch (PDOException $e) {
-            header('location:error-500');
+            return false;
         }
     }
 

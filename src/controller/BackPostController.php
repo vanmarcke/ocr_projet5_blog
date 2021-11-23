@@ -23,7 +23,7 @@ class BackPostController extends SessionController
 	{
 		// If I do not follow admin, return to the home page
 		if (!$this->isAdmin($_SESSION['rankConnectedUser'])) {
-			$this->render('homepage.twig', $_SESSION);
+			$this->render('error_404.twig', $_SESSION);
 			return;
 		}
 
@@ -91,7 +91,7 @@ class BackPostController extends SessionController
 
 		// If I do not follow admin, return to the home page
 		if (!$this->isAdmin($_SESSION['rankConnectedUser'])) {
-			$this->render('homepage.twig', $_SESSION);
+			$this->render('error_404.twig', $_SESSION);
 			return;
 		}
 
@@ -159,7 +159,7 @@ class BackPostController extends SessionController
 
 		// If I do not follow admin, return to the home page
 		if (!$this->isAdmin($_SESSION['rankConnectedUser'])) {
-			$this->render('homepage.twig', $_SESSION);
+			$this->render('error_404.twig', $_SESSION);
 			return;
 		}
 

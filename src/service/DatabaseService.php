@@ -5,11 +5,12 @@ namespace Projet5\service;
 use Exception;
 use PDO;
 use PDOException;
+use Projet5\controller\Constraints;
 
 /**
  * Define the database connection parameters 
  */
-class DatabaseService
+class DatabaseService extends Constraints
 {
 	/**
 	 * bdd
