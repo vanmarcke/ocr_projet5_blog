@@ -35,7 +35,7 @@ class CommentModel extends DatabaseService
             $req->execute();
             return $req;
         } catch (PDOException $e) {
-           return false;
+            return false;
         }
     }
 
@@ -88,25 +88,21 @@ class CommentModel extends DatabaseService
      */
     public function insertComment(array $datas)
     {
-        try {
-            $req = $this->getDb()->prepare(
-                'INSERT INTO bpf_comments(contents, publish, id_bpf_blog_posts, id_bpf_users) 
+        $req = $this->getDb()->prepare(
+            'INSERT INTO bpf_comments(contents, publish, id_bpf_blog_posts, id_bpf_users) 
             VALUES(:contents, :publish, :id_blog_post, :id_user)'
-            );
-            $req->bindValue(':contents', $datas['contents']);
-            if (!$this->isAdmin($_SESSION['rankConnectedUser'])) {
-                $req->bindValue(':publish', 'waiting');
-                $req->bindValue(':id_blog_post', $datas['id_blog_post']);
-                $req->bindValue(':id_user', $datas['id_user']);
-                $req->execute();
-            } else {
-                $req->bindValue(':publish', 'valid');
-                $req->bindValue(':id_blog_post', $datas['id_blog_post']);
-                $req->bindValue(':id_user', $datas['id_user']);
-                $req->execute();
-            }
-        } catch (PDOException $e) {
-            header('location:error-500');
+        );
+        $req->bindValue(':contents', $datas['contents']);
+        if (!$this->isAdmin($_SESSION['rankConnectedUser'])) {
+            $req->bindValue(':publish', 'waiting');
+            $req->bindValue(':id_blog_post', $datas['id_blog_post']);
+            $req->bindValue(':id_user', $datas['id_user']);
+            $req->execute();
+        } else {
+            $req->bindValue(':publish', 'valid');
+            $req->bindValue(':id_blog_post', $datas['id_blog_post']);
+            $req->bindValue(':id_user', $datas['id_user']);
+            $req->execute();
         }
     }
 
@@ -119,14 +115,10 @@ class CommentModel extends DatabaseService
      */
     public function publishCommentWithId(int $idComment)
     {
-        try {
-            $req = $this->getDb()->prepare('UPDATE bpf_comments SET publish=:publish WHERE id=:idComment');
-            $req->bindValue(':publish', 'valid');
-            $req->bindValue(':idComment', $idComment);
-            $req->execute();
-        } catch (PDOException $e) {
-            header('location:error-500');
-        }
+        $req = $this->getDb()->prepare('UPDATE bpf_comments SET publish=:publish WHERE id=:idComment');
+        $req->bindValue(':publish', 'valid');
+        $req->bindValue(':idComment', $idComment);
+        $req->execute();
     }
 
     /**
@@ -136,13 +128,9 @@ class CommentModel extends DatabaseService
      */
     public function deleteCommentWithId(int $idComment)
     {
-        try {
-            $req = $this->getDb()->prepare('DELETE FROM bpf_comments WHERE id=:idComment');
-            $req->bindValue(':idComment', $idComment);
-            $req->execute();
-        } catch (PDOException $e) {
-            header('location:error-500');
-        }
+        $req = $this->getDb()->prepare('DELETE FROM bpf_comments WHERE id=:idComment');
+        $req->bindValue(':idComment', $idComment);
+        $req->execute();
     }
 
     /**
@@ -154,13 +142,9 @@ class CommentModel extends DatabaseService
      */
     public function refuseCommentWithId(int $idComment)
     {
-        try {
-            $req = $this->getDb()->prepare('UPDATE bpf_comments SET publish=:publish WHERE id=:idComment');
-            $req->bindValue(':publish', 'refused');
-            $req->bindValue(':idComment', $idComment);
-            $req->execute();
-        } catch (PDOException $e) {
-            header('location:error-500');
-        }
+        $req = $this->getDb()->prepare('UPDATE bpf_comments SET publish=:publish WHERE id=:idComment');
+        $req->bindValue(':publish', 'refused');
+        $req->bindValue(':idComment', $idComment);
+        $req->execute();
     }
 }

@@ -38,6 +38,12 @@ class UserController extends Constraints
 
         $this->checkPassword($password, $errors);
 
+        // if database error display an error message 
+		if ($userModel->loadByEmail($email) == false) {
+			$this->render('error_500.twig', $_SESSION, []);
+			return;
+		}
+
         // load user if control ok
         if (empty($errors)) {
             $userDatas = $userModel->loadByEmail($email);
