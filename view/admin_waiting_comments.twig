@@ -12,6 +12,9 @@
 
 		<h3 class="card text-center m-5">Commentaire(s) à valider</h3>
 		{% for invalideComment in invalideComments %}
+		<pre>
+			{{ dump(invalideComment) }}
+		</pre>
 			<div class="card text-center border-left-info">
 				<div class="card-body" style="background: #d9d9d9;">
 					<p class="card-text">{{invalideComment.contents|nl2br}}</p>

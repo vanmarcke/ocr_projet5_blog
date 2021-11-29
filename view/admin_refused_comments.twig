@@ -11,18 +11,21 @@
 		{{ include('message_display.twig') }}
 
 		<h3 class="card text-center m-5">Commentaire(s) refusé</h3>
-		{% for refuseComments in refuseComments %}
+		{% for refuseComment in refuseComments %}
+		<pre>
+			{{ dump(refuseComment) }}
+		</pre>
 			<div class="card text-center border-left-danger">
 				<div class="card-body" style="background: #d9d9d9;">
-					<p class="card-text">{{refuseComments.contents|nl2br}}</p>
+					<p class="card-text">{{refuseComment.contents|nl2br}}</p>
 					<h6 class="card-subtitle mb-2 text-muted">Ecrit par
-						{{refuseComments.pseudo}}
+						{{refuseComment.pseudo}}
 						le
-						{{invalideComment.date_comment|date("d/m/Y")}}</h6>
+						{{refuseComment.dateComment|date("d/m/Y")}}</h6>
 				</div>
 				<form class="card-footer" method="post" action="admin-waiting-comments">
-					<button class="btn btn-success" type="submit" name="idPublishComment" value="{{refuseComments.id}}">Valider</button>
-					<button class="btn btn-danger" type="submit" name="idDeleteComment" value="{{refuseComments.id}}">Supprimer</button>
+					<button class="btn btn-success" type="submit" name="idPublishComment" value="{{refuseComment.id}}">Valider</button>
+					<button class="btn btn-danger" type="submit" name="idDeleteComment" value="{{refuseComment.id}}">Supprimer</button>
 				</form>
 			</div><hr><br>
 		{% endfor %}

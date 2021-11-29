@@ -12,6 +12,9 @@
 
 		<h3 class="card text-center m-5">Post(s) à valider</h3>
 		{% for invalidePost in invalidePosts %}
+		<pre>
+			{{ dump(invalidePost) }}
+		</pre>
 			<div class="card border-left-success">
 				<div class="card-body" style="background: #d9d9d9;">
 					<h5 class="card-title text-center">
@@ -27,7 +30,7 @@
 					<h6 class="card-subtitle mb-2 text-muted">Ecrit par
 						{{invalidePost.pseudo}}
 						le
-						{{invalidePost.last_date_change|date("d/m/Y")}}</h6>
+						{{invalidePost.lastDateChange|date("d/m/Y")}}</h6>
 				</div>
 				<form class="card-footer text-center" method="post" action="admin-waiting-posts">
 					<a class="btn btn-primary" href="Modifier-Article-{{ invalidePost.id }}">Modifier</a>				

@@ -19,14 +19,14 @@ class UserModel extends DatabaseService
      */
     public function loadUser(int $idUser)
     {
-        try {
+        // try {
             $req = $this->getDb()->prepare('SELECT * FROM `bpf_users` WHERE `id`= :id;');
             $req->execute(['id' => $idUser]);
             $userDatas = $req->fetch(PDO::FETCH_ASSOC);
             return $userDatas;
-        } catch (PDOException $e) {
-            return false;
-        }
+        // } catch (PDOException $e) {
+        //     return false;
+        // }
     }
 
     /**
@@ -37,15 +37,15 @@ class UserModel extends DatabaseService
      */
     public function loadByEmail(string $email)
     {
-        try {
+        // try {
             $req = $this->getDb()->prepare('SELECT id FROM bpf_users WHERE email = :email');
             $req->bindValue(':email', $email);
             $req->execute();
             $row = $req->fetch(PDO::FETCH_ASSOC);
             return $this->loadUser($row['id']);
-        } catch (PDOException $e) {
-            return false;
-        }
+        // } catch (PDOException $e) {
+        //     return false;
+        // }
     }
 
     /**
@@ -55,13 +55,13 @@ class UserModel extends DatabaseService
      */
     public function loadPendingUsers()
     {
-        try {
-            $req = $this->getDb()->prepare('SELECT * FROM `bpf_users` WHERE `rank`= "pending" ');
+        // try {
+            $req = $this->getDb()->prepare('SELECT pseudo, email FROM `bpf_users` WHERE `rank`= "pending" ');
             $req->execute();
-            return $req;
-        } catch (PDOException $e) {
-            return false;
-        }
+            return $req->fetchAll(PDO::FETCH_CLASS, 'Projet5\entity\User');
+        // } catch (PDOException $e) {
+        //     return true;
+        // }
     }
 
     /**

@@ -21,15 +21,15 @@ class FrontPostController extends Constraints
 	public function displayPosts($postModel, int $currentPage)
 	{
 		// if database error display an error message
-        if ($postModel->countAllPost('') == false) {
-            $this->render('error_500.twig', $_SESSION, []);
-            return;
-        }
+        // if ($postModel->countAllPost('') == false) {
+        //     $this->render('error_500.twig', $_SESSION, []);
+        //     return;
+        // }
 	
-		if ($postModel->loadAllPost('') == false) {
-			$this->render('error_500.twig', $_SESSION, []);
-			return;
-		}
+		// if ($postModel->loadAllPost('') == false) {
+		// 	$this->render('error_500.twig', $_SESSION, []);
+		// 	return;
+		// }
 
 		// count number of row valide
 		$countPosts = $postModel->countAllPost($valide = self::VALUE_POST_VALID);
@@ -58,10 +58,10 @@ class FrontPostController extends Constraints
 		$post = $postModel->loadPost($idPost);
 
 		// if the post does not exist display an error message 		
-		if ($postModel->loadPost($idPost) == false) {
-			$this->render('error_404.twig', $_SESSION, []);
-			return;
-		}
+		// if ($postModel->loadPost($idPost) == false) {
+		// 	$this->render('error_404.twig', $_SESSION, []);
+		// 	return;
+		// }
 
 		// if the post is waiting display an error message 
 		if ($post['publish'] === self::POST_STATUS_WAITING) {
@@ -71,22 +71,28 @@ class FrontPostController extends Constraints
 		}
 
 		// if database error display an error message 
-		if ($commentModel->loadAllCommentsWithIdPost($idPost) == false) {
-			$this->render('error_500.twig', $_SESSION, []);
-			return;
-		}
+		// if ($commentModel->loadAllCommentsWithIdPost($idPost) == false) {
+		// 	$this->render('error_500.twig', $_SESSION, []);
+		// 	return;
+		// }
+
+		// // load comments for this post
+		// $comments = $commentModel->loadAllCommentsWithIdPost($idPost);
+		// // count number of row
+		// $numberComments = $comments->rowCount();
+		// // take Limits for request SQL
+		// $paging = $this->paging(Router::COMMENT_PER_PAGE, $numberComments, $currentPage);
+		// // load comments with limit
+		// $comments = $commentModel->loadAllCommentsWithIdPost($idPost, $paging['startLimit'], Router::COMMENT_PER_PAGE);
+		// // display post and comments 
+		// $this->render('post.twig', $_SESSION, $paging, $post, [], $comments);
 
 
 		// load comments for this post
 		$comments = $commentModel->loadAllCommentsWithIdPost($idPost);
-		// count number of row
-		$numberComments = $comments->rowCount();
-		// take Limits for request SQL
-		$paging = $this->paging(Router::COMMENT_PER_PAGE, $numberComments, $currentPage);
-		// load comments with limit
-		$comments = $commentModel->loadAllCommentsWithIdPost($idPost, $paging['startLimit'], Router::COMMENT_PER_PAGE);
+		
 		// display post and comments 
-		$this->render('post.twig', $_SESSION, $paging, $post, [], $comments);
+		$this->render('post.twig', $_SESSION, [], $post, [], $comments);
 	}
 
 	/**

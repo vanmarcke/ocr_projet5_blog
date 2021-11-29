@@ -14,6 +14,9 @@
 
 		<h3 class="card text-center m-5">Utilisateur(s) à valider</h3>
 		{% for pendingUser in pendingUsers %}
+		<pre>
+			{{ dump(pendingUser) }}
+		</pre>
 			<div class="card text-center border-left-primary">
 				<div class="card-body" style="background: #d9d9d9;">
 					<h5 class="card-title">{{pendingUser.pseudo}}</h5>
@@ -29,6 +32,9 @@
 
 		<h3 class="card text-center m-5">Post(s) à valider</h3>
 		{% for invalidePost in invalidePosts %}
+		<pre>
+			{{ dump(invalidePost) }}
+		</pre>
 			<div class="card border-left-success">
 				<div class="card-body" style="background: #d9d9d9;">
 					<h5 class="card-title">
@@ -45,7 +51,7 @@
 					<h6 class="card-subtitle mb-2 text-muted">Ecrit par
 						{{invalidePost.pseudo}}
 						le
-						{{invalidePost.date_comment|date("d/m/Y")}}</h6>
+						{{invalidePost.lastDateChange|date("d/m/Y")}}</h6>
 				</div>
 				<form class="card-footer text-center" method="post" action="Administration">
 					<a class="btn btn-primary" href="Modifier-Article-{{ invalidePost.id }}">Modifier</a>	
@@ -58,13 +64,16 @@
 
 		<h3 class="card text-center m-5">Commentaire(s) à valider</h3>
 		{% for invalideComment in invalideComments %}
+		<pre>
+			{{ dump(invalideComment) }}
+		</pre>
 			<div class="card text-center border-left-info">
 				<div class="card-body" style="background: #d9d9d9;">
 					<p class="card-text">{{invalideComment.contents|nl2br}}</p>
 					<h6 class="card-subtitle mb-2 text-muted">Ecrit par
 						{{invalideComment.pseudo}}
 						le
-						{{invalideComment.date_comment|date("d/m/Y")}}</h6>
+						{{invalideComment.dateComment|date("d/m/Y")}}</h6>
 				</div>
 				<form class="card-footer" method="post" action="Administration">
 					<button class="btn btn-success" type="submit" name="idPublishComment" value="{{invalideComment.id}}">Valider</button>
@@ -76,18 +85,21 @@
 
 
 		<h3 class="card text-center m-5">Commentaire(s) refusé</h3>
-		{% for refuseComments in refuseComments %}
+		{% for refuseComment in refuseComments %}
+		<pre>
+			{{ dump(refuseComment) }}
+		</pre>
 			<div class="card text-center border-left-danger">
 				<div class="card-body" style="background: #d9d9d9;">
-					<p class="card-text">{{refuseComments.contents|nl2br}}</p>
+					<p class="card-text">{{refuseComment.contents|nl2br}}</p>
 					<h6 class="card-subtitle mb-2 text-muted">Ecrit par
-						{{refuseComments.pseudo}}
+						{{refuseComment.pseudo}}
 						le
-						{{invalideComment.date_comment|date("d/m/Y")}}</h6>
+						{{refuseComment.dateComment|date("d/m/Y")}}</h6>
 				</div>
 				<form class="card-footer" method="post" action="Administration">
-					<button class="btn btn-success" type="submit" name="idPublishComment" value="{{refuseComments.id}}">Valider</button>
-					<button class="btn btn-danger" type="submit" name="idDeleteComment" value="{{refuseComments.id}}">Supprimer</button>
+					<button class="btn btn-success" type="submit" name="idPublishComment" value="{{refuseComment.id}}">Valider</button>
+					<button class="btn btn-danger" type="submit" name="idDeleteComment" value="{{refuseComment.id}}">Supprimer</button>
 				</form>
 			</div><hr><br>
 		{% endfor %}

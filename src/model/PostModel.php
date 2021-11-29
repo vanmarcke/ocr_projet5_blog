@@ -23,9 +23,9 @@ class PostModel extends DatabaseService
     public function loadAllPost(string $valide, int $startLimit = 0, int $numberPerPage = 30)
     {
 
-        try {
+        // try {
             $req = $this->getDb()->prepare(
-                'SELECT bpf_blog_posts.id, title, last_date_change, chapo, contents, bpf_users.pseudo 
+                'SELECT bpf_blog_posts.id, title, last_date_change, chapo, contents, bpf_users.pseudo
                     FROM `bpf_blog_posts` 
                     LEFT JOIN bpf_users ON bpf_blog_posts.id_bpf_users = bpf_users.id 
                     WHERE publish = :publish 
@@ -36,10 +36,10 @@ class PostModel extends DatabaseService
             $req->bindValue(':startLimit', $startLimit, PDO::PARAM_INT);
             $req->bindValue(':numberPerPage', $numberPerPage, PDO::PARAM_INT);
             $req->execute();
-            return $req;
-        } catch (PDOException $e) {
-            return false;
-        }
+            return $req->fetchAll(PDO::FETCH_CLASS, 'Projet5\entity\Post');
+        // } catch (PDOException $e) {
+        //     return false;
+        // }
     }
 
     /**
@@ -51,14 +51,14 @@ class PostModel extends DatabaseService
      */
     public function countAllPost(string $valide)
     {
-        try {
+        // try {
             $req = $this->getDb()->prepare('SELECT id FROM `bpf_blog_posts` WHERE publish = :publish');
             $req->bindValue(':publish', $valide);
             $req->execute();
             return $req;
-        } catch (PDOException $e) {
-            return false;
-        }
+        // } catch (PDOException $e) {
+        //     return false;
+        // }
     }
 
     /**
@@ -70,7 +70,7 @@ class PostModel extends DatabaseService
      */
     public function loadPost(int $idPost)
     {
-        try {
+        // try {
             $req = $this->getDb()->prepare(
                 'SELECT bpf_blog_posts.id, title, last_date_change, chapo, contents, publish, bpf_users.pseudo 
             FROM bpf_blog_posts 
@@ -81,9 +81,9 @@ class PostModel extends DatabaseService
             $req->execute();
             $row = $req->fetch(PDO::FETCH_ASSOC);
             return $row;
-        } catch (PDOException $e) {
-            return false;
-        }
+        // } catch (PDOException $e) {
+        //     return false;
+        // }
     }
 
     /**
