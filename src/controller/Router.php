@@ -21,7 +21,6 @@ class Router
 {
 	// Set the number of pages for post and comment views 
 	const POST_PER_PAGE = 4;
-	const COMMENT_PER_PAGE = 5;
 
 	/**
 	 * Execute the route to home page 

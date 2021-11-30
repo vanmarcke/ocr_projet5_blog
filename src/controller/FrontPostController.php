@@ -2,7 +2,9 @@
 
 namespace Projet5\controller;
 
+use Exception;
 use Projet5\controller\Constraints;
+use Projet5\model\CommentModel;
 use Projet5\model\PostModel;
 
 /**
@@ -20,24 +22,18 @@ class FrontPostController extends Constraints
 	 */
 	public function displayPosts($postModel, int $currentPage)
 	{
-		// if database error display an error message
-        // if ($postModel->countAllPost('') == false) {
-        //     $this->render('error_500.twig', $_SESSION, []);
-        //     return;
-        // }
-	
-		// if ($postModel->loadAllPost('') == false) {
-		// 	$this->render('error_500.twig', $_SESSION, []);
-		// 	return;
-		// }
+		try {
+			// count number of row valide
+			$countPosts = $postModel->countAllPost($valide = self::VALUE_POST_VALID);
+			$numberPosts = $countPosts->rowCount();
+			// take Limits for request SQL
+			$paging = $this->paging(Router::POST_PER_PAGE, $numberPosts, $currentPage);
 
-		// count number of row valide
-		$countPosts = $postModel->countAllPost($valide = self::VALUE_POST_VALID);
-		$numberPosts = $countPosts->rowCount();
-		// take Limits for request SQL
-		$paging = $this->paging(Router::POST_PER_PAGE, $numberPosts, $currentPage);
-
-		$posts = $postModel->loadAllPost($valide, $paging['startLimit'], Router::POST_PER_PAGE);
+			$posts = $postModel->loadAllPost($valide, $paging['startLimit'], Router::POST_PER_PAGE);
+		} catch (Exception $e) {
+			$this->render('error_500.twig', $_SESSION, []);
+			return;
+		}
 
 		$this->render('blog_posts.twig', $_SESSION, $paging, [], $posts, []);
 	}
@@ -46,16 +42,23 @@ class FrontPostController extends Constraints
 	 * Displays a post
 	 *
 	 * @param PostModel $postModel
-	 * @param $commentModel
+	 * @param CommentModel $commentModel
 	 * @param string $idPost contains post id
-	 * @param int $currentPage contains the page number
 	 *
 	 * @return array contains post data
 	 */
-	public function displayPost(PostModel $postModel, $commentModel, string $idPost, int $currentPage)
+	public function displayPost(PostModel $postModel, CommentModel $commentModel, string $idPost)
 	{
-		// load the post
-		$post = $postModel->loadPost($idPost);
+		try {
+			// load the post
+			$post = $postModel->loadPost($idPost);
+			// load comments for this post
+			$comments = $commentModel->loadAllCommentsWithIdPost($idPost);
+		} catch (Exception $e) {
+			$this->render('error_500.twig', $_SESSION, []);
+			return;
+		}
+
 
 		// if the post does not exist display an error message 		
 		// if ($postModel->loadPost($idPost) == false) {
@@ -63,34 +66,13 @@ class FrontPostController extends Constraints
 		// 	return;
 		// }
 
-		// if the post is waiting display an error message 
-		if ($post['publish'] === self::POST_STATUS_WAITING) {
+		// if the post is waiting display an error message
+		if ($post->getPublish() === self::POST_STATUS_WAITING) {
 			$_SESSION['error'] = 'Cet article est en attente de validation';
 			header('location:Articles-Page1');
 			exit;
 		}
 
-		// if database error display an error message 
-		// if ($commentModel->loadAllCommentsWithIdPost($idPost) == false) {
-		// 	$this->render('error_500.twig', $_SESSION, []);
-		// 	return;
-		// }
-
-		// // load comments for this post
-		// $comments = $commentModel->loadAllCommentsWithIdPost($idPost);
-		// // count number of row
-		// $numberComments = $comments->rowCount();
-		// // take Limits for request SQL
-		// $paging = $this->paging(Router::COMMENT_PER_PAGE, $numberComments, $currentPage);
-		// // load comments with limit
-		// $comments = $commentModel->loadAllCommentsWithIdPost($idPost, $paging['startLimit'], Router::COMMENT_PER_PAGE);
-		// // display post and comments 
-		// $this->render('post.twig', $_SESSION, $paging, $post, [], $comments);
-
-
-		// load comments for this post
-		$comments = $commentModel->loadAllCommentsWithIdPost($idPost);
-		
 		// display post and comments 
 		$this->render('post.twig', $_SESSION, [], $post, [], $comments);
 	}

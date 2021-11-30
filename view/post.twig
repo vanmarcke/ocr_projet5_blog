@@ -23,7 +23,7 @@
 							{{ post.pseudo }}
 							<br>
 							Dernière modification le
-							{{ post.last_date_change|date("d/m/Y à H:i") }}
+							{{ post.lastDateChange|date("d/m/Y à H:i") }}
 						</span>
 					</div>
 				</div>
@@ -38,9 +38,6 @@
 		<div class="container px-8 px-lg-8">
 			<div class="row justify-content-center">
 				<div class="col-md-10 ">
-				<pre>
-		{{ dump(post) }}
-	</pre>
 					<p>{{ post.contents|raw }}</p>
 				</div>
 			</div>
@@ -61,9 +58,6 @@
 			</form><br>
 		{% endif %}
 		{% for comment in comments %}
-		<pre>
-			{{ dump(comment) }}
-		</pre>
 			{% if comment.publish == 'valid' %}
 				<div class="card">
 					<div class="card-body" style="background: #d9d9d9;">
@@ -71,7 +65,7 @@
 						<h6 class="card-subtitle mb-2 text-muted">Ecrit par
 							{{ comment.pseudo }}
 							le
-							{{ comment.datecomment|date("d/m/Y")}}</h6>
+							{{ comment.dateComment|date("d/m/Y")}}</h6>
 					</div>
 				</div><br>
 

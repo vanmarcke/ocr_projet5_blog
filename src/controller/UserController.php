@@ -2,6 +2,7 @@
 
 namespace Projet5\controller;
 
+use Exception;
 use Projet5\controller\Constraints;
 use Projet5\model\UserModel;
 
@@ -38,32 +39,31 @@ class UserController extends Constraints
 
         $this->checkPassword($password, $errors);
 
-        // if database error display an error message 
-		// if ($userModel->loadByEmail($email) == false) {
-		// 	$this->render('error_500.twig', $_SESSION, []);
-		// 	return;
-		// }
+        try {
+            // load user if control ok
+            if (empty($errors)) {
+                $userDatas = $userModel->loadByEmail($email);
 
-        // load user if control ok
-        if (empty($errors)) {
-            $userDatas = $userModel->loadByEmail($email);
-
-            // if password ok, load id user in the session and go homepage
-            if (password_verify($password, $userDatas['password'])) {
-                $_SESSION['IdConnectedUser'] = $userDatas['id'];
-                $_SESSION['pseudoConnectedUser'] = $userDatas['pseudo'];
-                $_SESSION['rankConnectedUser'] = $userDatas['rank'];
-                $_SESSION['success'] = 'Hello ' .$_SESSION['pseudoConnectedUser'] . ', vous êtes connecté';
-                if ($_SESSION['rankConnectedUser'] == 'admin') {
-                    header('location:Administration');
+                // if password ok, load id user in the session and go homepage
+                if (password_verify($password, $userDatas['password'])) {
+                    $_SESSION['IdConnectedUser'] = $userDatas['id'];
+                    $_SESSION['pseudoConnectedUser'] = $userDatas['pseudo'];
+                    $_SESSION['rankConnectedUser'] = $userDatas['rank'];
+                    $_SESSION['success'] = 'Hello ' . $_SESSION['pseudoConnectedUser'] . ', vous êtes connecté';
+                    if ($_SESSION['rankConnectedUser'] == 'admin') {
+                        header('location:Administration');
+                        exit;
+                    }
+                    header('location:Articles-Page1');
                     exit;
+                    // or create a error message
+                } else {
+                    $this->setErrorMessage('connexion', 'Mot de passe ou email incorrect.', $errors);
                 }
-                header('location:Articles-Page1');
-                exit;
-                // or create a error message
-            } else {
-                $this->setErrorMessage('connexion', 'Mot de passe ou email incorrect.', $errors);
             }
+        } catch (Exception $e) {
+            $this->render('error_500.twig', $_SESSION, []);
+            return;
         }
 
         // form information in a table for simplicity with twig

@@ -3,7 +3,6 @@
 namespace Projet5\model;
 
 use PDO;
-use PDOException;
 use Projet5\service\DatabaseService;
 
 /**
@@ -20,9 +19,8 @@ class CommentModel extends DatabaseService
      *
      * @return array
      */
-    public function loadAllCommentsWithIdPost(string $idPost, int $startLimit = 0, int $numberPerPage = 50)
+    public function loadAllCommentsWithIdPost(string $idPost)
     {
-        // try {
             $req = $this->getDb()->prepare(
                 'SELECT bpf_comments.id, contents, date_comment, publish, bpf_users.pseudo 
             FROM `bpf_comments` LEFT JOIN bpf_users ON bpf_comments.id_bpf_users = bpf_users.id 
@@ -31,9 +29,6 @@ class CommentModel extends DatabaseService
             $req->bindValue(':idPost', $idPost);
             $req->execute();
             return $req->fetchAll(PDO::FETCH_CLASS, 'Projet5\entity\Comment');
-        // } catch (PDOException $e) {
-        //     return false;
-        // }
     }
 
     /**
@@ -43,7 +38,6 @@ class CommentModel extends DatabaseService
      */
     public function loadInvalidComments()
     {
-        // try {
             $req = $this->getDb()->prepare(
                 'SELECT bpf_comments.id, contents, date_comment, publish, bpf_users.pseudo 
             FROM `bpf_comments` LEFT JOIN bpf_users ON bpf_comments.id_bpf_users = bpf_users.id 
@@ -51,9 +45,6 @@ class CommentModel extends DatabaseService
             );
             $req->execute();
             return $req->fetchAll(PDO::FETCH_CLASS, 'Projet5\entity\Comment');
-        // } catch (PDOException $e) {
-        //     return false;
-        // }
     }
 
     /**
@@ -63,7 +54,6 @@ class CommentModel extends DatabaseService
      */
     public function loadRefuseComments()
     {
-        // try {
             $req = $this->getDb()->prepare(
                 'SELECT bpf_comments.id, contents, date_comment, publish, bpf_users.pseudo 
             FROM `bpf_comments` LEFT JOIN bpf_users ON bpf_comments.id_bpf_users = bpf_users.id 
@@ -71,9 +61,6 @@ class CommentModel extends DatabaseService
             );
             $req->execute();
             return $req->fetchAll(PDO::FETCH_CLASS, 'Projet5\entity\Comment');
-        // } catch (PDOException $e) {
-        //     return false;
-        // }
     }
 
     /**

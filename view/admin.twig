@@ -14,9 +14,6 @@
 
 		<h3 class="card text-center m-5">Utilisateur(s) à valider</h3>
 		{% for pendingUser in pendingUsers %}
-		<pre>
-			{{ dump(pendingUser) }}
-		</pre>
 			<div class="card text-center border-left-primary">
 				<div class="card-body" style="background: #d9d9d9;">
 					<h5 class="card-title">{{pendingUser.pseudo}}</h5>
@@ -32,9 +29,6 @@
 
 		<h3 class="card text-center m-5">Post(s) à valider</h3>
 		{% for invalidePost in invalidePosts %}
-		<pre>
-			{{ dump(invalidePost) }}
-		</pre>
 			<div class="card border-left-success">
 				<div class="card-body" style="background: #d9d9d9;">
 					<h5 class="card-title">
@@ -64,9 +58,6 @@
 
 		<h3 class="card text-center m-5">Commentaire(s) à valider</h3>
 		{% for invalideComment in invalideComments %}
-		<pre>
-			{{ dump(invalideComment) }}
-		</pre>
 			<div class="card text-center border-left-info">
 				<div class="card-body" style="background: #d9d9d9;">
 					<p class="card-text">{{invalideComment.contents|nl2br}}</p>
@@ -86,9 +77,6 @@
 
 		<h3 class="card text-center m-5">Commentaire(s) refusé</h3>
 		{% for refuseComment in refuseComments %}
-		<pre>
-			{{ dump(refuseComment) }}
-		</pre>
 			<div class="card text-center border-left-danger">
 				<div class="card-body" style="background: #d9d9d9;">
 					<p class="card-text">{{refuseComment.contents|nl2br}}</p>
