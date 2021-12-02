@@ -18,7 +18,7 @@ class PostModel extends DatabaseService
      * @param int $startLimit returns the number of the start of the loop for each page
      * @param int $numberPerPage returns the number of posts per page and limits the number of posts to 30 in admin
      *
-     * @return array
+     * @return Post
      */
     public function loadAllPost(string $valide, int $startLimit = 0, int $numberPerPage = 30)
     {
@@ -62,7 +62,7 @@ class PostModel extends DatabaseService
     public function loadPost(int $idPost) : Post
     {
             $req = $this->getDb()->prepare(
-                'SELECT * 
+                'SELECT bpf_blog_posts.id, title, last_date_change, chapo, contents, publish, bpf_users.pseudo 
             FROM bpf_blog_posts 
             LEFT JOIN bpf_users ON bpf_blog_posts.id_bpf_users = bpf_users.id 
             WHERE bpf_blog_posts.id = :idPost'

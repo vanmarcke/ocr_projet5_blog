@@ -3,6 +3,7 @@
 namespace Projet5\model;
 
 use PDO;
+use Projet5\entity\User;
 use Projet5\service\DatabaseService;
 
 /**
@@ -42,7 +43,7 @@ class UserModel extends DatabaseService
     /**
      * Return all pending users
      *
-     * @return array list of pending users 
+     * @return User list of pending users 
      */
     public function loadPendingUsers()
     {

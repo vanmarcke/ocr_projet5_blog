@@ -55,7 +55,7 @@
 					<textarea class="form-control" name="contents" id="comment" value="{{userDatas.pseudo}}"></textarea>
 				</div><br>
 				<input class="btn btn-primary" type="submit" value="Envoyer">
-			</form><br>
+			</form><br><hr>
 		{% endif %}
 		{% for comment in comments %}
 			{% if comment.publish == 'valid' %}

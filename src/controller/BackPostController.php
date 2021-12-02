@@ -124,7 +124,7 @@ class BackPostController extends SessionController
 				'id_user' => $id_user
 			]);
 			$_SESSION['success'] = self::MESSAGE_VALID_OK . ' mis à jour';
-			header('location:Article-'.$post['id'].'-page1');
+			header('location:Article-page1');
 			exit;
 		}
 
@@ -192,7 +192,7 @@ class BackPostController extends SessionController
 	 * @throws RuntimeError
 	 * @throws SyntaxError
 	 */
-	private function render(string $templateName, array $session, array $errors = [], array $form = [], array $post = [])
+	private function render(string $templateName, array $session, array $errors = [], array $form = [], $post = [])
 	{
 		echo $this->twig->render($templateName, ['SESSION' => $session, 'error' => $errors, 'form' => $form, 'post' => $post]);
 	}

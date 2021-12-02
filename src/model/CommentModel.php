@@ -3,6 +3,7 @@
 namespace Projet5\model;
 
 use PDO;
+use Projet5\entity\Comment;
 use Projet5\service\DatabaseService;
 
 /**
@@ -17,7 +18,7 @@ class CommentModel extends DatabaseService
      * @param int $startLimit returns the number of the start of the loop for each page
      * @param int $numberPerPage returns the number of comments per page and limit the number of comments to 50 in admin
      *
-     * @return array
+     * @return Comment
      */
     public function loadAllCommentsWithIdPost(string $idPost)
     {
@@ -34,7 +35,7 @@ class CommentModel extends DatabaseService
     /**
      * load comments with waiting status
      *
-     * @return array
+     * @return Comment
      */
     public function loadInvalidComments()
     {
@@ -50,7 +51,7 @@ class CommentModel extends DatabaseService
     /**
      * load comments with denied status
      *
-     * @return array
+     * @return Comment
      */
     public function loadRefuseComments()
     {
