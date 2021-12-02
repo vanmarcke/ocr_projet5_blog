@@ -52,7 +52,6 @@ class Router
 					$currentPage = intval($params[1]);
 					$postController = new FrontPostController();
 					$postController->displayPosts($postModel, $currentPage);
-					$url = '';
 					break;
 				}
 				/*Un article-id with this comments*/

@@ -47,7 +47,7 @@ class UserModel extends DatabaseService
      */
     public function loadPendingUsers()
     {
-            $req = $this->getDb()->prepare('SELECT pseudo, email FROM `bpf_users` WHERE `rank`= "pending" ');
+            $req = $this->getDb()->prepare('SELECT id, pseudo, email FROM `bpf_users` WHERE `rank`= "pending" ');
             $req->execute();
             return $req->fetchAll(PDO::FETCH_CLASS, 'Projet5\entity\User');
     }
