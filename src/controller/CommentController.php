@@ -2,6 +2,7 @@
 
 namespace Projet5\controller;
 
+use Projet5\entity\Comment;
 use Projet5\model\CommentModel;
 use Projet5\model\PostModel;
 
@@ -23,24 +24,27 @@ class CommentController extends SessionController
 	{
 		// The form is submitted, control
 		$contents = (isset($_POST['contents'])) ? $_POST['contents'] : "";
+		$postModel;
 		$errors = [];
 
 		$this->checkComment($contents, $errors);
 
 		// insert the comment and redirect
-		if (!empty($contents)) {
-			$commentModel->insertComment([
-				'contents' => $contents,
-				'id_blog_post' => $idPost,
-				'id_user' => $_SESSION['IdConnectedUser']
-			]);
+		if (empty($errors)) {
+			$comment = new Comment;
+			$comment->setContents($contents);
+			$comment->setIdBlogPosts($idPost);
+			$comment->setIdUsers($_SESSION['IdConnectedUser']);
+
+			$commentModel->insertComment($comment);
+
 			if (!$this->isAdmin($_SESSION['rankConnectedUser'])) {
-				// redirect on post if user
+				// message and redirect on post if user
 				$_SESSION['success'] = 'Votre commentaire à été enregistré, il est en attente de validation par un administrateur';
 				header('location:Article-' . $idPost . '-Page1');
 				exit;
 			} else {
-				// redirect on post if admin
+				// message and redirect on post if adminn
 				$_SESSION['success'] = 'Votre commentaire à été ajouté';
 				header('location:Article-' . $idPost . '-Page1');
 				exit;

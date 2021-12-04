@@ -13,7 +13,7 @@ class Comment
     private $publish;
     private $id_bpf_blog_posts;
     private $id_bpf_users;
-    
+
     /**
      * Method getId
      * 
@@ -25,7 +25,7 @@ class Comment
     {
         return $this->id;
     }
-    
+
     /**
      * Method setId
      * 
@@ -35,11 +35,11 @@ class Comment
      *
      * @return void
      */
-    public function setId($id) : void
+    public function setId($id): void
     {
         $this->id = $id;
     }
-    
+
     /**
      * Method getContents
      * 
@@ -51,7 +51,7 @@ class Comment
     {
         return $this->contents;
     }
-    
+
     /**
      * Method setContents
      * 
@@ -65,7 +65,7 @@ class Comment
     {
         $this->contents = $contents;
     }
-    
+
     /**
      * Method getDateComment
      * 
@@ -77,7 +77,7 @@ class Comment
     {
         return $this->date_comment;
     }
-    
+
     /**
      * Method setDateComment
      * 
@@ -91,7 +91,7 @@ class Comment
     {
         $this->date_comment = $dateComment;
     }
-    
+
     /**
      * Method getPublish
      * 
@@ -103,7 +103,7 @@ class Comment
     {
         return $this->publish;
     }
-    
+
     /**
      * Method setPublish
      * 
@@ -117,7 +117,7 @@ class Comment
     {
         $this->publish = $publish;
     }
-    
+
     /**
      * Method getIdBlogPosts
      * 
@@ -129,7 +129,7 @@ class Comment
     {
         return $this->id_bpf_blog_posts;
     }
-    
+
     /**
      * Method setIdBlogPosts
      * 
@@ -143,7 +143,7 @@ class Comment
     {
         $this->id_bpf_blog_posts = $idBlogPosts;
     }
-    
+
     /**
      * Method getIdUsers
      * 
@@ -155,7 +155,7 @@ class Comment
     {
         return $this->id_bpf_users;
     }
-    
+
     /**
      * Method setIdUsers
      * 

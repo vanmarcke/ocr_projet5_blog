@@ -22,19 +22,19 @@ class PostModel extends DatabaseService
      */
     public function loadAllPost(string $valide, int $startLimit = 0, int $numberPerPage = 30)
     {
-            $req = $this->getDb()->prepare(
-                'SELECT bpf_blog_posts.id, title, last_date_change, chapo, contents, bpf_users.pseudo
+        $req = $this->getDb()->prepare(
+            'SELECT bpf_blog_posts.id, title, last_date_change, chapo, contents, bpf_users.pseudo
                     FROM `bpf_blog_posts` 
                     LEFT JOIN bpf_users ON bpf_blog_posts.id_bpf_users = bpf_users.id 
                     WHERE publish = :publish 
                     ORDER BY bpf_blog_posts.id 
                     DESC LIMIT :startLimit , :numberPerPage '
-            );
-            $req->bindValue(':publish', $valide);
-            $req->bindValue(':startLimit', $startLimit, PDO::PARAM_INT);
-            $req->bindValue(':numberPerPage', $numberPerPage, PDO::PARAM_INT);
-            $req->execute();
-            return $req->fetchAll(PDO::FETCH_CLASS, 'Projet5\entity\Post');
+        );
+        $req->bindValue(':publish', $valide);
+        $req->bindValue(':startLimit', $startLimit, PDO::PARAM_INT);
+        $req->bindValue(':numberPerPage', $numberPerPage, PDO::PARAM_INT);
+        $req->execute();
+        return $req->fetchAll(PDO::FETCH_CLASS, 'Projet5\entity\Post');
     }
 
     /**
@@ -46,10 +46,10 @@ class PostModel extends DatabaseService
      */
     public function countAllPost(string $valide)
     {
-            $req = $this->getDb()->prepare('SELECT id FROM `bpf_blog_posts` WHERE publish = :publish');
-            $req->bindValue(':publish', $valide);
-            $req->execute();
-            return $req;
+        $req = $this->getDb()->prepare('SELECT id FROM `bpf_blog_posts` WHERE publish = :publish');
+        $req->bindValue(':publish', $valide);
+        $req->execute();
+        return $req;
     }
 
     /**
@@ -59,37 +59,37 @@ class PostModel extends DatabaseService
      *
      * @return Post
      */
-    public function loadPost(int $idPost) : Post
+    public function loadPost(int $idPost): Post
     {
-            $req = $this->getDb()->prepare(
-                'SELECT bpf_blog_posts.id, title, last_date_change, chapo, contents, publish, bpf_users.pseudo 
+        $req = $this->getDb()->prepare(
+            'SELECT bpf_blog_posts.id, title, last_date_change, chapo, contents, publish, bpf_users.pseudo 
             FROM bpf_blog_posts 
             LEFT JOIN bpf_users ON bpf_blog_posts.id_bpf_users = bpf_users.id 
             WHERE bpf_blog_posts.id = :idPost'
-            );
-            $req->bindValue(':idPost', $idPost);
-            $req->execute();
-            return $req->fetchObject('Projet5\entity\Post');
+        );
+        $req->bindValue(':idPost', $idPost);
+        $req->execute();
+        return $req->fetchObject('Projet5\entity\Post');
     }
 
     /**
      * insert a new post
      *
-     * @param array $datas insertion of a new post in the database 
+     * @param Post $post insertion of a new post in the database 
      *
      * @return array
      */
-    public function insertPost(array $datas)
+    public function insertPost(Post $post)
     {
         $req = $this->getDb()->prepare(
             'INSERT INTO bpf_blog_posts(title, last_date_change, chapo, contents, publish, id_bpf_users) 
             VALUES(:title, NOW(), :chapo, :contents, :publish, :id_user)'
         );
-        $req->bindValue(':title', $datas['title']);
-        $req->bindValue(':chapo', $datas['chapo']);
-        $req->bindValue(':contents', $datas['contents']);
-        $req->bindValue(':publish', 'waiting');
-        $req->bindValue(':id_user', $datas['id_user']);
+        $req->bindValue(':title', $post->getTitle());
+        $req->bindValue(':chapo', $post->getChapo());
+        $req->bindValue(':contents', $post->getContents());
+        $req->bindValue(':publish', $post->getPublish());
+        $req->bindValue(':id_user', $post->getUsers());
         $req->execute();
     }
 
@@ -97,21 +97,21 @@ class PostModel extends DatabaseService
      * edit a post
      *
      * @param int $idPost returns the id of the post to modify 
-     * @param array $datas contains the modified data
+     * @param Post $post contains the modified data
      * 
      * @return array
      */
-    public function updatePost(int $idPost, array $datas)
+    public function updatePost(int $idPost, Post $post)
     {
         $req = $this->getDb()->prepare(
             'UPDATE bpf_blog_posts 
             SET title=:title, last_date_change=NOW(), chapo=:chapo, contents=:contents, id_bpf_users=:id_user 
             WHERE id=:idPost'
         );
-        $req->bindValue(':title', $datas['title']);
-        $req->bindValue(':chapo', $datas['chapo']);
-        $req->bindValue(':contents', $datas['contents']);
-        $req->bindValue(':id_user', $datas['id_user']);
+        $req->bindValue(':title', $post->getTitle());
+        $req->bindValue(':chapo', $post->getChapo());
+        $req->bindValue(':contents', $post->getContents());
+        $req->bindValue(':id_user', $post->getUsers());
         $req->bindValue(':idPost', $idPost);
         $req->execute();
     }

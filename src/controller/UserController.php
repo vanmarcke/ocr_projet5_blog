@@ -4,6 +4,7 @@ namespace Projet5\controller;
 
 use Exception;
 use Projet5\controller\Constraints;
+use Projet5\entity\User;
 use Projet5\model\UserModel;
 
 /**
@@ -118,14 +119,15 @@ class UserController extends Constraints
 
         // if no error, 
         if (empty($errors)) {
-            $userDatas = [
-                'pseudo' => $pseudo,
-                'email' => $email,
-                'password' => $password
-            ];
+            $user = new User;
+            $user->setPseudo($pseudo);
+            $user->setEmail($email);
+            $user->setPassword($password);
+            $user->setRank('pending');
+
             // regist in database and display connection
             try {
-                $userModel->insert($userDatas);
+                $userModel->insert($user);
                 $_SESSION['success'] = 'Votre compte à été créé, cependant il doit être validé par un administrateur pour pouvoir écrire des commentaires';
                 $this->render('connexion.twig', $_SESSION, $errors, $form);
                 return;

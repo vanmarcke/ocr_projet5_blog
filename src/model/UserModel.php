@@ -19,10 +19,10 @@ class UserModel extends DatabaseService
      */
     public function loadUser(int $idUser)
     {
-            $req = $this->getDb()->prepare('SELECT * FROM `bpf_users` WHERE `id`= :id;');
-            $req->execute(['id' => $idUser]);
-            $userDatas = $req->fetch(PDO::FETCH_ASSOC);
-            return $userDatas;
+        $req = $this->getDb()->prepare('SELECT * FROM `bpf_users` WHERE `id`= :id;');
+        $req->execute(['id' => $idUser]);
+        $userDatas = $req->fetch(PDO::FETCH_ASSOC);
+        return $userDatas;
     }
 
     /**
@@ -33,11 +33,11 @@ class UserModel extends DatabaseService
      */
     public function loadByEmail(string $email)
     {
-            $req = $this->getDb()->prepare('SELECT id FROM bpf_users WHERE email = :email');
-            $req->bindValue(':email', $email);
-            $req->execute();
-            $row = $req->fetch(PDO::FETCH_ASSOC);
-            return $this->loadUser($row['id']);
+        $req = $this->getDb()->prepare('SELECT id FROM bpf_users WHERE email = :email');
+        $req->bindValue(':email', $email);
+        $req->execute();
+        $row = $req->fetch(PDO::FETCH_ASSOC);
+        return $this->loadUser($row['id']);
     }
 
     /**
@@ -47,27 +47,27 @@ class UserModel extends DatabaseService
      */
     public function loadPendingUsers()
     {
-            $req = $this->getDb()->prepare('SELECT id, pseudo, email FROM `bpf_users` WHERE `rank`= "pending" ');
-            $req->execute();
-            return $req->fetchAll(PDO::FETCH_CLASS, 'Projet5\entity\User');
+        $req = $this->getDb()->prepare('SELECT id, pseudo, email FROM `bpf_users` WHERE `rank`= "pending" ');
+        $req->execute();
+        return $req->fetchAll(PDO::FETCH_CLASS, 'Projet5\entity\User');
     }
 
     /**
      * insert user with datas table
      *
-     * @param  array $datas
+     * @param  User $user
      * @return array list of data to insert in the database 
      */
-    public function insert(array $datas)
+    public function insert(User $user)
     {
         $req = $this->getDb()->prepare(
             'INSERT INTO bpf_users(pseudo, email, password, rank) 
             VALUES(:pseudo, :email, :password, :rank)'
         );
-        $req->bindValue(':pseudo', $datas['pseudo']);
-        $req->bindValue(':email', $datas['email']);
-        $req->bindValue(':password', password_hash($datas['password'], PASSWORD_DEFAULT));
-        $req->bindValue(':rank', 'pending');
+        $req->bindValue(':pseudo', $user->getPseudo());
+        $req->bindValue(':email', $user->getEmail());
+        $req->bindValue(':password', $user->getPassword());
+        $req->bindValue(':rank', $user->getRank());
         $req->execute();
     }
 

@@ -2,6 +2,7 @@
 
 namespace Projet5\controller;
 
+use Projet5\entity\Post;
 use Projet5\model\PostModel;
 
 /**
@@ -47,20 +48,6 @@ class BackPostController extends SessionController
 
 		$this->checkContents($contents, $errors);
 
-		// insert post if control ok
-		if (empty($errors)) {
-			$postModel->insertPost([
-				'title' => $title,
-				'chapo' => $chapo,
-				'contents' => $contents,
-				'id_user' => $id_user
-			]);
-
-			$_SESSION['success'] = self::MESSAGE_VALID_OK . ' envoyé, il est maintenant en attente de validation par un administrateur';
-			header('location:admin-waiting-posts');
-			exit;
-		}
-
 		// form information in a table for simplicity with twig
 		$form = [
 			'title' => $title,
@@ -69,6 +56,26 @@ class BackPostController extends SessionController
 			'id_user' => $id_user
 		];
 
+		// insert post if control ok
+		if (empty($errors)) {
+			$post = new Post;
+			$post->setTitle($title);
+			$post->setChapo($chapo);
+			$post->setContents($contents);
+			$post->setPublish('waiting');
+			$post->setUser($id_user);
+
+			try {
+				$postModel->insertPost($post);
+				$_SESSION['success'] = self::MESSAGE_VALID_OK . ' envoyé, il est maintenant en attente de validation par un administrateur';
+				header('location:admin-waiting-posts');
+				exit;
+			} catch (\Exception $e) {
+				$this->render('error_500.twig', $_SESSION, []);
+				return;
+			}
+		}
+
 		// display the form with errors and datas form
 		$this->render('insert_post.twig', $_SESSION, $errors, $form);
 	}
@@ -76,7 +83,7 @@ class BackPostController extends SessionController
 	/**
 	 * modification of a post
 	 *
-	 * @param string $idPost contains post id
+	 * @param int $idPost contains post id
 	 * @param PostModel $postModel
 	 *
 	 * @throws LoaderError
@@ -84,7 +91,7 @@ class BackPostController extends SessionController
 	 * @throws SyntaxError
 	 * @throws Exception
 	 */
-	public function editPost(string $idPost, PostModel $postModel)
+	public function editPost(int $idPost, PostModel $postModel)
 	{
 		// load Post with id
 		$post = $postModel->loadPost($idPost);
@@ -115,19 +122,6 @@ class BackPostController extends SessionController
 
 		$this->checkContents($contents, $errors);
 
-		// if no error, update the post
-		if (empty($errors)) {
-			$postModel->updatePost($idPost, [
-				'title' => $title,
-				'chapo' => $chapo,
-				'contents' => $contents,
-				'id_user' => $id_user
-			]);
-			$_SESSION['success'] = self::MESSAGE_VALID_OK . ' mis à jour';
-			header('location:Article-page1');
-			exit;
-		}
-
 		// form information in a table for simplicity with twig
 		$form = [
 			'title' => $title,
@@ -136,6 +130,25 @@ class BackPostController extends SessionController
 			'id_user' => $id_user,
 			'id_post' => $idPost
 		];
+
+		// insert post if control ok
+		if (empty($errors)) {
+			$post = new Post;
+			$post->setTitle($title);
+			$post->setChapo($chapo);
+			$post->setContents($contents);
+			$post->setUser($id_user);
+
+			try {
+				$postModel->updatePost($idPost, $post);
+				$_SESSION['success'] = self::MESSAGE_VALID_OK . ' mis à jour';
+				header('location:Article-page1');
+				exit;
+			} catch (\Exception $e) {
+				$this->render('error_500.twig', $_SESSION, []);
+				return;
+			}
+		}
 
 		// display the post with error and datas form
 		$this->render('insert_post.twig', $_SESSION, $errors, $form);
