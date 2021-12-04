@@ -5,12 +5,12 @@
 
             /**************** Slider DEGRADE**********************/
             var colors = new Array(
-[5, 4, 10],
-[33, 28, 66],
-[60, 51, 121],
-[88, 74, 176],
-[99, 86, 184],
-[238, 68, 55]);
+                [5, 4, 10],
+                [33, 28, 66],
+                [60, 51, 121],
+                [88, 74, 176],
+                [99, 86, 184],
+                [238, 68, 55]);
 
             var step = 0;
             var colorIndices = [0, 1, 2, 3];
@@ -133,7 +133,7 @@
                 $(window).scroll(function () {
                     if ($(this).scrollTop() > hauteur) {
                         $("#header").css("display", "flex")
-                         .fadeIn();
+                            .fadeIn();
                     } else {
                         $("#header").hide();
                     }
@@ -157,7 +157,7 @@
                 $("body, html").animate({
                     scrollTop: pos
                 }, 1000);
-                
+
                 if ($("#hamburger-overlay").length) {
                     $("#hamburger").removeClass("hamburger-activated");
                 }
@@ -175,7 +175,7 @@
                     var art = $(".compItems").find("li");
                     art.addClass("inView");
                 }
-                
+
             });
 
             /********** Formulaire contact ************/
@@ -218,8 +218,8 @@
                             msgSuccess = $('<div class="merci">Merci ' + nom + ', votre message a bien été envoyé </div>');
                             $("body").append(msgSuccess);
                             setTimeout(function () {
-                                    $(msgSuccess).fadeOut();
-                                },
+                                $(msgSuccess).fadeOut();
+                            },
                                 2300
                             );
 
@@ -233,8 +233,8 @@
                             msgError = $('<div class="echec">Le message n\'a pas été envoyé </div>');
                             $("body").append(msgError);
                             setTimeout(function () {
-                                    $(msgError).fadeOut();
-                                },
+                                $(msgError).fadeOut();
+                            },
                                 2300
                             );
                         }
@@ -243,8 +243,8 @@
                 $("body").append(msg);
 
                 setTimeout(function () {
-                        $(msg).fadeOut();
-                    },
+                    $(msg).fadeOut();
+                },
                     2300
                 );
                 return false;
