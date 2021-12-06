@@ -121,7 +121,7 @@ class Comment
     /**
      * Method getIdBlogPosts
      * 
-     * Get value of IdBlopPosts
+     * Get value of IdBlogPosts
      *
      * @return void
      */

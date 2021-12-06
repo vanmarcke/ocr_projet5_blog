@@ -19,7 +19,7 @@ use Projet5\model\CommentModel;
  */
 class Router
 {
-	// Set the number of pages for post and comment views 
+	// Set the number of pages for post views 
 	const POST_PER_PAGE = 4;
 
 	/**

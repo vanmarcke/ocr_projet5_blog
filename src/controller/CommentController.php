@@ -44,7 +44,7 @@ class CommentController extends SessionController
 				header('location:Article-' . $idPost . '-Page1');
 				exit;
 			} else {
-				// message and redirect on post if adminn
+				// message and redirect on post if admin
 				$_SESSION['success'] = 'Votre commentaire à été ajouté';
 				header('location:Article-' . $idPost . '-Page1');
 				exit;

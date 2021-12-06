@@ -106,7 +106,7 @@ class Constraints extends TwigController
     /**
      * checkTitle
      *
-     * @param string $title contains the avlue of the title sent by the admin 
+     * @param string $title contains the value of the title sent by the admin 
      * @param array &$errors error information to display
      *
      * @return void

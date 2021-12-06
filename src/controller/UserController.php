@@ -25,7 +25,7 @@ class UserController extends Constraints
             $this->render('connexion.twig', $_SESSION);
             return;
         }
-        // unset session for security and inialise $error
+        // unset session for security and initialise $error
         unset($_SESSION['IdConnectedUser']);
         unset($_SESSION['pseudoConnectedUser']);
         unset($_SESSION['rankConnectedUser']);
