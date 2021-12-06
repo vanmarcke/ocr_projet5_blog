@@ -15,12 +15,12 @@ class FrontPostController extends Constraints
 	/**
 	 * Displays the list of posts 
 	 *
-	 * @param $postModel
+	 * @param object $postModel
 	 * @param int $currentPage contains the page number
 	 *
 	 * @return array  contains post data 
 	 */
-	public function displayPosts($postModel, int $currentPage)
+	public function displayPosts(object $postModel, int $currentPage)
 	{
 		try {
 			// count number of row valide
@@ -103,17 +103,17 @@ class FrontPostController extends Constraints
 	/**
 	 * render Template
 	 *
-	 * @param $templateName Template name to render
+	 * @param string $templateName Template name to render
 	 * @param array $session user session
-	 * @param $post contains post data
-	 * @param $posts contains posts data 
-	 * @param $comments contains comment data
 	 * @param array $paging contains the data of the number of pages 
+	 * @param object $post contains post data
+	 * @param object $posts contains posts data 
+	 * @param object $comments contains comment data
 	 * @throws LoaderError
 	 * @throws RuntimeError
 	 * @throws SyntaxError
 	 */
-	private function render($templateName, array $session, array $paging, $post = [], $posts = [], $comments = [])
+	private function render(string $templateName, array $session, array $paging, $post = [], $posts = [], $comments = [])
 	{
 		echo $this->twig->render($templateName, ['SESSION' => $session, 'paging' => $paging, 'post' => $post, 'posts' => $posts, 'comments' => $comments]);
 	}

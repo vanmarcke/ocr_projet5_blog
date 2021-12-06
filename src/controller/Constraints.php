@@ -2,7 +2,6 @@
 
 namespace Projet5\controller;
 
-use Exception;
 use Projet5\controller\TwigController;
 
 /**
@@ -30,7 +29,7 @@ class Constraints extends TwigController
      *
      * @return array return array with error message
      */
-    protected function checkPseudo(string $pseudo, &$errors)
+    protected function checkPseudo(string $pseudo, array &$errors)
     {
         if (!preg_match(self::REGEX_ALL_CHARACTERS, $pseudo)) {
             $this->setErrorMessage('pseudo', self::PSEUDO . self::INVALID . '.', $errors);
@@ -45,7 +44,7 @@ class Constraints extends TwigController
      *
      * @return array return array with error message
      */
-    protected function checkPseudoSize(string $pseudo, &$errors)
+    protected function checkPseudoSize(string $pseudo, array &$errors)
     {
         if (strlen($pseudo) < self::MIN_VALUE_PSEUDO || strlen($pseudo) > self::MAX_VALUE_PSEUDO) {
             $this->setErrorMessage('pseudoSize', self::PSEUDO . ' doit faire entre 3 et 20 caractères.', $errors);
@@ -60,7 +59,7 @@ class Constraints extends TwigController
      *
      * @return array return array with error message
      */
-    protected function checkEmail(string $email, &$errors)
+    protected function checkEmail(string $email, array &$errors)
     {
         if (!preg_match(self::REGEX_ALL_CHARACTERS, $email) && false === filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $this->setErrorMessage('email', 'L\'email ' . self::INVALID . '.', $errors);
@@ -74,7 +73,7 @@ class Constraints extends TwigController
      * @param array &$errors error information to display
      *
      */
-    protected function checkPassword(string $password, &$errors)
+    protected function checkPassword(string $password, array &$errors)
     {
         if (!preg_match(self::REGEX_ALL_CHARACTERS, $password) || strlen($password) < self::MIN_VALUE_PASSWORD) {
             $this->setErrorMessage('password', self::PASSWORD . self::INVALID . ' , minimun 8 caractères.', $errors);
@@ -89,7 +88,7 @@ class Constraints extends TwigController
      * @param array &$errors error information to display
      *
      */
-    protected function checkConfirmPassword(string $password, $confirm_password, &$errors)
+    protected function checkConfirmPassword(string $password, string $confirm_password, array &$errors)
     {
         if ($password !== $confirm_password) {
             $this->setErrorMessage('confirm_password', self::PASSWORD . ' de confirmation n\'est pas identique.', $errors);
@@ -108,11 +107,11 @@ class Constraints extends TwigController
      * checkTitle
      *
      * @param string $title contains the avlue of the title sent by the admin 
-     * @param &$errors error information to display
+     * @param array &$errors error information to display
      *
      * @return void
      */
-    protected function checkTitle(string $title, &$errors)
+    protected function checkTitle(string $title, array &$errors)
     {
         if (strlen($title) < self::MIN_VALUE_POST || strlen($title) > self::MAX_VALUE_TITLE) {
             $this->setErrorMessage('title', 'Le titre n\'est pas renseigné ou invalide. Maximum 100 caractères.', $errors);
@@ -123,11 +122,11 @@ class Constraints extends TwigController
      * checkChapo
      *
      * @param string $chapo contains the value of the chapo sent by the admin
-     * @param &$errors error information to display
+     * @param array &$errors error information to display
      *
      * @return void
      */
-    protected function checkChapo(string $chapo, &$errors)
+    protected function checkChapo(string $chapo, array &$errors)
     {
         if (strlen($chapo) < self::MIN_VALUE_POST || strlen($chapo) > self::MAX_VALUE_CHAPO) {
             $this->setErrorMessage('chapo', 'Le chapô n\'est pas renseigné ou invalide. Maximum 300 caractères', $errors);
@@ -138,11 +137,11 @@ class Constraints extends TwigController
      * checkContents
      *
      * @param string $contents contains the value of the content sent by the admin
-     * @param &$errors errors information to display
+     * @param array &$errors error information to display
      *
      * @return void
      */
-    protected function checkContents(string $contents, &$errors)
+    protected function checkContents(string $contents, array &$errors)
     {
         if (strlen($contents) < self::MIN_VALUE_POST) {
             $this->setErrorMessage('contents', 'Le contenu n\'est pas renseigné ou invalide.', $errors);
@@ -160,11 +159,10 @@ class Constraints extends TwigController
      * checkComment
      *
      * @param string $contents contains the comment value sent by the user
-     * @param &$errors $errors information to display
-     *
+     * @param array &$errors error information to display
      * @return void
      */
-    protected function checkComment(string $contents, &$errors)
+    protected function checkComment(string $contents, array &$errors)
     {
         if (strlen($contents) < self::MIN_VALUE_COMMENT || strlen($contents) > self::MAX_VALUE_COMMENT) {
             $this->setErrorMessage('contents', 'Le commentaire n\'est pas renseigné ou invalide. Maximum 1000 caractères.', $errors);
@@ -196,11 +194,11 @@ class Constraints extends TwigController
      *
      * @param string $key contains the reference key of the error
      * @param string $message contains the error message
-     * @param &$errors $errors 
+     * @param array &$errors error information to display
      *
      * @return array
      */
-    protected function setErrorMessage(string $key, string $message, &$errors)
+    protected function setErrorMessage(string $key, string $message, array &$errors)
     {
         $errors[$key] = $message;
     }

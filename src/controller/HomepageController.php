@@ -50,13 +50,13 @@ class HomepageController extends TwigController
 	/**
 	 * render Template
 	 *
-	 * @param $templateName Template name to render
+	 * @param string $templateName Template name to render
 	 * @param array $session user session	
 	 * @throws LoaderError
 	 * @throws RuntimeError
 	 * @throws SyntaxError
 	 */
-	private function render($templateName, array $session)
+	private function render(string $templateName, array $session)
 	{
 		echo $this->twig->render($templateName, ['SESSION' => $session]);
 	}

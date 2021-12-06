@@ -15,8 +15,6 @@ class CommentModel extends DatabaseService
      * load comments for one post
      *
      * @param int $idPost return the id of the comment
-     * @param int $startLimit returns the number of the start of the loop for each page
-     * @param int $numberPerPage returns the number of comments per page and limit the number of comments to 50 in admin
      *
      * @return Comment
      */

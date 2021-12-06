@@ -270,9 +270,13 @@ class AdminController extends SessionController
 	 * render Template.
 	 *
 	 * @param string $templateName Template name to render
-	 * @param array $error error information to display
-	 *
 	 * @param array $session user session
+	 * @param array $error error information to display
+	 * @param object $pendingUsers return pending user
+	 * @param object $invalidePosts return pending post
+	 * @param object $invalideComments return invalid comment 
+	 * @param object $refuseComments return comment refused 
+	 * 
 	 * @throws LoaderError
 	 * @throws RuntimeError
 	 * @throws SyntaxError

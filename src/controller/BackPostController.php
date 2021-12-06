@@ -201,6 +201,7 @@ class BackPostController extends SessionController
 	 * @param array $session user session
 	 * @param array $error error information to display
 	 * @param array $form content of the completed form
+	 * @param object $post contains the post data
 	 * @throws LoaderError
 	 * @throws RuntimeError
 	 * @throws SyntaxError
