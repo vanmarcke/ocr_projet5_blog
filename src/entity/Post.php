@@ -20,9 +20,9 @@ class Post
      * 
      * Get value of idPost
      *
-     * @return object
+     * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
@@ -32,11 +32,11 @@ class Post
      * 
      * Set value of IdPost
      *
-     * @param int $id
+     * @param int $id expected value : IdPost
      *
-     * @return object
+     * @return Post
      */
-    public function setId($id)
+    public function setId(int $id): Post
     {
         $this->id = $id;
         return $this;
@@ -47,9 +47,9 @@ class Post
      * 
      * Get value of Title
      *
-     * @return object
+     * @return string
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
@@ -59,11 +59,11 @@ class Post
      * 
      * Set value of Title
      *
-     * @param string $title
+     * @param string $title expected value : Title
      *
-     * @return object
+     * @return Post
      */
-    public function setTitle($title)
+    public function setTitle(string $title): Post
     {
         $this->title = $title;
         return $this;
@@ -74,9 +74,9 @@ class Post
      * 
      * Get value of LastDateChange
      *
-     * @return object
+     * @return string
      */
-    public function getLastDateChange()
+    public function getLastDateChange(): string
     {
         return $this->last_date_change;
     }
@@ -86,11 +86,11 @@ class Post
      * 
      * Set value of LasDateChange
      *
-     * @param string $lastDateChange
+     * @param string $lastDateChange expected value : update date of post
      *
-     * @return object
+     * @return Post
      */
-    public function setLastDateChange($lastDateChange)
+    public function setLastDateChange(string $lastDateChange): Post
     {
         $this->last_date_change = $lastDateChange;
         return $this;
@@ -101,9 +101,9 @@ class Post
      * 
      * Get value of Chapo
      *
-     * @return object
+     * @return string
      */
-    public function getChapo()
+    public function getChapo(): string
     {
         return $this->chapo;
     }
@@ -113,11 +113,11 @@ class Post
      * 
      * Set value of Chapo
      *
-     * @param string $chapo
+     * @param string $chapo expected value : Chapo of the post (post subtitle)
      *
-     * @return object
+     * @return Post
      */
-    public function setChapo($chapo)
+    public function setChapo(string $chapo): Post
     {
         $this->chapo = $chapo;
         return $this;
@@ -128,9 +128,9 @@ class Post
      * 
      * Get value of Contents
      *
-     * @return object
+     * @return string
      */
-    public function getContents()
+    public function getContents(): string
     {
         return $this->contents;
     }
@@ -140,17 +140,16 @@ class Post
      * 
      * Set value of Contents
      *
-     * @param string $contents
+     * @param string $contents expected value : content of the post
      *
-     * @return object
+     * @return Post
      */
-    public function setContents($contents)
+    public function setContents(string $contents): Post
     {
         $this->contents = $contents;
         return $this;
     }
 
-        
     /**
      * Method getPublish
      * 
@@ -163,7 +162,6 @@ class Post
         return $this->publish;
     }
 
-    
     /**
      * Method setPublish
      * 
@@ -184,9 +182,9 @@ class Post
      * 
      * Get value of idUsers
      *
-     * @return object
+     * @return int
      */
-    public function getUsers()
+    public function getUsers(): int
     {
         return $this->id_bpf_users;
     }
@@ -196,11 +194,11 @@ class Post
      * 
      * Set value of IdUsers
      *
-     * @param int $idUsers
+     * @param int $idUsers expected value : IdUser
      *
-     * @return object
+     * @return Post
      */
-    public function setUser($idUsers)
+    public function setUser(int $idUsers): Post
     {
         $this->id_bpf_users = $idUsers;
         return $this;
