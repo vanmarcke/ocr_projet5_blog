@@ -19,9 +19,8 @@ use Projet5\model\CommentModel;
  */
 class Router
 {
-	// Set the number of pages for post and comment views 
+	// Set the number of pages for post views
 	const POST_PER_PAGE = 4;
-	const COMMENT_PER_PAGE = 5;
 
 	/**
 	 * Execute the route to home page 
@@ -40,7 +39,6 @@ class Router
 		if (isset($_GET['url'])) {
 			$url = explode('/', strtolower($_GET['url']));
 		}
-
 		switch (true) {
 				/*Accueil*/
 			case ($url == '' || $url[0] == 'accueil'): {
@@ -53,7 +51,6 @@ class Router
 					$currentPage = intval($params[1]);
 					$postController = new FrontPostController();
 					$postController->displayPosts($postModel, $currentPage);
-					$url = '';
 					break;
 				}
 				/*Un article-id with this comments*/
@@ -139,10 +136,19 @@ class Router
 					$adminController->displayRefusedComments($userModel, $postModel, $commentModel);
 					break;
 				}
-			default: {
-					$_SESSION['error'] = 'Erreur 404 - Page non trouvé';
+			case ($url[0] == 'error-404'): {
 					$homepageController = new HomepageController();
-					$homepageController->index($userModel);
+					$homepageController->error404();
+					break;
+				}
+			case ($url[0] == 'error-500'): {
+					$homepageController = new HomepageController();
+					$homepageController->error500();
+					break;
+				}
+			default: {
+					$homepageController = new HomepageController();
+					$homepageController->error404();
 					break;
 				}
 		}

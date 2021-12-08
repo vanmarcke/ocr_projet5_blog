@@ -3,13 +3,14 @@
 namespace Projet5\model;
 
 use PDO;
+use Projet5\entity\User;
 use Projet5\service\DatabaseService;
 
 /**
  * Reading, inserting, updating and deleting users 
  */
 class UserModel extends DatabaseService
-{    
+{
     /**
      * loadUser
      *
@@ -42,31 +43,31 @@ class UserModel extends DatabaseService
     /**
      * Return all pending users
      *
-     * @return array list of pending users 
+     * @return User list of pending users 
      */
     public function loadPendingUsers()
     {
-        $req = $this->getDb()->prepare('SELECT * FROM `bpf_users` WHERE `rank`= "pending" ');
+        $req = $this->getDb()->prepare('SELECT id, pseudo, email FROM `bpf_users` WHERE `rank`= "pending" ');
         $req->execute();
-        return $req;
+        return $req->fetchAll(PDO::FETCH_CLASS, 'Projet5\entity\User');
     }
 
     /**
      * insert user with datas table
      *
-     * @param  array $datas
+     * @param  User $user
      * @return array list of data to insert in the database 
      */
-    public function insert(array $datas)
+    public function insert(User $user)
     {
         $req = $this->getDb()->prepare(
             'INSERT INTO bpf_users(pseudo, email, password, rank) 
             VALUES(:pseudo, :email, :password, :rank)'
         );
-        $req->bindValue(':pseudo', $datas['pseudo']);
-        $req->bindValue(':email', $datas['email']);
-        $req->bindValue(':password', password_hash($datas['password'], PASSWORD_DEFAULT));
-        $req->bindValue(':rank', 'pending');
+        $req->bindValue(':pseudo', $user->getPseudo());
+        $req->bindValue(':email', $user->getEmail());
+        $req->bindValue(':password', $user->getPassword());
+        $req->bindValue(':rank', $user->getRank());
         $req->execute();
     }
 
@@ -78,7 +79,7 @@ class UserModel extends DatabaseService
      */
     public function validateUserWithId(int $idUser)
     {
-        $req = $this->getDb()->prepare('UPDATE bpf_Users SET rank=:rank WHERE id=:idUser');
+        $req = $this->getDb()->prepare('UPDATE bpf_users SET rank=:rank WHERE id=:idUser');
         $req->bindValue(':rank', 'registered');
         $req->bindValue(':idUser', $idUser);
         $req->execute();
@@ -92,7 +93,7 @@ class UserModel extends DatabaseService
      */
     public function deleteUserWithId(int $idUser)
     {
-        $req = $this->getDb()->prepare('DELETE FROM bpf_Users WHERE id=:idUser');
+        $req = $this->getDb()->prepare('DELETE FROM bpf_users WHERE id=:idUser');
         $req->bindValue(':idUser', $idUser);
         $req->execute();
     }

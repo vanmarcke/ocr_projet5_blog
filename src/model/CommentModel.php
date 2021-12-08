@@ -3,6 +3,7 @@
 namespace Projet5\model;
 
 use PDO;
+use Projet5\entity\Comment;
 use Projet5\service\DatabaseService;
 
 /**
@@ -13,31 +14,26 @@ class CommentModel extends DatabaseService
     /**
      * load comments for one post
      *
-     * @param string $idPost return the id of the comment
-     * @param int $startLimit returns the number of the start of the loop for each page
-     * @param int $numberPerPage returns the number of comments per page and limit the number of comments to 50 in admin
+     * @param int $idPost return the id of the comment
      *
-     * @return array
+     * @return Comment
      */
-    public function loadAllCommentsWithIdPost(string $idPost, int $startLimit = 0, int $numberPerPage = 50)
+    public function loadAllCommentsWithIdPost(int $idPost)
     {
         $req = $this->getDb()->prepare(
             'SELECT bpf_comments.id, contents, date_comment, publish, bpf_users.pseudo 
             FROM `bpf_comments` LEFT JOIN bpf_users ON bpf_comments.id_bpf_users = bpf_users.id 
-            WHERE id_bpf_blog_posts=:idPost ORDER BY bpf_comments.id 
-            DESC LIMIT :startLimit , :numberPerPage'
+            WHERE id_bpf_blog_posts=:idPost ORDER BY bpf_comments.id DESC'
         );
         $req->bindValue(':idPost', $idPost);
-        $req->bindValue(':startLimit', $startLimit, PDO::PARAM_INT);
-        $req->bindValue(':numberPerPage', $numberPerPage, PDO::PARAM_INT);
         $req->execute();
-        return $req;
+        return $req->fetchAll(PDO::FETCH_CLASS, 'Projet5\entity\Comment');
     }
 
     /**
      * load comments with waiting status
      *
-     * @return array
+     * @return Comment
      */
     public function loadInvalidComments()
     {
@@ -47,13 +43,13 @@ class CommentModel extends DatabaseService
             WHERE publish = "waiting"'
         );
         $req->execute();
-        return $req;
+        return $req->fetchAll(PDO::FETCH_CLASS, 'Projet5\entity\Comment');
     }
 
     /**
      * load comments with denied status
      *
-     * @return array
+     * @return Comment
      */
     public function loadRefuseComments()
     {
@@ -63,27 +59,34 @@ class CommentModel extends DatabaseService
             WHERE publish = "refused"'
         );
         $req->execute();
-        return $req;
+        return $req->fetchAll(PDO::FETCH_CLASS, 'Projet5\entity\Comment');
     }
 
     /**
      * insert a new comment 
      *
-     * @param array $datas insertion of a new comment in the database
+     * @param Comment $comment insertion of a new comment in the database
      * 
      * @return array
      */
-    public function insertComment(array $datas)
+    public function insertComment(Comment $comment)
     {
         $req = $this->getDb()->prepare(
             'INSERT INTO bpf_comments(contents, publish, id_bpf_blog_posts, id_bpf_users) 
             VALUES(:contents, :publish, :id_blog_post, :id_user)'
         );
-        $req->bindValue(':contents', $datas['contents']);
-        $req->bindValue(':publish', 'waiting');
-        $req->bindValue(':id_blog_post', $datas['id_blog_post']);
-        $req->bindValue(':id_user', $datas['id_user']);
-        $req->execute();
+        $req->bindValue(':contents', $comment->getContents());
+        if (!$this->isAdmin($_SESSION['rankConnectedUser'])) {
+            $req->bindValue(':publish', 'waiting');
+            $req->bindValue(':id_blog_post', $comment->getIdBlogPosts());
+            $req->bindValue(':id_user', $comment->getIdUsers());
+            $req->execute();
+        } else {
+            $req->bindValue(':publish', 'valid');
+            $req->bindValue(':id_blog_post', $comment->getIdBlogPosts());
+            $req->bindValue(':id_user', $comment->getIdUsers());
+            $req->execute();
+        }
     }
 
     /**
@@ -95,7 +98,7 @@ class CommentModel extends DatabaseService
      */
     public function publishCommentWithId(int $idComment)
     {
-        $req = $this->getDb()->prepare('UPDATE bpf_Comments SET publish=:publish WHERE id=:idComment');
+        $req = $this->getDb()->prepare('UPDATE bpf_comments SET publish=:publish WHERE id=:idComment');
         $req->bindValue(':publish', 'valid');
         $req->bindValue(':idComment', $idComment);
         $req->execute();
@@ -108,7 +111,7 @@ class CommentModel extends DatabaseService
      */
     public function deleteCommentWithId(int $idComment)
     {
-        $req = $this->getDb()->prepare('DELETE FROM bpf_Comments WHERE id=:idComment');
+        $req = $this->getDb()->prepare('DELETE FROM bpf_comments WHERE id=:idComment');
         $req->bindValue(':idComment', $idComment);
         $req->execute();
     }
@@ -122,7 +125,7 @@ class CommentModel extends DatabaseService
      */
     public function refuseCommentWithId(int $idComment)
     {
-        $req = $this->getDb()->prepare('UPDATE bpf_Comments SET publish=:publish WHERE id=:idComment');
+        $req = $this->getDb()->prepare('UPDATE bpf_comments SET publish=:publish WHERE id=:idComment');
         $req->bindValue(':publish', 'refused');
         $req->bindValue(':idComment', $idComment);
         $req->execute();

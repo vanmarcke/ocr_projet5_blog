@@ -2,12 +2,15 @@
 
 namespace Projet5\service;
 
+use Exception;
 use PDO;
+use PDOException;
+use Projet5\controller\Constraints;
 
 /**
  * Define the database connection parameters 
  */
-class DatabaseService
+class DatabaseService extends Constraints
 {
 	/**
 	 * bdd
@@ -30,11 +33,11 @@ class DatabaseService
 
 				try {
 					$this->bdd = new PDO("mysql:dbname=" . $xml->db . ";host=" . $xml->host, $xml->user, $xml->password, array(\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION));
-				} catch (\PDOException $e) {
-					die('Problème de connexion BDD, erreur : ' . $e->getMessage());
+				} catch (PDOException $e) {
+					header('location:error-500');
 				}
-			} catch (\Exception $e) {
-				die('Problème de fichier XML, erreur : ' . $e->getMessage());
+			} catch (Exception $e) {
+				header('location:error-500');
 			}
 		}
 		return $this->bdd;
