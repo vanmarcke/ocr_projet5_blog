@@ -2,13 +2,14 @@
 
 namespace Projet5\controller;
 
+use Exception;
 use Projet5\controller\TwigController;
 use Projet5\model\UserModel;
 
 /**
  * Set the page to display first 
  */
-class HomepageController extends TwigController
+class HomepageController extends Constraints
 {
 	/**
 	 * Get Homepage
@@ -17,14 +18,18 @@ class HomepageController extends TwigController
 	 */
 	public function index(UserModel $userModel)
 	{
-		// load user datas if is connected
-		if (isset($_SESSION['IdConnectedUser'])) {
-			$userModel->loadUser($_SESSION['IdConnectedUser']);
-		}
+		try {
+			// load user datas if is connected
+			if (isset($_SESSION['IdConnectedUser'])) {
+				$userModel->loadUser($_SESSION['IdConnectedUser']);
+			}
 
-		// The form is not submitted, display the homepage
-		if (count($_POST) === 0) {
-			$this->render('homepage.twig', $_SESSION);
+			// The form is not submitted, display the homepage
+			if (count($_POST) === 0) {
+				$this->render('homepage.twig', $_SESSION);
+			}
+		} catch (Exception $e) {
+			$this->render('error_500.twig', $_SESSION, []);
 		}
 	}
 

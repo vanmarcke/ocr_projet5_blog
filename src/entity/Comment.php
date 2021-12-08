@@ -19,7 +19,7 @@ class Comment
      * 
      * Get value of idComment
      *
-     * @return void
+     * @return object
      */
     public function getId()
     {
@@ -33,11 +33,12 @@ class Comment
      *
      * @param int $id
      *
-     * @return void
+     * @return object
      */
-    public function setId($id): void
+    public function setId($id)
     {
         $this->id = $id;
+        return $this;
     }
 
     /**
@@ -45,7 +46,7 @@ class Comment
      * 
      * Get value of contents
      *
-     * @return void
+     * @return object
      */
     public function getContents()
     {
@@ -59,11 +60,12 @@ class Comment
      *
      * @param string $contents
      *
-     * @return void
+     * @return object
      */
     public function setContents($contents)
     {
         $this->contents = $contents;
+        return $this;
     }
 
     /**
@@ -71,7 +73,7 @@ class Comment
      * 
      * Get value of DateComment
      *
-     * @return void
+     * @return object
      */
     public function getDateComment()
     {
@@ -85,11 +87,12 @@ class Comment
      *
      * @param string $dateComment
      *
-     * @return void
+     * @return object
      */
     public function setDateComment($dateComment)
     {
         $this->date_comment = $dateComment;
+        return $this;
     }
 
     /**
@@ -97,7 +100,7 @@ class Comment
      * 
      * Get value of Publish
      *
-     * @return void
+     * @return object
      */
     public function getPublish()
     {
@@ -111,11 +114,12 @@ class Comment
      *
      * @param string $publish
      *
-     * @return void
+     * @return object
      */
     public function setPublish($publish)
     {
         $this->publish = $publish;
+        return $this;
     }
 
     /**
@@ -123,7 +127,7 @@ class Comment
      * 
      * Get value of IdBlogPosts
      *
-     * @return void
+     * @return object
      */
     public function getIdBlogPosts()
     {
@@ -137,11 +141,12 @@ class Comment
      *
      * @param int $idBlogPosts
      *
-     * @return void
+     * @return object
      */
     public function setIdBlogPosts($idBlogPosts)
     {
         $this->id_bpf_blog_posts = $idBlogPosts;
+        return $this;
     }
 
     /**
@@ -149,7 +154,7 @@ class Comment
      * 
      * Get value of IdUsers
      *
-     * @return void
+     * @return object
      */
     public function getIdUsers()
     {
@@ -163,10 +168,11 @@ class Comment
      *
      * @param int $idUsers
      *
-     * @return void
+     * @return object
      */
     public function setIdUsers($idUsers)
     {
         $this->id_bpf_users = $idUsers;
+        return $this;
     }
 }

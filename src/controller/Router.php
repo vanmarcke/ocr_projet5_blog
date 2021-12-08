@@ -2,6 +2,7 @@
 
 namespace Projet5\controller;
 
+use Exception;
 use Projet5\controller\HomepageController;
 use Projet5\controller\UserController;
 use Projet5\controller\FrontPostController;
@@ -17,9 +18,9 @@ use Projet5\model\CommentModel;
 /**
  * Defined the different routes to the controllers 
  */
-class Router
+class Router extends Constraints
 {
-	// Set the number of pages for post views 
+	// Set the number of pages for post views
 	const POST_PER_PAGE = 4;
 
 	/**
@@ -40,118 +41,122 @@ class Router
 			$url = explode('/', strtolower($_GET['url']));
 		}
 
-		switch (true) {
-				/*Accueil*/
-			case ($url == '' || $url[0] == 'accueil'): {
-					$homepageController = new HomepageController();
-					$homepageController->index($userModel);
-					break;
-				}
-				/*Les Articles*/
-			case (preg_match('#^articles?-page([0-9]+)$#', $url[0], $params)): {
-					$currentPage = intval($params[1]);
-					$postController = new FrontPostController();
-					$postController->displayPosts($postModel, $currentPage);
-					break;
-				}
-				/*Un article-id with this comments*/
-			case (preg_match('#^articles?-([0-9]+)-page([0-9]+)$#', $url[0], $params)): {
-					$idPost = $params[1];
-					$currentPage = intval($params[2]);
-					$postController = new FrontPostController();
-					$postController->displayPost($postModel, $commentModel, $idPost, $currentPage);
-					break;
-				}
-				/*ajouter-un-commentaire-idPost*/
-			case (preg_match('#^ajouter-un-commentaire-([0-9]+)$#', $url[0], $params)): {
-					$idPost = $params[1];
-					$commentController = new CommentController();
-					$commentController->insertComment($postModel, $commentModel, $idPost);
-					break;
-				}
-				/*ajouter-un-article*/
-			case ($url[0] == 'ajouter-un-article'): {
-					$postController = new BackPostController();
-					$postController->addPost($postModel);
-					break;
-				}
-				/*supprimer-un-article*/
-			case (preg_match('#^supprimer-article-([0-9]+)$#', $url[0], $params)): {
-					$idPost = $params[1];
-					$postController = new BackPostController();
-					$postController->deletePost($idPost, $postModel);
-					break;
-				}
-				/*modifier-article-id*/
-			case (preg_match('#^modifier-article-([0-9]+)$#', $url[0], $params)): {
-					$idPost = $params[1];
-					$postController = new BackPostController();
-					$postController->editPost($idPost, $postModel);
-					break;
-				}
-				/*connexion*/
-			case ($url[0] == 'connexion'): {
-					$userController = new UserController();
-					$userController->connexion($userModel);
-					break;
-				}
-				/*inscription*/
-			case ($url[0] == 'inscription'): {
-					$userController = new UserController();
-					$userController->register($userModel);
-					break;
-				}
-				/*deconnexion*/
-			case ($url[0] == 'deconnexion'): {
-					$userController = new UserController();
-					$userController->disconnect();
-					break;
-				}
-				/*administratrion*/
-			case ($url[0] == 'administration'): {
-					$adminController = new AdminController();
-					$adminController->displayAllElements($userModel, $postModel, $commentModel);
-					break;
-				}
-				/*admin-posts*/
-			case ($url[0] == 'admin-waiting-posts'): {
-					$adminController = new AdminController();
-					$adminController->displayWaitingPosts($userModel, $postModel, $commentModel);
-					break;
-				}
-				/*admin-users*/
-			case ($url[0] == 'admin-pending-users'): {
-					$adminController = new AdminController();
-					$adminController->displayPendingUsers($userModel, $postModel, $commentModel);
-					break;
-				}
-				/*admin-waiting-comments-*/
-			case ($url[0] == 'admin-waiting-comments'): {
-					$adminController = new AdminController();
-					$adminController->displayInvalidComments($userModel, $postModel, $commentModel);
-					break;
-				}
-				/*admin-refused-comments-*/
-			case ($url[0] == 'admin-refused-comments'): {
-					$adminController = new AdminController();
-					$adminController->displayRefusedComments($userModel, $postModel, $commentModel);
-					break;
-				}
-			case ($url[0] == 'error-404'): {
-					$homepageController = new HomepageController();
-					$homepageController->error404();
-					break;
-				}
-			case ($url[0] == 'error-500'): {
-					$homepageController = new HomepageController();
-					$homepageController->error500();
-					break;
-				}
-			default: {
-					$homepageController = new HomepageController();
-					$homepageController->error404();
-					break;
-				}
+		try {
+			switch (true) {
+					/*Accueil*/
+				case ($url == '' || $url[0] == 'accueil'): {
+						$homepageController = new HomepageController();
+						$homepageController->index($userModel);
+						break;
+					}
+					/*Les Articles*/
+				case (preg_match('#^articles?-page([0-9]+)$#', $url[0], $params)): {
+						$currentPage = intval($params[1]);
+						$postController = new FrontPostController();
+						$postController->displayPosts($postModel, $currentPage);
+						break;
+					}
+					/*Un article-id with this comments*/
+				case (preg_match('#^articles?-([0-9]+)-page([0-9]+)$#', $url[0], $params)): {
+						$idPost = $params[1];
+						$currentPage = intval($params[2]);
+						$postController = new FrontPostController();
+						$postController->displayPost($postModel, $commentModel, $idPost, $currentPage);
+						break;
+					}
+					/*ajouter-un-commentaire-idPost*/
+				case (preg_match('#^ajouter-un-commentaire-([0-9]+)$#', $url[0], $params)): {
+						$idPost = $params[1];
+						$commentController = new CommentController();
+						$commentController->insertComment($postModel, $commentModel, $idPost);
+						break;
+					}
+					/*ajouter-un-article*/
+				case ($url[0] == 'ajouter-un-article'): {
+						$postController = new BackPostController();
+						$postController->addPost($postModel);
+						break;
+					}
+					/*supprimer-un-article*/
+				case (preg_match('#^supprimer-article-([0-9]+)$#', $url[0], $params)): {
+						$idPost = $params[1];
+						$postController = new BackPostController();
+						$postController->deletePost($idPost, $postModel);
+						break;
+					}
+					/*modifier-article-id*/
+				case (preg_match('#^modifier-article-([0-9]+)$#', $url[0], $params)): {
+						$idPost = $params[1];
+						$postController = new BackPostController();
+						$postController->editPost($idPost, $postModel);
+						break;
+					}
+					/*connexion*/
+				case ($url[0] == 'connexion'): {
+						$userController = new UserController();
+						$userController->connexion($userModel);
+						break;
+					}
+					/*inscription*/
+				case ($url[0] == 'inscription'): {
+						$userController = new UserController();
+						$userController->register($userModel);
+						break;
+					}
+					/*deconnexion*/
+				case ($url[0] == 'deconnexion'): {
+						$userController = new UserController();
+						$userController->disconnect();
+						break;
+					}
+					/*administratrion*/
+				case ($url[0] == 'administration'): {
+						$adminController = new AdminController();
+						$adminController->displayAllElements($userModel, $postModel, $commentModel);
+						break;
+					}
+					/*admin-posts*/
+				case ($url[0] == 'admin-waiting-posts'): {
+						$adminController = new AdminController();
+						$adminController->displayWaitingPosts($userModel, $postModel, $commentModel);
+						break;
+					}
+					/*admin-users*/
+				case ($url[0] == 'admin-pending-users'): {
+						$adminController = new AdminController();
+						$adminController->displayPendingUsers($userModel, $postModel, $commentModel);
+						break;
+					}
+					/*admin-waiting-comments-*/
+				case ($url[0] == 'admin-waiting-comments'): {
+						$adminController = new AdminController();
+						$adminController->displayInvalidComments($userModel, $postModel, $commentModel);
+						break;
+					}
+					/*admin-refused-comments-*/
+				case ($url[0] == 'admin-refused-comments'): {
+						$adminController = new AdminController();
+						$adminController->displayRefusedComments($userModel, $postModel, $commentModel);
+						break;
+					}
+				case ($url[0] == 'error-404'): {
+						$homepageController = new HomepageController();
+						$homepageController->error404();
+						break;
+					}
+				case ($url[0] == 'error-500'): {
+						$homepageController = new HomepageController();
+						$homepageController->error500();
+						break;
+					}
+				default: {
+						$homepageController = new HomepageController();
+						$homepageController->error404();
+						break;
+					}
+			}
+		} catch (Exception $e) {
+			$this->render('error_500.twig', $_SESSION);
 		}
 	}
 
@@ -160,5 +165,19 @@ class Router
 	{
 		unset($_SESSION['success']);
 		unset($_SESSION['error']);
+	}
+
+	/**
+	 * render Template
+	 *
+	 * @param string $templateName Template name to render
+	 * @param array $session user session	
+	 * @throws LoaderError
+	 * @throws RuntimeError
+	 * @throws SyntaxError
+	 */
+	private function render(string $templateName, array $session)
+	{
+		echo $this->twig->render($templateName, ['SESSION' => $session]);
 	}
 }

@@ -15,27 +15,25 @@ class FrontPostController extends Constraints
 	/**
 	 * Displays the list of posts 
 	 *
-	 * @param object $postModel
+	 * @param PostModel $postModel
 	 * @param int $currentPage contains the page number
 	 *
 	 * @return array  contains post data 
 	 */
-	public function displayPosts(object $postModel, int $currentPage)
+	public function displayPosts(PostModel $postModel, int $currentPage)
 	{
 		try {
-			// count number of row valide
-			$countPosts = $postModel->countAllPost($valide = self::VALUE_POST_VALID);
-			$numberPosts = $countPosts->rowCount();
+			// count number of row valid
+			$numberPosts = $postModel->countAllPost($valid = self::VALUE_POST_VALID);
 			// take Limits for request SQL
 			$paging = $this->paging(Router::POST_PER_PAGE, $numberPosts, $currentPage);
 
-			$posts = $postModel->loadAllPost($valide, $paging['startLimit'], Router::POST_PER_PAGE);
+			$posts = $postModel->loadAllPost($valid, $paging['startLimit'], Router::POST_PER_PAGE);
+			// display posts
+			$this->render('blog_posts.twig', $_SESSION, $paging, [], $posts, []);
 		} catch (Exception $e) {
 			$this->render('error_500.twig', $_SESSION, []);
-			return;
 		}
-
-		$this->render('blog_posts.twig', $_SESSION, $paging, [], $posts, []);
 	}
 
 	/**
@@ -54,27 +52,24 @@ class FrontPostController extends Constraints
 			$post = $postModel->loadPost($idPost);
 			// load comments for this post
 			$comments = $commentModel->loadAllCommentsWithIdPost($idPost);
+
+			// // if the post does not exist display an error message 		
+			// if ($postModel->loadPost($idPost) == false) {
+			// 	$this->render('error_404.twig', $_SESSION, []);
+			// 	return;
+			// }
+
+			// if the post is waiting display an error message
+			if ($post->getPublish() === self::POST_STATUS_WAITING) {
+				$_SESSION['error'] = 'Cet article est en attente de validation';
+				header('location:Articles-Page1');
+				exit;
+			}
+			// display post and comments
+			$this->render('post.twig', $_SESSION, [], $post, [], $comments);
 		} catch (Exception $e) {
 			$this->render('error_500.twig', $_SESSION, []);
-			return;
 		}
-
-
-		// if the post does not exist display an error message 		
-		// if ($postModel->loadPost($idPost) == false) {
-		// 	$this->render('error_404.twig', $_SESSION, []);
-		// 	return;
-		// }
-
-		// if the post is waiting display an error message
-		if ($post->getPublish() === self::POST_STATUS_WAITING) {
-			$_SESSION['error'] = 'Cet article est en attente de validation';
-			header('location:Articles-Page1');
-			exit;
-		}
-
-		// display post and comments 
-		$this->render('post.twig', $_SESSION, [], $post, [], $comments);
 	}
 
 	/**
@@ -90,8 +85,16 @@ class FrontPostController extends Constraints
 	{
 		// calcul total pages
 		$totalPages = ceil($numberRow / $numberPerPage);
+
 		// calcul startlimit for request SQL
 		$startLimit = intval(($currentPage - 1) * $numberPerPage);
+		
+		// redirection if the page does not exist
+		if ($currentPage > $totalPages) {
+			$_SESSION['error'] = 'Cette page n\'existe pas !!!';
+			header('location:Articles-Page1');
+			exit;
+		}
 
 		return $paging = [
 			'startLimit' => $startLimit,

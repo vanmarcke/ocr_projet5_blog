@@ -27,7 +27,7 @@ class Constraints extends TwigController
      * @param string $pseudo contains the value of the pseudo sent by the user
      * @param array &$errors error information to display
      *
-     * @return array return array with error message
+     * @return array
      */
     protected function checkPseudo(string $pseudo, array &$errors)
     {
@@ -42,7 +42,7 @@ class Constraints extends TwigController
      * @param string $pseudo contains the value of the pseudo sent by the user
      * @param array &$errors error information to display
      *
-     * @return array return array with error message
+     * @return array
      */
     protected function checkPseudoSize(string $pseudo, array &$errors)
     {
@@ -57,7 +57,7 @@ class Constraints extends TwigController
      * @param string $email contains the value of email sent by the user
      * @param array &$errors error information to display
      *
-     * @return array return array with error message
+     * @return array
      */
     protected function checkEmail(string $email, array &$errors)
     {

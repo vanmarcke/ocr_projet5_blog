@@ -40,28 +40,26 @@ class AdminController extends SessionController
 
 			// load pending users
 			$pendingUsers = $userModel->loadPendingUsers();
-			// load invalide posts        
-			$invalidePosts = $postModel->loadAllPost($valide = self::POST_STATUS_WAITING);
-			// load invalide comments        
-			$invalideComments = $commentModel->loadInvalidComments();
+			// load invalid posts        
+			$invalidPosts = $postModel->loadAllPost($valid = self::POST_STATUS_WAITING);
+			// load invalid comments        
+			$invalidComments = $commentModel->loadInvalidComments();
 			// load the refused comments        
 			$refuseComments = $commentModel->loadRefuseComments();
+
+			// display 
+			$this->render(
+				'admin.twig',
+				$_SESSION,
+				[],
+				$pendingUsers,
+				$invalidPosts,
+				$invalidComments,
+				$refuseComments
+			);
 		} catch (Exception $e) {
 			$this->render('error_500.twig', $_SESSION, []);
-			return;
 		}
-
-
-		// display 
-		$this->render(
-			'admin.twig',
-			$_SESSION,
-			[],
-			$pendingUsers,
-			$invalidePosts,
-			$invalideComments,
-			$refuseComments
-		);
 	}
 
 	/**
@@ -87,15 +85,14 @@ class AdminController extends SessionController
 			// controle if a POST variable exist and execute
 			$this->controleForms($userModel, $postModel, $commentModel);
 
-			// load invalide posts
-			$invalidePosts = $postModel->loadAllPost($valide = self::POST_STATUS_WAITING);
+			// load invalid posts
+			$invalidPosts = $postModel->loadAllPost($valid = self::POST_STATUS_WAITING);
+
+			// display 
+			$this->render('admin_waiting_posts.twig', $_SESSION, [], [], $invalidPosts, [], []);
 		} catch (Exception $e) {
 			$this->render('error_500.twig', $_SESSION, []);
-			return;
 		}
-
-		// display 
-		$this->render('admin_waiting_posts.twig', $_SESSION, [], [], $invalidePosts, [], []);
 	}
 
 	/**
@@ -123,13 +120,12 @@ class AdminController extends SessionController
 
 			// load pending users
 			$pendingUsers = $userModel->loadPendingUsers();
+
+			// display 
+			$this->render('admin_pending_users.twig', $_SESSION, [], $pendingUsers, [], [], []);
 		} catch (Exception $e) {
 			$this->render('error_500.twig', $_SESSION, []);
-			return;
 		}
-
-		// display 
-		$this->render('admin_pending_users.twig', $_SESSION, [], $pendingUsers, [], [], []);
 	}
 
 	/**
@@ -155,16 +151,14 @@ class AdminController extends SessionController
 			// controle if a POST variable exist and execute
 			$this->controleForms($userModel, $postModel, $commentModel);
 
-			// load invalide comments
-			$invalideComments = $commentModel->loadInvalidComments();
+			// load invalid comments
+			$invalidComments = $commentModel->loadInvalidComments();
+
+			// display 
+			$this->render('admin_waiting_comments.twig', $_SESSION, [], [], [], $invalidComments, []);
 		} catch (Exception $e) {
 			$this->render('error_500.twig', $_SESSION, []);
-			return;
 		}
-
-
-		// display 
-		$this->render('admin_waiting_comments.twig', $_SESSION, [], [], [], $invalideComments, []);
 	}
 
 	/**
@@ -192,13 +186,12 @@ class AdminController extends SessionController
 
 			// load the refused comments
 			$refuseComments = $commentModel->loadRefuseComments();
+
+			// display 
+			$this->render('admin_refused_comments.twig', $_SESSION, [], [], [], [], $refuseComments);
 		} catch (Exception $e) {
 			$this->render('error_500.twig', $_SESSION, []);
-			return;
 		}
-
-		// display 
-		$this->render('admin_refused_comments.twig', $_SESSION, [], [], [], [], $refuseComments);
 	}
 
 	/**
@@ -215,7 +208,7 @@ class AdminController extends SessionController
 	private function controleForms(UserModel $userModel, PostModel $postModel, CommentModel $commentModel)
 	{
 		switch (true) {
-				// valide user if form is submit
+				// valid user if form is submit
 			case (isset($_POST['idValidateUser'])): {
 					$userModel->validateUserWithId($_POST['idValidateUser']);
 					$_SESSION['success'] = self::USER . self::VALID;
@@ -229,7 +222,7 @@ class AdminController extends SessionController
 					break;
 				}
 
-				// valide post if form is submit
+				// valid post if form is submit
 			case (isset($_POST['idPublishPost'])): {
 					$postModel->publishPostWithId($_POST['idPublishPost']);
 					$_SESSION['success'] = self::POST . self::VALID;
@@ -243,7 +236,7 @@ class AdminController extends SessionController
 					break;
 				}
 
-				// valide comment if form is submit
+				// valid comment if form is submit
 			case (isset($_POST['idPublishComment'])): {
 					$commentModel->publishCommentWithId($_POST['idPublishComment']);
 					$_SESSION['success'] = self::COMM . self::VALID;
@@ -273,8 +266,8 @@ class AdminController extends SessionController
 	 * @param array $session user session
 	 * @param array $error error information to display
 	 * @param object $pendingUsers return pending user
-	 * @param object $invalidePosts return pending post
-	 * @param object $invalideComments return invalid comment 
+	 * @param object $invalidPosts return pending post
+	 * @param object $invalidComments return invalid comment 
 	 * @param object $refuseComments return comment refused 
 	 * 
 	 * @throws LoaderError
@@ -286,16 +279,16 @@ class AdminController extends SessionController
 		array $session,
 		array $errors = [],
 		$pendingUsers = [],
-		$invalidePosts = [],
-		$invalideComments = [],
+		$invalidPosts = [],
+		$invalidComments = [],
 		$refuseComments = []
 	) {
 		echo $this->twig->render($templateName, [
 			'SESSION' => $session,
 			'error' => $errors,
 			'pendingUsers' => $pendingUsers,
-			'invalidePosts' => $invalidePosts,
-			'invalideComments' => $invalideComments,
+			'invalidPosts' => $invalidPosts,
+			'invalidComments' => $invalidComments,
 			'refuseComments' => $refuseComments
 		]);
 	}

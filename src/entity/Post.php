@@ -7,20 +7,20 @@ namespace Projet5\entity;
  */
 class Post
 {
-    private $id;
-    private $title;
-    private $last_date_change;
-    private $chapo;
-    private $contents;
-    private $publish;
-    private $id_bpf_users;
+    private int $id;
+    private string $title;
+    private string $last_date_change;
+    private string $chapo;
+    private string $contents;
+    private string $publish;
+    private int $id_bpf_users;
 
     /**
      * Method getId
      * 
      * Get value of idPost
      *
-     * @return void
+     * @return object
      */
     public function getId()
     {
@@ -34,11 +34,12 @@ class Post
      *
      * @param int $id
      *
-     * @return void
+     * @return object
      */
     public function setId($id)
     {
         $this->id = $id;
+        return $this;
     }
 
     /**
@@ -46,7 +47,7 @@ class Post
      * 
      * Get value of Title
      *
-     * @return void
+     * @return object
      */
     public function getTitle()
     {
@@ -60,11 +61,12 @@ class Post
      *
      * @param string $title
      *
-     * @return void
+     * @return object
      */
     public function setTitle($title)
     {
         $this->title = $title;
+        return $this;
     }
 
     /**
@@ -72,7 +74,7 @@ class Post
      * 
      * Get value of LastDateChange
      *
-     * @return void
+     * @return object
      */
     public function getLastDateChange()
     {
@@ -86,11 +88,12 @@ class Post
      *
      * @param string $lastDateChange
      *
-     * @return void
+     * @return object
      */
     public function setLastDateChange($lastDateChange)
     {
         $this->last_date_change = $lastDateChange;
+        return $this;
     }
 
     /**
@@ -98,7 +101,7 @@ class Post
      * 
      * Get value of Chapo
      *
-     * @return void
+     * @return object
      */
     public function getChapo()
     {
@@ -112,11 +115,12 @@ class Post
      *
      * @param string $chapo
      *
-     * @return void
+     * @return object
      */
     public function setChapo($chapo)
     {
         $this->chapo = $chapo;
+        return $this;
     }
 
     /**
@@ -124,7 +128,7 @@ class Post
      * 
      * Get value of Contents
      *
-     * @return void
+     * @return object
      */
     public function getContents()
     {
@@ -138,37 +142,41 @@ class Post
      *
      * @param string $contents
      *
-     * @return void
+     * @return object
      */
     public function setContents($contents)
     {
         $this->contents = $contents;
+        return $this;
     }
 
+        
     /**
      * Method getPublish
      * 
      * Get value of Publish
      *
-     * @return void
+     * @return string
      */
-    public function getPublish()
+    public function getPublish(): string
     {
         return $this->publish;
     }
 
+    
     /**
      * Method setPublish
      * 
-     * Set value of Publish
+     * Get value of  Publish
      *
-     * @param $publish
+     * @param string $publish flag value expected : 'valid' or 'waiting'
      *
-     * @return string void
+     * @return Post
      */
-    public function setPublish($publish)
+    public function setPublish(string $publish): Post
     {
         $this->publish = $publish;
+        return $this;
     }
 
     /**
@@ -176,7 +184,7 @@ class Post
      * 
      * Get value of idUsers
      *
-     * @return void
+     * @return object
      */
     public function getUsers()
     {
@@ -190,10 +198,11 @@ class Post
      *
      * @param int $idUsers
      *
-     * @return void
+     * @return object
      */
     public function setUser($idUsers)
     {
         $this->id_bpf_users = $idUsers;
+        return $this;
     }
 }

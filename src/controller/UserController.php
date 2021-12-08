@@ -62,19 +62,17 @@ class UserController extends Constraints
                     $this->setErrorMessage('connexion', 'Mot de passe ou email incorrect.', $errors);
                 }
             }
+            // form information in a table for simplicity with twig
+            $form = [
+                "email" => $email,
+                "password" => $password
+            ];
+
+            // display the form with errors and datas form
+            $this->render('connexion.twig', $_SESSION, $errors, $form);
         } catch (Exception $e) {
             $this->render('error_500.twig', $_SESSION, []);
-            return;
         }
-
-        // form information in a table for simplicity with twig
-        $form = [
-            "email" => $email,
-            "password" => $password
-        ];
-
-        // display the form with errors and datas form
-        $this->render('connexion.twig', $_SESSION, $errors, $form);
     }
 
     /**
@@ -119,20 +117,21 @@ class UserController extends Constraints
 
         // if no error, 
         if (empty($errors)) {
-            $user = new User;
-            $user->setPseudo($pseudo);
-            $user->setEmail($email);
-            $user->setPassword($password);
-            $user->setRank('pending');
+            $user = new User();
+            $user
+                ->setPseudo($pseudo)
+                ->setEmail($email)
+                ->setPassword($password)
+                ->setRank('pending');
 
-            // regist in database and display connection
             try {
+                // save to database and display connection
                 $userModel->insert($user);
                 $_SESSION['success'] = 'Votre compte à été créé, cependant il doit être validé par un administrateur pour pouvoir écrire des commentaires';
                 $this->render('connexion.twig', $_SESSION, $errors, $form);
                 return;
                 // or create a new error_sql message
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 $this->setErrorMessage('sql', 'Le pseudo ou l\'email existe déjà', $errors);
             }
         }

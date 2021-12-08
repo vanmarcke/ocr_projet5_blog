@@ -15,7 +15,7 @@ class User
      * 
      * Get value of idUser
      *
-     * @return void
+     * @return object
      */
     public function getId()
     {
@@ -29,11 +29,12 @@ class User
      *
      * @param int $id
      *
-     * @return void
+     * @return object
      */
     public function setId($id)
     {
         $this->id = $id;
+        return $this;
     }
 
     /**
@@ -41,7 +42,7 @@ class User
      * 
      * Get value of Pseudo
      *
-     * @return void
+     * @return object
      */
     public function getPseudo()
     {
@@ -55,11 +56,12 @@ class User
      *
      * @param string $pseudo
      *
-     * @return void
+     * @return object
      */
     public function setPseudo($pseudo)
     {
         $this->pseudo = $pseudo;
+        return $this;
     }
 
     /**
@@ -67,7 +69,7 @@ class User
      * 
      * Get value of Email
      *
-     * @return void
+     * @return object
      */
     public function getEmail()
     {
@@ -81,11 +83,12 @@ class User
      *
      * @param string $email
      *
-     * @return void
+     * @return object
      */
     public function setEmail($email)
     {
         $this->email = $email;
+        return $this;
     }
 
     /**
@@ -93,7 +96,7 @@ class User
      * 
      * Get value of Password
      *
-     * @return void
+     * @return object
      */
     public function getPassword()
     {
@@ -107,11 +110,12 @@ class User
      *
      * @param string $password
      *
-     * @return void
+     * @return object
      */
     public function setPassword($password)
     {
         $this->password = password_hash($password, PASSWORD_DEFAULT);
+        return $this;
     }
 
     /**
@@ -119,7 +123,7 @@ class User
      * 
      * Get value of Rank
      *
-     * @return void
+     * @return object
      */
     public function getRank()
     {
@@ -133,10 +137,11 @@ class User
      *
      * @param string $rank
      *
-     * @return void
+     * @return object
      */
     public function setRank($rank)
     {
         $this->rank = $rank;
+        return $this;
     }
 }

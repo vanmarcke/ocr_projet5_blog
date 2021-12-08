@@ -2,6 +2,7 @@
 
 namespace Projet5\controller;
 
+use Exception;
 use Projet5\entity\Post;
 use Projet5\model\PostModel;
 
@@ -56,28 +57,28 @@ class BackPostController extends SessionController
 			'id_user' => $id_user
 		];
 
-		// insert post if control ok
-		if (empty($errors)) {
-			$post = new Post;
-			$post->setTitle($title);
-			$post->setChapo($chapo);
-			$post->setContents($contents);
-			$post->setPublish('waiting');
-			$post->setUser($id_user);
 
-			try {
+		try {
+			// insert post if control ok
+			if (empty($errors)) {
+				$post = new Post();
+				$post
+					->setTitle($title)
+					->setChapo($chapo)
+					->setContents($contents)
+					->setPublish('waiting')
+					->setUser($id_user);
+
 				$postModel->insertPost($post);
-				$_SESSION['success'] = self::MESSAGE_VALID_OK . ' envoyé, il est maintenant en attente de validation par un administrateur';
+				$_SESSION['success'] = self::MESSAGE_VALID_OK . ' envoyé, il est maintenant en attente de validation.';
 				header('location:admin-waiting-posts');
 				exit;
-			} catch (\Exception $e) {
-				$this->render('error_500.twig', $_SESSION, []);
-				return;
 			}
+			// display the form with errors and datas form
+			$this->render('insert_post.twig', $_SESSION, $errors, $form);
+		} catch (Exception $e) {
+			$this->render('error_500.twig', $_SESSION, []);
 		}
-
-		// display the form with errors and datas form
-		$this->render('insert_post.twig', $_SESSION, $errors, $form);
 	}
 
 	/**
@@ -131,27 +132,26 @@ class BackPostController extends SessionController
 			'id_post' => $idPost
 		];
 
-		// insert post if control ok
-		if (empty($errors)) {
-			$post = new Post;
-			$post->setTitle($title);
-			$post->setChapo($chapo);
-			$post->setContents($contents);
-			$post->setUser($id_user);
+		try {
+			// insert post if control ok
+			if (empty($errors)) {
+				$post = new Post();
+				$post
+					->setTitle($title)
+					->setChapo($chapo)
+					->setContents($contents)
+					->setUser($id_user);
 
-			try {
 				$postModel->updatePost($idPost, $post);
 				$_SESSION['success'] = self::MESSAGE_VALID_OK . ' mis à jour';
 				header('location:Article-page1');
 				exit;
-			} catch (\Exception $e) {
-				$this->render('error_500.twig', $_SESSION, []);
-				return;
 			}
+			// display the post with error and datas form
+			$this->render('insert_post.twig', $_SESSION, $errors, $form);
+		} catch (Exception $e) {
+			$this->render('error_500.twig', $_SESSION, []);
 		}
-
-		// display the post with error and datas form
-		$this->render('insert_post.twig', $_SESSION, $errors, $form);
 	}
 
 	/**
@@ -176,22 +176,26 @@ class BackPostController extends SessionController
 			return;
 		}
 
-		// Not delete post if form is cancel and redirect
-		if (isset($_POST['cancel'])) {
-			header('location:Article-page1');
-			exit;
-		}
+		try {
+			// Not delete post if form is cancel and redirect
+			if (isset($_POST['cancel'])) {
+				header('location:Article-page1');
+				exit;
+			}
 
-		// delete post if form is submit and redirect
-		if (isset($_POST['idDeletePost'])) {
-			$postModel->deletePostWithId($_POST['idDeletePost']);
-			$_SESSION['success'] = self::MESSAGE_VALID_OK . ' supprimé';
-			header('location:Articles-Page1');
-			exit;
-		}
+			// delete post if form is submit and redirect
+			if (isset($_POST['idDeletePost'])) {
+				$postModel->deletePostWithId($_POST['idDeletePost']);
+				$_SESSION['success'] = self::MESSAGE_VALID_OK . ' supprimé';
+				header('location:Articles-Page1');
+				exit;
+			}
 
-		// display the confirm delete message
-		$this->render('delete_post.twig', $_SESSION, [], [], $post);
+			// display the confirm delete message
+			$this->render('delete_post.twig', $_SESSION, [], [], $post);
+		} catch (Exception $e) {
+			$this->render('error_500.twig', $_SESSION, []);
+		}
 	}
 
 	/**

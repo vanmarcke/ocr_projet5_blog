@@ -12,15 +12,15 @@ use Projet5\service\DatabaseService;
 class PostModel extends DatabaseService
 {
     /**
-     * load all posts , param valide is 'publish'
+     * load all posts , param valid is 'publish'
      *
-     * @param string $valide return the result only if post is publish
+     * @param string $valid return the result only if post is publish
      * @param int $startLimit returns the number of the start of the loop for each page
      * @param int $numberPerPage returns the number of posts per page and limits the number of posts to 30 in admin
      *
      * @return Post
      */
-    public function loadAllPost(string $valide, int $startLimit = 0, int $numberPerPage = 30)
+    public function loadAllPost(string $valid, int $startLimit = 0, int $numberPerPage = 30)
     {
         $req = $this->getDb()->prepare(
             'SELECT bpf_blog_posts.id, title, last_date_change, chapo, contents, bpf_users.pseudo
@@ -30,7 +30,7 @@ class PostModel extends DatabaseService
                     ORDER BY bpf_blog_posts.id 
                     DESC LIMIT :startLimit , :numberPerPage '
         );
-        $req->bindValue(':publish', $valide);
+        $req->bindValue(':publish', $valid);
         $req->bindValue(':startLimit', $startLimit, PDO::PARAM_INT);
         $req->bindValue(':numberPerPage', $numberPerPage, PDO::PARAM_INT);
         $req->execute();
@@ -38,18 +38,18 @@ class PostModel extends DatabaseService
     }
 
     /**
-     * count all posts , param valide is 'publish'
+     * count all posts , param valid is 'publish'
      *
-     * @param string $valide returns the number of post that is 'publish' 
+     * @param string $valid defined the type of post to count
      *
-     * @return array
+     * @return int
      */
-    public function countAllPost(string $valide)
+    public function countAllPost(string $valid): int
     {
         $req = $this->getDb()->prepare('SELECT id FROM `bpf_blog_posts` WHERE publish = :publish');
-        $req->bindValue(':publish', $valide);
+        $req->bindValue(':publish', $valid);
         $req->execute();
-        return $req;
+        return $req->rowCount();
     }
 
     /**
