@@ -2,7 +2,9 @@
 
 namespace Projet5\controller;
 
+use Exception;
 use Projet5\controller\Constraints;
+use Projet5\entity\User;
 use Projet5\model\UserModel;
 
 /**
@@ -23,7 +25,7 @@ class UserController extends Constraints
             $this->render('connexion.twig', $_SESSION);
             return;
         }
-        // unset session for security and inialise $error
+        // unset session for security and initialise $error
         unset($_SESSION['IdConnectedUser']);
         unset($_SESSION['pseudoConnectedUser']);
         unset($_SESSION['rankConnectedUser']);
@@ -38,36 +40,39 @@ class UserController extends Constraints
 
         $this->checkPassword($password, $errors);
 
-        // load user if control ok
-        if (empty($errors)) {
-            $userDatas = $userModel->loadByEmail($email);
+        try {
+            // load user if control ok
+            if (empty($errors)) {
+                $userDatas = $userModel->loadByEmail($email);
 
-            // if password ok, load id user in the session and go homepage
-            if (password_verify($password, $userDatas['password'])) {
-                $_SESSION['IdConnectedUser'] = $userDatas['id'];
-                $_SESSION['pseudoConnectedUser'] = $userDatas['pseudo'];
-                $_SESSION['rankConnectedUser'] = $userDatas['rank'];
-                $_SESSION['success'] = 'Vous êtes connecté';
-                if ($_SESSION['rankConnectedUser'] == 'admin') {
-                    header('location:Administration');
+                // if password ok, load id user in the session and go homepage
+                if (password_verify($password, $userDatas['password'])) {
+                    $_SESSION['IdConnectedUser'] = $userDatas['id'];
+                    $_SESSION['pseudoConnectedUser'] = $userDatas['pseudo'];
+                    $_SESSION['rankConnectedUser'] = $userDatas['rank'];
+                    $_SESSION['success'] = 'Hello ' . $_SESSION['pseudoConnectedUser'] . ', vous êtes connecté';
+                    if ($_SESSION['rankConnectedUser'] == 'admin') {
+                        header('location:Administration');
+                        exit;
+                    }
+                    header('location:Articles-Page1');
                     exit;
+                    // or create a error message
+                } else {
+                    $this->setErrorMessage('connexion', 'Mot de passe ou email incorrect.', $errors);
                 }
-                header('location:Articles-Page1');
-                exit;
-                // or create a error message
-            } else {
-                $this->setErrorMessage('connexion', 'Mot de passe ou email incorrect.', $errors);
             }
+            // form information in a table for simplicity with twig
+            $form = [
+                "email" => $email,
+                "password" => $password
+            ];
+
+            // display the form with errors and datas form
+            $this->render('connexion.twig', $_SESSION, $errors, $form);
+        } catch (Exception $e) {
+            $this->render('error_500.twig', $_SESSION, []);
         }
-
-        // form information in a table for simplicity with twig
-        $form = [
-            "email" => $email,
-            "password" => $password
-        ];
-
-        // display the form with errors and datas form
-        $this->render('connexion.twig', $_SESSION, $errors, $form);
     }
 
     /**
@@ -112,19 +117,21 @@ class UserController extends Constraints
 
         // if no error, 
         if (empty($errors)) {
-            $userDatas = [
-                'pseudo' => $pseudo,
-                'email' => $email,
-                'password' => $password
-            ];
-            // regist in database and display connection
+            $user = new User();
+            $user
+                ->setPseudo($pseudo)
+                ->setEmail($email)
+                ->setPassword($password)
+                ->setRank('pending');
+
             try {
-                $userModel->insert($userDatas);
+                // save to database and display connection
+                $userModel->insert($user);
                 $_SESSION['success'] = 'Votre compte à été créé, cependant il doit être validé par un administrateur pour pouvoir écrire des commentaires';
                 $this->render('connexion.twig', $_SESSION, $errors, $form);
                 return;
                 // or create a new error_sql message
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 $this->setErrorMessage('sql', 'Le pseudo ou l\'email existe déjà', $errors);
             }
         }

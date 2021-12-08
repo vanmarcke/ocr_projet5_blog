@@ -36,7 +36,6 @@
 			<div class="row justify-content-center">
 				<div
 					class="col-md-12">
-
 					{#  Post preview #}
 					<div class="post-preview">
 						<a href="post.html">
@@ -54,7 +53,7 @@
 							{{ post.pseudo }}
 							<br>
 							Dernière modification le
-							{{ post.last_date_change|date("d/m/Y") }}
+							{{ post.lastDateChange|date("d/m/Y") }}
 						</p>
 					</div>
 					{% if SESSION.rankConnectedUser == 'admin' %}

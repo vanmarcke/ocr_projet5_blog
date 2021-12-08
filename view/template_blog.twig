@@ -2,13 +2,14 @@
 <html lang="fr">
 	<head>
 		<meta charset="utf-8"/>
+		<meta name="robots" content="max-snippet:140">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 		{% if post.chapo == NULL %}
-		<meta name="description" content="Développeur / Intégrateur Web à Rambouillet. 
-		Découvrez mes réalisations web. Consultez mon BLOG, 
-		il contient quelques Tutos qui pourront vous êtres utiles."/>
+			<meta name="description" content="Développeur / Intégrateur Web à Rambouillet.
+					Découvrez mes réalisations web. Consultez mon BLOG,
+					il contient quelques Tutos qui pourront vous êtres utiles."/>
 		{% else %}
-		{% block meta_description %}{% endblock %}
+			{% block meta_description %}{% endblock %}
 		{% endif %}
 		<meta name="author" content="Frédéric Vanmarcke">
 		<link
@@ -57,9 +58,9 @@
 								<a class="nav-link px-lg-3 py-3 py-lg-4" href="Administration">Administration</a>
 							</li>
 						{% else %}
-						<li class="nav-item">
-							<a class="nav-link px-lg-3 py-3 py-lg-4" href="Accueil#contact">Contact</a>
-						</li>
+							<li class="nav-item">
+								<a class="nav-link px-lg-3 py-3 py-lg-4" href="Accueil#contact">Contact</a>
+							</li>
 						{% endif %}
 					</ul>
 				</div>

@@ -23,7 +23,7 @@
 							{{ post.pseudo }}
 							<br>
 							Dernière modification le
-							{{ post.last_date_change|date("d/m/Y à H:i") }}
+							{{ post.lastDateChange|date("d/m/Y à H:i") }}
 						</span>
 					</div>
 				</div>
@@ -53,9 +53,9 @@
 				<div class="form-group">
 					<label for="comment">Votre commentaire</label>
 					<textarea class="form-control" name="contents" id="comment" value="{{userDatas.pseudo}}"></textarea>
-				</div>
+				</div><br>
 				<input class="btn btn-primary" type="submit" value="Envoyer">
-			</form><br>
+			</form><br><hr>
 		{% endif %}
 		{% for comment in comments %}
 			{% if comment.publish == 'valid' %}
@@ -65,36 +65,20 @@
 						<h6 class="card-subtitle mb-2 text-muted">Ecrit par
 							{{ comment.pseudo }}
 							le
-							{{ comment.date_comment|date("d/m/Y")}}</h6>
+							{{ comment.dateComment|date("d/m/Y")}}</h6>
 					</div>
 				</div><br>
 
 			{% elseif comment.publish == 'waiting' %}
-				<div class="card">
-					<div class="card-body" style="background: #d9d9d9;">
-						<p class="card-text">Ce commentaire est en attente de validation</p>
-						<h6 class="card-subtitle mb-2 text-muted">Ecrit par
-							{{ comment.pseudo }}
-							le
-							{{ comment.date_comment|date("d/m/Y")}}</h6>
-					</div>
-				</div><br>
+				<small>
+					<i class="card-text">Un nouveau commentaire écrit par
+						{{ comment.pseudo }}
+						est en attente de validation...</i>
+				</small>
+				<hr class="my-4"/>
 			{% endif %}
-		{% endfor %}
-	</div>
 
-	<div class="paging">
-		<h3>Page(s)</h3>
-		<p>
-			{% for page in 1..paging.totalPages %}
-				{% if page == paging.currentPage %}
-					<a>{{page}}</a>
-				{% elseif paging.totalPages == 0 %}
-				{% else %}
-					<a href="Article-{{ post.id }}-Page{{ page }}">{{ page }}</a>
-				{% endif %}
-			{% endfor %}
-		</p>
+		{% endfor %}
 	</div>
 
 	<h3 class="nav-item text-center">

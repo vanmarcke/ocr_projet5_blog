@@ -24,12 +24,7 @@ class SessionController extends Constraints
 			if (!isset($_SESSION['IdConnectedUser'])) {
 				header('location:Connexion');
 				throw new Exception($_SESSION['error'] = 'Vous n\'êtes pas connecté');
-			}
-			// exit if not valide
-			if ($_SESSION['rankConnectedUser'] == 'pending') {
-				header('location:Accueil');
-				throw new Exception($_SESSION['error'] = 'Votre compte n\'a pas encore été validé par un administrateur');
-			}
+			}			
 		} catch (Exception $e) {
 			$e->getMessage();
 		}

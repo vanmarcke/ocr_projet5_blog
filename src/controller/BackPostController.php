@@ -2,6 +2,8 @@
 
 namespace Projet5\controller;
 
+use Exception;
+use Projet5\entity\Post;
 use Projet5\model\PostModel;
 
 /**
@@ -23,7 +25,7 @@ class BackPostController extends SessionController
 	{
 		// If I do not follow admin, return to the home page
 		if (!$this->isAdmin($_SESSION['rankConnectedUser'])) {
-			$this->render('homepage.twig', $_SESSION);
+			$this->render('error_404.twig', $_SESSION);
 			return;
 		}
 
@@ -47,20 +49,6 @@ class BackPostController extends SessionController
 
 		$this->checkContents($contents, $errors);
 
-		// insert post if control ok
-		if (empty($errors)) {
-			$postModel->insertPost([
-				'title' => $title,
-				'chapo' => $chapo,
-				'contents' => $contents,
-				'id_user' => $id_user
-			]);
-
-			$_SESSION['success'] = self::MESSAGE_VALID_OK . ' envoyé, il est maintenant en attente de validation par un administrateur';
-			header('location:admin-waiting-posts');
-			exit;
-		}
-
 		// form information in a table for simplicity with twig
 		$form = [
 			'title' => $title,
@@ -69,14 +57,34 @@ class BackPostController extends SessionController
 			'id_user' => $id_user
 		];
 
-		// display the form with errors and datas form
-		$this->render('insert_post.twig', $_SESSION, $errors, $form);
+
+		try {
+			// insert post if control ok
+			if (empty($errors)) {
+				$post = new Post();
+				$post
+					->setTitle($title)
+					->setChapo($chapo)
+					->setContents($contents)
+					->setPublish('waiting')
+					->setUser($id_user);
+
+				$postModel->insertPost($post);
+				$_SESSION['success'] = self::MESSAGE_VALID_OK . ' envoyé, il est maintenant en attente de validation.';
+				header('location:admin-waiting-posts');
+				exit;
+			}
+			// display the form with errors and datas form
+			$this->render('insert_post.twig', $_SESSION, $errors, $form);
+		} catch (Exception $e) {
+			$this->render('error_500.twig', $_SESSION, []);
+		}
 	}
 
 	/**
 	 * modification of a post
 	 *
-	 * @param string $idPost contains post id
+	 * @param int $idPost contains post id
 	 * @param PostModel $postModel
 	 *
 	 * @throws LoaderError
@@ -84,14 +92,14 @@ class BackPostController extends SessionController
 	 * @throws SyntaxError
 	 * @throws Exception
 	 */
-	public function editPost(string $idPost, PostModel $postModel)
+	public function editPost(int $idPost, PostModel $postModel)
 	{
 		// load Post with id
 		$post = $postModel->loadPost($idPost);
 
 		// If I do not follow admin, return to the home page
 		if (!$this->isAdmin($_SESSION['rankConnectedUser'])) {
-			$this->render('homepage.twig', $_SESSION);
+			$this->render('error_404.twig', $_SESSION);
 			return;
 		}
 
@@ -105,6 +113,7 @@ class BackPostController extends SessionController
 		$title = (isset($_POST['title'])) ? $_POST['title'] : "";
 		$chapo = (isset($_POST['chapo'])) ? $_POST['chapo'] : "";
 		$contents = (isset($_POST['contents'])) ? $_POST['contents'] : "";
+		$id_user = (isset($_SESSION['IdConnectedUser'])) ? $_SESSION['IdConnectedUser'] : "";
 		$errors = [];
 
 		// Constraints
@@ -114,28 +123,35 @@ class BackPostController extends SessionController
 
 		$this->checkContents($contents, $errors);
 
-		// if no error, update the post
-		if (empty($errors)) {
-			$postModel->updatePost($idPost, [
-				'title' => $title,
-				'chapo' => $chapo,
-				'contents' => $contents
-			]);
-			$_SESSION['success'] = self::MESSAGE_VALID_OK . ' mis à jour';
-			header('location:Article-'.$post['id'].'-page1');
-			exit;
-		}
-
 		// form information in a table for simplicity with twig
 		$form = [
 			'title' => $title,
 			'chapo' => $chapo,
 			'contents' => $contents,
+			'id_user' => $id_user,
 			'id_post' => $idPost
 		];
 
-		// display the post with error and datas form
-		$this->render('insert_post.twig', $_SESSION, $errors, $form);
+		try {
+			// insert post if control ok
+			if (empty($errors)) {
+				$post = new Post();
+				$post
+					->setTitle($title)
+					->setChapo($chapo)
+					->setContents($contents)
+					->setUser($id_user);
+
+				$postModel->updatePost($idPost, $post);
+				$_SESSION['success'] = self::MESSAGE_VALID_OK . ' mis à jour';
+				header('location:Article-page1');
+				exit;
+			}
+			// display the post with error and datas form
+			$this->render('insert_post.twig', $_SESSION, $errors, $form);
+		} catch (Exception $e) {
+			$this->render('error_500.twig', $_SESSION, []);
+		}
 	}
 
 	/**
@@ -156,26 +172,30 @@ class BackPostController extends SessionController
 
 		// If I do not follow admin, return to the home page
 		if (!$this->isAdmin($_SESSION['rankConnectedUser'])) {
-			$this->render('homepage.twig', $_SESSION);
+			$this->render('error_404.twig', $_SESSION);
 			return;
 		}
 
-		// Not delete post if form is cancel and redirect
-		if (isset($_POST['cancel'])) {
-			header('location:Article-page1');
-			exit;
-		}
+		try {
+			// Not delete post if form is cancel and redirect
+			if (isset($_POST['cancel'])) {
+				header('location:Article-page1');
+				exit;
+			}
 
-		// delete post if form is submit and redirect
-		if (isset($_POST['idDeletePost'])) {
-			$postModel->deletePostWithId($_POST['idDeletePost']);
-			$_SESSION['success'] = self::MESSAGE_VALID_OK . ' supprimé';
-			header('location:Articles-Page1');
-			exit;
-		}
+			// delete post if form is submit and redirect
+			if (isset($_POST['idDeletePost'])) {
+				$postModel->deletePostWithId($_POST['idDeletePost']);
+				$_SESSION['success'] = self::MESSAGE_VALID_OK . ' supprimé';
+				header('location:Articles-Page1');
+				exit;
+			}
 
-		// display the confirm delete message
-		$this->render('delete_post.twig', $_SESSION, [], [], $post);
+			// display the confirm delete message
+			$this->render('delete_post.twig', $_SESSION, [], [], $post);
+		} catch (Exception $e) {
+			$this->render('error_500.twig', $_SESSION, []);
+		}
 	}
 
 	/**
@@ -185,11 +205,12 @@ class BackPostController extends SessionController
 	 * @param array $session user session
 	 * @param array $error error information to display
 	 * @param array $form content of the completed form
+	 * @param object $post contains the post data
 	 * @throws LoaderError
 	 * @throws RuntimeError
 	 * @throws SyntaxError
 	 */
-	private function render(string $templateName, array $session, array $errors = [], array $form = [], array $post = [])
+	private function render(string $templateName, array $session, array $errors = [], array $form = [], $post = [])
 	{
 		echo $this->twig->render($templateName, ['SESSION' => $session, 'error' => $errors, 'form' => $form, 'post' => $post]);
 	}

@@ -1,38 +1,36 @@
 {% extends 'template_blog.twig' %}
 
 {% block page_title %}
-<title>Supprimer l'article n° {{post.id}}</title>
+	<title>Supprimer l'article n°
+		{{post.id}}</title>
 {% endblock %}
 
 {% block content %}
 
-            {#  Page Header #}
-    <header class="masthead" style="background-image: url('assets/images/home-bg.jpg')">
-        <div class="container position-relative px-4 px-lg-5">
-            <div class="row gx-4 gx-lg-5 justify-content-center">
-                <div class="col-md-10 col-lg-8 col-xl-7">
-                    <div class="site-heading">
-                        <h1>Mon Blog</h1>
-                        <span class="subheading">Supprimer un article !</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-    
-    {{ include('message_display.twig') }}
+	{#  Page Header #}
+	<header class="masthead" style="background-image: url('assets/images/home-bg.jpg')">
+		<div class="container position-relative px-4 px-lg-5">
+			<div class="row gx-4 gx-lg-5 justify-content-center">
+				<div class="col-md-10 col-lg-8 col-xl-7">
+					<div class="site-heading">
+						<h1>Mon Blog</h1>
+						<span class="subheading">Supprimer un article !</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
 
-    <div class="container">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Voulez vous vraiment supprimer l'article ?</h5>
-            </div>
-            <form class="card-footer" method="post" action="Supprimer-Article-{{post.id}}">
-                <button class="btn btn-primary" type="submit" name="idDeletePost" value="{{post.id}}">Supprimer</button>
-                <button class="btn btn-danger" type="submit" name="cancel" value="{{post.id}}">Annuler</button>
-            </form>
-        </div>
-    </div>
+	{{ include('message_display.twig') }}
+
+	<div class="container">
+		<div class="card-body">
+			<h5 class="card-title">Voulez vous vraiment supprimer l'article ?</h5>
+		</div>
+		<form class="card-footer" method="post" action="Supprimer-Article-{{post.id}}">
+			<button class="btn btn-primary" type="submit" name="idDeletePost" value="{{post.id}}">Supprimer</button>
+			<button class="btn btn-danger" type="submit" name="cancel" value="{{post.id}}">Annuler</button>
+		</form>
+	</div>
 
 {% endblock %}
-
