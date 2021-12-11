@@ -15,10 +15,12 @@ class TwigController
 
 	/**
 	 * Instantiating the loader and template engine
+	 * 
+	 * @return void
 	 */
 	public function __construct()
 	{
-		// twig
+		// Twig
 		$loader = new FilesystemLoader('view');
 		$twig = new Environment($loader, [
 			'debug' => true,

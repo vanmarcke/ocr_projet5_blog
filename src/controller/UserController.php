@@ -13,9 +13,10 @@ use Projet5\model\UserModel;
 class UserController extends Constraints
 {
     /**
-     * connexion user
+     * Connexion user
      *
-     * @param UserModel $userModel
+     * @param UserModel $userModel Read, insert, update and delete users
+     * 
      * @return void
      */
     public function connexion(UserModel $userModel)
@@ -25,13 +26,13 @@ class UserController extends Constraints
             $this->render('connexion.twig', $_SESSION);
             return;
         }
-        // unset session for security and initialise $error
+        // Unset session for security and initialise $error
         unset($_SESSION['IdConnectedUser']);
         unset($_SESSION['pseudoConnectedUser']);
         unset($_SESSION['rankConnectedUser']);
         $errors = [];
 
-        // control
+        // Control
         $email = (isset($_POST["email"])) ? $_POST["email"] : "";
         $password = (isset($_POST["password"])) ? $_POST["password"] : "";
 
@@ -41,11 +42,11 @@ class UserController extends Constraints
         $this->checkPassword($password, $errors);
 
         try {
-            // load user if control ok
+            // Load user if control ok
             if (empty($errors)) {
                 $userDatas = $userModel->loadByEmail($email);
 
-                // if password ok, load id user in the session and go homepage
+                // If password ok, load id user in the session and go homepage blog
                 if (password_verify($password, $userDatas['password'])) {
                     $_SESSION['IdConnectedUser'] = $userDatas['id'];
                     $_SESSION['pseudoConnectedUser'] = $userDatas['pseudo'];
@@ -57,18 +58,18 @@ class UserController extends Constraints
                     }
                     header('location:Articles-Page1');
                     exit;
-                    // or create a error message
+                    // Or create a error message
                 } else {
                     $this->setErrorMessage('connexion', 'Mot de passe ou email incorrect.', $errors);
                 }
             }
-            // form information in a table for simplicity with twig
+            // Form information in a table for simplicity with twig
             $form = [
                 "email" => $email,
                 "password" => $password
             ];
 
-            // display the form with errors and datas form
+            // Display the form with errors and datas form
             $this->render('connexion.twig', $_SESSION, $errors, $form);
         } catch (Exception $e) {
             $this->render('error_500.twig', $_SESSION, []);
@@ -76,9 +77,10 @@ class UserController extends Constraints
     }
 
     /**
-     * register user
+     * Register user
      *
-     * @param UserModel $userModel
+     * @param UserModel $userModel Read, insert, update and delete users
+     * 
      * @return void
      */
     public function register(UserModel $userModel)
@@ -107,7 +109,7 @@ class UserController extends Constraints
 
         $this->checkConfirmPassword($password, $confirm_password, $errors);
 
-        // form information in a table for simplicity with twig
+        // Form information in a table for simplicity with twig
         $form = [
             "pseudo" => $pseudo,
             "email" => $email,
@@ -115,7 +117,7 @@ class UserController extends Constraints
             "confirm_password" => $confirm_password
         ];
 
-        // if no error, 
+        // If no error, 
         if (empty($errors)) {
             $user = new User();
             $user
@@ -125,17 +127,17 @@ class UserController extends Constraints
                 ->setRank('pending');
 
             try {
-                // save to database and display connection
+                // Save to database and display connection
                 $userModel->insert($user);
                 $_SESSION['success'] = 'Votre compte à été créé, cependant il doit être validé par un administrateur pour pouvoir écrire des commentaires';
                 $this->render('connexion.twig', $_SESSION, $errors, $form);
                 return;
-                // or create a new error_sql message
+                // Or create a new error_sql message
             } catch (Exception $e) {
                 $this->setErrorMessage('sql', 'Le pseudo ou l\'email existe déjà', $errors);
             }
         }
-        // display the form with errors and datas form
+        // Display the form with errors and datas form
         $this->render('register.twig', $_SESSION, $errors, $form);
     }
 
@@ -153,15 +155,18 @@ class UserController extends Constraints
     }
 
     /**
-     * render Template.
+     * Render Template.
      *
      * @param string $templateName Template name to render
      * @param array $error error information to display
      * @param array $form content of the completed form
      * @param array $session user session
+     * 
      * @throws LoaderError
      * @throws RuntimeError
      * @throws SyntaxError
+     * 
+     * @return void
      */
     private function render(string $templateName, array $session, array $errors = [], array $form = [])
     {

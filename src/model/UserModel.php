@@ -12,12 +12,13 @@ use Projet5\service\DatabaseService;
 class UserModel extends DatabaseService
 {
     /**
-     * loadUser
+     * LoadUser
      *
-     * @param  int $idUser User identifier
-     * @return array of user informations
+     * @param int $idUser User identifier
+     * 
+     * @return array      User informations
      */
-    public function loadUser(int $idUser)
+    public function loadUser(int $idUser): array
     {
         $req = $this->getDb()->prepare('SELECT * FROM `bpf_users` WHERE `id`= :id;');
         $req->execute(['id' => $idUser]);
@@ -28,10 +29,11 @@ class UserModel extends DatabaseService
     /**
      * Return id users with email
      *
-     * @param  string $email User identifier
-     * @return array of user informations
+     * @param string $email User identifier
+     * 
+     * @return array        User informations
      */
-    public function loadByEmail(string $email)
+    public function loadByEmail(string $email): array
     {
         $req = $this->getDb()->prepare('SELECT id FROM bpf_users WHERE email = :email');
         $req->bindValue(':email', $email);
@@ -43,9 +45,9 @@ class UserModel extends DatabaseService
     /**
      * Return all pending users
      *
-     * @return User list of pending users 
+     * @return array List of pending users 
      */
-    public function loadPendingUsers()
+    public function loadPendingUsers(): array
     {
         $req = $this->getDb()->prepare('SELECT id, pseudo, email FROM `bpf_users` WHERE `rank`= "pending" ');
         $req->execute();
@@ -53,12 +55,13 @@ class UserModel extends DatabaseService
     }
 
     /**
-     * insert user with datas table
+     * Insert user with datas table
      *
-     * @param  User $user
-     * @return array list of data to insert in the database 
+     * @param User $user Class User
+     * 
+     * @return void      List of data to insert in the database 
      */
-    public function insert(User $user)
+    public function insert(User $user): void
     {
         $req = $this->getDb()->prepare(
             'INSERT INTO bpf_users(pseudo, email, password, rank) 
@@ -72,12 +75,13 @@ class UserModel extends DatabaseService
     }
 
     /**
-     * validate a new user
+     * Validate a new user
      *
-     * @param  int $idUser User identifier
-     * @return array of user informations
+     * @param int $idUser User identifier
+     * 
+     * @return void       User informations
      */
-    public function validateUserWithId(int $idUser)
+    public function validateUserWithId(int $idUser): void
     {
         $req = $this->getDb()->prepare('UPDATE bpf_users SET rank=:rank WHERE id=:idUser');
         $req->bindValue(':rank', 'registered');
@@ -86,12 +90,13 @@ class UserModel extends DatabaseService
     }
 
     /**
-     * delete a user
+     * Delete a user
      *
-     * @param  int $idUser User identifier
-     * @return array of user informations
+     * @param int $idUser User identifier
+     * 
+     * @return void       User informations
      */
-    public function deleteUserWithId(int $idUser)
+    public function deleteUserWithId(int $idUser): void
     {
         $req = $this->getDb()->prepare('DELETE FROM bpf_users WHERE id=:idUser');
         $req->bindValue(':idUser', $idUser);

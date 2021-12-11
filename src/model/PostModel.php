@@ -12,23 +12,23 @@ use Projet5\service\DatabaseService;
 class PostModel extends DatabaseService
 {
     /**
-     * load all posts , param valid is 'publish'
+     * Load all posts , param valid is 'publish'
      *
-     * @param string $valid return the result only if post is publish
-     * @param int $startLimit returns the number of the start of the loop for each page
-     * @param int $numberPerPage returns the number of posts per page and limits the number of posts to 30 in admin
+     * @param string $valid         Return the result only if post is publish
+     * @param int    $startLimit    Return the number of the start of the loop for each page
+     * @param int    $numberPerPage Return the number of posts per page and limits the number of posts to 30 in admin
      *
-     * @return Post
+     * @return array
      */
-    public function loadAllPost(string $valid, int $startLimit = 0, int $numberPerPage = 30)
+    public function loadAllPost(string $valid, int $startLimit = 0, int $numberPerPage = 30): array
     {
         $req = $this->getDb()->prepare(
             'SELECT bpf_blog_posts.id, title, last_date_change, chapo, contents, bpf_users.pseudo
-                    FROM `bpf_blog_posts` 
-                    LEFT JOIN bpf_users ON bpf_blog_posts.id_bpf_users = bpf_users.id 
-                    WHERE publish = :publish 
-                    ORDER BY bpf_blog_posts.id 
-                    DESC LIMIT :startLimit , :numberPerPage '
+            FROM `bpf_blog_posts` 
+            LEFT JOIN bpf_users ON bpf_blog_posts.id_bpf_users = bpf_users.id 
+            WHERE publish = :publish 
+            ORDER BY bpf_blog_posts.id 
+            DESC LIMIT :startLimit , :numberPerPage '
         );
         $req->bindValue(':publish', $valid);
         $req->bindValue(':startLimit', $startLimit, PDO::PARAM_INT);
@@ -38,9 +38,9 @@ class PostModel extends DatabaseService
     }
 
     /**
-     * count all posts , param valid is 'publish'
+     * Count all posts , param valid is 'publish'
      *
-     * @param string $valid defined the type of post to count
+     * @param string $valid Defined the type of post to count
      *
      * @return int
      */
@@ -53,9 +53,9 @@ class PostModel extends DatabaseService
     }
 
     /**
-     * load post with id
+     * Load post with id
      *
-     * @param int $idPost load the content of the posts with their id 
+     * @param int $idPost Load the content of the posts with their id 
      *
      * @return Post
      */
@@ -73,13 +73,13 @@ class PostModel extends DatabaseService
     }
 
     /**
-     * insert a new post
+     * Insert a new post
      *
-     * @param Post $post insertion of a new post in the database 
+     * @param Post $post Insertion of a new post in the database 
      *
-     * @return array
+     * @return void
      */
-    public function insertPost(Post $post)
+    public function insertPost(Post $post): void
     {
         $req = $this->getDb()->prepare(
             'INSERT INTO bpf_blog_posts(title, last_date_change, chapo, contents, publish, id_bpf_users) 
@@ -94,14 +94,14 @@ class PostModel extends DatabaseService
     }
 
     /**
-     * edit a post
+     * Edit a post
      *
-     * @param int $idPost returns the id of the post to modify 
-     * @param Post $post contains the modified data
+     * @param int  $idPost Returns the id of the post to modify 
+     * @param Post $post   Contains the modified data
      * 
-     * @return array
+     * @return void
      */
-    public function updatePost(int $idPost, Post $post)
+    public function updatePost(int $idPost, Post $post): void
     {
         $req = $this->getDb()->prepare(
             'UPDATE bpf_blog_posts 
@@ -117,13 +117,13 @@ class PostModel extends DatabaseService
     }
 
     /**
-     * publish a post
+     * Publish a post
      *
-     * @param int $idPost returns the id of the publication to modify to publish
+     * @param int $idPost Returns the id of the publication to modify to publish
      * 
-     * @return array
+     * @return void
      */
-    public function publishPostWithId(int $idPost)
+    public function publishPostWithId(int $idPost): void
     {
         $req = $this->getDb()->prepare('UPDATE bpf_blog_posts SET publish=:publish WHERE id=:idPost');
         $req->bindValue(':publish', 'valid');
@@ -132,11 +132,13 @@ class PostModel extends DatabaseService
     }
 
     /**
-     * delete a post
+     * Delete a post
      *
-     * @param int $idPost returns the id of the post to delete
+     * @param int $idPost Returns the id of the post to delete
+     * 
+     * @return void
      */
-    public function deletePostWithId(int $idPost)
+    public function deletePostWithId(int $idPost): void
     {
         $req = $this->getDb()->prepare('DELETE FROM bpf_blog_posts WHERE id=:idPost');
         $req->bindValue(':idPost', $idPost);

@@ -13,11 +13,11 @@ use Projet5\model\PostModel;
 class CommentController extends SessionController
 {
 	/**
-	 * insert a comment
+	 * Insert a comment
 	 *
-	 * @param PostModel $postModel
-	 * @param CommentModel $commentModel
-	 * @param string $idPost contains the id of the post to comment 
+	 * @param PostModel    $postModel    Read, insert, update and delete of posts
+	 * @param CommentModel $commentModel Read, insert, update and delete comments
+	 * @param string       $idPost       Contains the id of the post to comment 
 	 *
 	 * @return array
 	 */
@@ -30,7 +30,7 @@ class CommentController extends SessionController
 		$this->checkComment($contents, $errors);
 
 		try {
-			// insert the comment and redirect
+			// Insert the comment and redirect
 			if (empty($errors)) {
 				$comment = new Comment();
 				$comment
@@ -41,18 +41,18 @@ class CommentController extends SessionController
 				$commentModel->insertComment($comment);
 
 				if (!$this->isAdmin($_SESSION['rankConnectedUser'])) {
-					// message and redirect on post if user
+					// Message and redirect on post if user
 					$_SESSION['success'] = 'Votre commentaire à été enregistré, il est en attente de validation par un administrateur';
 					header('location:Article-' . $idPost . '-Page1');
 					exit;
 				} else {
-					// message and redirect on post if admin
+					// Message and redirect on post if admin
 					$_SESSION['success'] = 'Votre commentaire à été ajouté';
 					header('location:Article-' . $idPost . '-Page1');
 					exit;
 				}
 			} else {
-				// redirect on post with error
+				// Redirect on post with error
 				$_SESSION['error'] = $errors['contents'];
 				header('location:Article-' . $idPost . '-Page1');
 				exit;
@@ -63,14 +63,17 @@ class CommentController extends SessionController
 	}
 
 	/**
-	 * render Template.
+	 * Render Template.
 	 *
 	 * @param string $templateName Template name to render
-	 * @param array $session user session
-	 * @param array $error error information to display
+	 * @param array  $session      User session
+	 * @param array  $errors       Error information to display
+	 * 
 	 * @throws LoaderError
 	 * @throws RuntimeError
 	 * @throws SyntaxError
+	 * 
+	 * @return void
 	 */
 	private function render(string $templateName, array $session, array $errors = [])
 	{

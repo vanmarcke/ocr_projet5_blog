@@ -7,13 +7,13 @@ namespace Projet5\entity;
  */
 class Post
 {
-    private int $id;
+    private int    $id;
     private string $title;
     private string $last_date_change;
     private string $chapo;
     private string $contents;
     private string $publish;
-    private int $id_bpf_users;
+    private int    $id_bpf_users;
 
     /**
      * Method getId
@@ -32,7 +32,7 @@ class Post
      * 
      * Set value of IdPost
      *
-     * @param int $id expected value : IdPost
+     * @param int $id Expected value : IdPost
      *
      * @return Post
      */
@@ -59,7 +59,7 @@ class Post
      * 
      * Set value of Title
      *
-     * @param string $title expected value : Title
+     * @param string $title Expected value : Title
      *
      * @return Post
      */
@@ -86,7 +86,7 @@ class Post
      * 
      * Set value of LasDateChange
      *
-     * @param string $lastDateChange expected value : update date of post
+     * @param string $lastDateChange Expected value : update date of post
      *
      * @return Post
      */
@@ -113,7 +113,7 @@ class Post
      * 
      * Set value of Chapo
      *
-     * @param string $chapo expected value : Chapo of the post (post subtitle)
+     * @param string $chapo Expected value : Chapo of the post (post subtitle)
      *
      * @return Post
      */
@@ -140,7 +140,7 @@ class Post
      * 
      * Set value of Contents
      *
-     * @param string $contents expected value : content of the post
+     * @param string $contents Expected value : content of the post
      *
      * @return Post
      */
@@ -167,7 +167,7 @@ class Post
      * 
      * Get value of  Publish
      *
-     * @param string $publish flag value expected : 'valid' or 'waiting'
+     * @param string $publish Flag value expected : 'valid' or 'waiting'
      *
      * @return Post
      */
@@ -194,7 +194,7 @@ class Post
      * 
      * Set value of IdUsers
      *
-     * @param int $idUsers expected value : IdUser
+     * @param int $idUsers Expected value : IdUser
      *
      * @return Post
      */

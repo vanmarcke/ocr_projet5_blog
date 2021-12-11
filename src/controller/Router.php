@@ -40,20 +40,20 @@ class Router
 			$url = explode('/', strtolower($_GET['url']));
 		}
 		switch (true) {
-				/*Accueil*/
+				// Home
 			case ($url == '' || $url[0] == 'accueil'): {
 					$homepageController = new HomepageController();
 					$homepageController->index($userModel);
 					break;
 				}
-				/*Les Articles*/
+				// Posts
 			case (preg_match('#^articles?-page([0-9]+)$#', $url[0], $params)): {
 					$currentPage = intval($params[1]);
 					$postController = new FrontPostController();
 					$postController->displayPosts($postModel, $currentPage);
 					break;
 				}
-				/*Un article-id with this comments*/
+				// Post-id with this comments
 			case (preg_match('#^articles?-([0-9]+)-page([0-9]+)$#', $url[0], $params)): {
 					$idPost = $params[1];
 					$currentPage = intval($params[2]);
@@ -61,86 +61,88 @@ class Router
 					$postController->displayPost($postModel, $commentModel, $idPost, $currentPage);
 					break;
 				}
-				/*ajouter-un-commentaire-idPost*/
+				// Add a comment idPost
 			case (preg_match('#^ajouter-un-commentaire-([0-9]+)$#', $url[0], $params)): {
 					$idPost = $params[1];
 					$commentController = new CommentController();
 					$commentController->insertComment($postModel, $commentModel, $idPost);
 					break;
 				}
-				/*ajouter-un-article*/
+				// Add a post
 			case ($url[0] == 'ajouter-un-article'): {
 					$postController = new BackPostController();
 					$postController->addPost($postModel);
 					break;
 				}
-				/*supprimer-un-article*/
+				// Delete a post
 			case (preg_match('#^supprimer-article-([0-9]+)$#', $url[0], $params)): {
 					$idPost = $params[1];
 					$postController = new BackPostController();
 					$postController->deletePost($idPost, $postModel);
 					break;
 				}
-				/*modifier-article-id*/
+				// Edit a post -id
 			case (preg_match('#^modifier-article-([0-9]+)$#', $url[0], $params)): {
 					$idPost = $params[1];
 					$postController = new BackPostController();
 					$postController->editPost($idPost, $postModel);
 					break;
 				}
-				/*connexion*/
+				// Connection
 			case ($url[0] == 'connexion'): {
 					$userController = new UserController();
 					$userController->connexion($userModel);
 					break;
 				}
-				/*inscription*/
+				// Registration
 			case ($url[0] == 'inscription'): {
 					$userController = new UserController();
 					$userController->register($userModel);
 					break;
 				}
-				/*deconnexion*/
+				// Disconnection
 			case ($url[0] == 'deconnexion'): {
 					$userController = new UserController();
 					$userController->disconnect();
 					break;
 				}
-				/*administratrion*/
+				// Administratrion
 			case ($url[0] == 'administration'): {
 					$adminController = new AdminController();
 					$adminController->displayAllElements($userModel, $postModel, $commentModel);
 					break;
 				}
-				/*admin-posts*/
+				// Admin-posts
 			case ($url[0] == 'admin-waiting-posts'): {
 					$adminController = new AdminController();
 					$adminController->displayWaitingPosts($userModel, $postModel, $commentModel);
 					break;
 				}
-				/*admin-users*/
+				// Admin-users
 			case ($url[0] == 'admin-pending-users'): {
 					$adminController = new AdminController();
 					$adminController->displayPendingUsers($userModel, $postModel, $commentModel);
 					break;
 				}
-				/*admin-waiting-comments-*/
+				// Admin-waiting-comments
 			case ($url[0] == 'admin-waiting-comments'): {
 					$adminController = new AdminController();
 					$adminController->displayInvalidComments($userModel, $postModel, $commentModel);
 					break;
 				}
-				/*admin-refused-comments-*/
+				// Admin-refused-comments
 			case ($url[0] == 'admin-refused-comments'): {
 					$adminController = new AdminController();
 					$adminController->displayRefusedComments($userModel, $postModel, $commentModel);
 					break;
 				}
+				// error-404
 			case ($url[0] == 'error-404'): {
 					$homepageController = new HomepageController();
 					$homepageController->error404();
 					break;
 				}
+				// error-500
 			case ($url[0] == 'error-500'): {
 					$homepageController = new HomepageController();
 					$homepageController->error500();
@@ -154,7 +156,7 @@ class Router
 		}
 	}
 
-	// unset success variables after display
+	// Unset success variables after display
 	public function unsetSuccessErrorVariables()
 	{
 		unset($_SESSION['success']);

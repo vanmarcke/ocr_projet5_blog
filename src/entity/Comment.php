@@ -7,12 +7,12 @@ namespace Projet5\entity;
  */
 class Comment
 {
-    private int $id;
+    private int    $id;
     private string $contents;
     private string $date_comment;
-    private string  $publish;
-    private int $id_bpf_blog_posts;
-    private int $id_bpf_users;
+    private string $publish;
+    private int    $id_bpf_blog_posts;
+    private int    $id_bpf_users;
 
     /**
      * Method getId
@@ -31,7 +31,7 @@ class Comment
      * 
      * Set value of idComment
      *
-     * @param int $id expected value : IdComment
+     * @param int $id Expected value : IdComment
      *
      * @return Comment
      */
@@ -58,7 +58,7 @@ class Comment
      * 
      * Set value of Contents
      *
-     * @param string $contents expected value : content of a comment 
+     * @param string $contents Expected value : content of a comment 
      *
      * @return Comment
      */
@@ -85,7 +85,7 @@ class Comment
      * 
      * Set value of DateComment
      *
-     * @param string $dateComment expected value: date of a comment
+     * @param string $dateComment Expected value: date of a comment
      *
      * @return Comment
      */
@@ -112,7 +112,7 @@ class Comment
      * 
      * Set value of Publish
      *
-     * @param string $publish flag value expected : 'valid', 'waiting' or 'refused'
+     * @param string $publish Flag value expected : 'valid', 'waiting' or 'refused'
      *
      * @return Comment
      */
@@ -139,7 +139,7 @@ class Comment
      * 
      * Set value of idBlogPosts
      *
-     * @param int $idBlogPosts expected value: id of a Blog Post 
+     * @param int $idBlogPosts Expected value: id of a Blog Post 
      *
      * @return Comment
      */
@@ -166,7 +166,7 @@ class Comment
      * 
      * Set value of idUsers
      *
-     * @param int $idUsers expected value: idUser
+     * @param int $idUsers Expected value: idUser
      *
      * @return Comment
      */
