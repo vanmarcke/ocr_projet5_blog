@@ -12,13 +12,13 @@ use Projet5\service\DatabaseService;
 class CommentModel extends DatabaseService
 {
     /**
-     * load comments for one post
+     * Load comments for one post
      *
-     * @param int $idPost return the id of the comment
+     * @param int $idPost Return the id of the comment
      *
-     * @return Comment
+     * @return array
      */
-    public function loadAllCommentsWithIdPost(int $idPost)
+    public function loadAllCommentsWithIdPost(int $idPost): array
     {
         $req = $this->getDb()->prepare(
             'SELECT bpf_comments.id, contents, date_comment, publish, bpf_users.pseudo 
@@ -31,11 +31,11 @@ class CommentModel extends DatabaseService
     }
 
     /**
-     * load comments with waiting status
+     * Load comments with waiting status
      *
-     * @return Comment
+     * @return array
      */
-    public function loadInvalidComments()
+    public function loadInvalidComments(): array
     {
         $req = $this->getDb()->prepare(
             'SELECT bpf_comments.id, contents, date_comment, publish, bpf_users.pseudo 
@@ -47,11 +47,11 @@ class CommentModel extends DatabaseService
     }
 
     /**
-     * load comments with denied status
+     * Load comments with denied status
      *
-     * @return Comment
+     * @return array
      */
-    public function loadRefuseComments()
+    public function loadRefuseComments(): array
     {
         $req = $this->getDb()->prepare(
             'SELECT bpf_comments.id, contents, date_comment, publish, bpf_users.pseudo 
@@ -63,13 +63,13 @@ class CommentModel extends DatabaseService
     }
 
     /**
-     * insert a new comment 
+     * Insert a new comment 
      *
-     * @param Comment $comment insertion of a new comment in the database
+     * @param Comment $comment Insertion of a new comment in the database
      * 
-     * @return array
+     * @return void
      */
-    public function insertComment(Comment $comment)
+    public function insertComment(Comment $comment): void
     {
         $req = $this->getDb()->prepare(
             'INSERT INTO bpf_comments(contents, publish, id_bpf_blog_posts, id_bpf_users) 
@@ -90,13 +90,13 @@ class CommentModel extends DatabaseService
     }
 
     /**
-     * validate a new comment     
+     * Validate a new comment     
      *
-     * @param int $idComment returns the id of the comment to modify to publish
+     * @param int $idComment Returns the id of the comment to modify to publish
      * 
-     * @return array
+     * @return void
      */
-    public function publishCommentWithId(int $idComment)
+    public function publishCommentWithId(int $idComment): void
     {
         $req = $this->getDb()->prepare('UPDATE bpf_comments SET publish=:publish WHERE id=:idComment');
         $req->bindValue(':publish', 'valid');
@@ -105,11 +105,13 @@ class CommentModel extends DatabaseService
     }
 
     /**
-     * delete a comment
+     * Delete a comment
      *
-     * @param int $idComment returns the id of the comment to delete
+     * @param int $idComment Returns the id of the comment to delete
+     * 
+     * @return void
      */
-    public function deleteCommentWithId(int $idComment)
+    public function deleteCommentWithId(int $idComment): void
     {
         $req = $this->getDb()->prepare('DELETE FROM bpf_comments WHERE id=:idComment');
         $req->bindValue(':idComment', $idComment);
@@ -117,13 +119,13 @@ class CommentModel extends DatabaseService
     }
 
     /**
-     * decline a comment
+     * Decline a comment
      *
-     * @param int $idComment returns the id of the comment to modify to refuse
+     * @param int $idComment Returns the id of the comment to modify to refuse
      * 
-     * @return array
+     * @return void
      */
-    public function refuseCommentWithId(int $idComment)
+    public function refuseCommentWithId(int $idComment): void
     {
         $req = $this->getDb()->prepare('UPDATE bpf_comments SET publish=:publish WHERE id=:idComment');
         $req->bindValue(':publish', 'refused');

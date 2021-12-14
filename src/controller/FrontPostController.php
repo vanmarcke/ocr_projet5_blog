@@ -8,28 +8,28 @@ use Projet5\model\CommentModel;
 use Projet5\model\PostModel;
 
 /**
- * display of posts and pagination management 
+ * Display of posts and pagination management 
  */
 class FrontPostController extends Constraints
 {
 	/**
 	 * Displays the list of posts 
 	 *
-	 * @param PostModel $postModel
-	 * @param int $currentPage contains the page number
+	 * @param PostModel $postModel   Read, insert, update and delete of posts
+	 * @param int       $currentPage Contains the page number
 	 *
-	 * @return array  contains post data 
+	 * @return array
 	 */
 	public function displayPosts(PostModel $postModel, int $currentPage)
 	{
 		try {
-			// count number of row valid
+			// Count number of row valid
 			$numberPosts = $postModel->countAllPost($valid = self::VALUE_POST_VALID);
-			// take Limits for request SQL
+			// Take Limits for request SQL
 			$paging = $this->paging(Router::POST_PER_PAGE, $numberPosts, $currentPage);
 
 			$posts = $postModel->loadAllPost($valid, $paging['startLimit'], Router::POST_PER_PAGE);
-			// display posts
+			// Display posts
 			$this->render('blog_posts.twig', $_SESSION, $paging, [], $posts, []);
 		} catch (Exception $e) {
 			$this->render('error_500.twig', $_SESSION, []);
@@ -39,16 +39,16 @@ class FrontPostController extends Constraints
 	/**
 	 * Displays a post
 	 *
-	 * @param PostModel $postModel
-	 * @param CommentModel $commentModel
-	 * @param string $idPost contains post id
+	 * @param PostModel    $postModel    Read, insert, update and delete of posts
+	 * @param CommentModel $commentModel Read, insert, update and delete comments
+	 * @param string       $idPost       Contains post id
 	 *
-	 * @return array contains post data
+	 * @return array
 	 */
 	public function displayPost(PostModel $postModel, CommentModel $commentModel, string $idPost)
 	{
 		try {
-			// load the post
+			// Load the post
 			$post = $postModel->loadPost($idPost);
 			// load comments for this post
 			$comments = $commentModel->loadAllCommentsWithIdPost($idPost);
@@ -59,13 +59,13 @@ class FrontPostController extends Constraints
 			// 	return;
 			// }
 
-			// if the post is waiting display an error message
+			// If the post is waiting display an error message
 			if ($post->getPublish() === self::POST_STATUS_WAITING) {
 				$_SESSION['error'] = 'Cet article est en attente de validation';
 				header('location:Articles-Page1');
 				exit;
 			}
-			// display post and comments
+			// Display post and comments
 			$this->render('post.twig', $_SESSION, [], $post, [], $comments);
 		} catch (Exception $e) {
 			$this->render('error_500.twig', $_SESSION, []);
@@ -75,21 +75,21 @@ class FrontPostController extends Constraints
 	/**
 	 * Function returning an array with the $currentPage and the $totalPages.
 	 *
-	 * @param int $numberPerPage contains the maximum number of posts or comments per page 
-	 * @param int $numberRow contains the total number of posts or comments
-	 * @param int $currentPage contains the current page
+	 * @param int $numberPerPage Contains the maximum number of posts or comments per page 
+	 * @param int $numberRow     Contains the total number of posts or comments
+	 * @param int $currentPage   Contains the current page
 	 *
 	 * @return array
 	 */
 	private function paging(int $numberPerPage, int $numberRow, int $currentPage = 1)
 	{
-		// calcul total pages
+		// Calcul total pages
 		$totalPages = ceil($numberRow / $numberPerPage);
 
-		// calcul startlimit for request SQL
+		// Calcul startlimit for request SQL
 		$startLimit = intval(($currentPage - 1) * $numberPerPage);
 		
-		// redirection if the page does not exist
+		// Redirection if the page does not exist
 		if ($currentPage > $totalPages) {
 			$_SESSION['error'] = 'Cette page n\'existe pas !!!';
 			header('location:Articles-Page1');
@@ -104,19 +104,22 @@ class FrontPostController extends Constraints
 	}
 
 	/**
-	 * render Template
+	 * Render Template
 	 *
 	 * @param string $templateName Template name to render
-	 * @param array $session user session
-	 * @param array $paging contains the data of the number of pages 
-	 * @param object $post contains post data
-	 * @param object $posts contains posts data 
-	 * @param object $comments contains comment data
+	 * @param array  $session      User session
+	 * @param array  $paging       Contains the data of the number of pages 
+	 * @param array  $post         Contains post data
+	 * @param array  $posts        Contains posts data 
+	 * @param array  $comments     Contains comment data
+	 * 
 	 * @throws LoaderError
 	 * @throws RuntimeError
 	 * @throws SyntaxError
+	 * 
+	 * @return void
 	 */
-	private function render(string $templateName, array $session, array $paging, $post = [], $posts = [], $comments = [])
+	private function render(string $templateName, array $session, array $paging, $post = [], array $posts = [], array $comments = [])
 	{
 		echo $this->twig->render($templateName, ['SESSION' => $session, 'paging' => $paging, 'post' => $post, 'posts' => $posts, 'comments' => $comments]);
 	}

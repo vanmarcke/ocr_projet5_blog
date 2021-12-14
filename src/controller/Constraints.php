@@ -5,11 +5,11 @@ namespace Projet5\controller;
 use Projet5\controller\TwigController;
 
 /**
- * Constraints, contains and defines the different values of the constraints and error messages
+ * Constraints, contains and defines the different values of the constraints and errors messages
  */
 class Constraints extends TwigController
 {
-    // ***** start user constraints *****
+    // ***** Start user constraints *****
     const MIN_VALUE_PSEUDO = 3;
     const MAX_VALUE_PSEUDO = 20;
     const MIN_VALUE_PASSWORD = 8;
@@ -22,10 +22,10 @@ class Constraints extends TwigController
     const SUPPR = 'supprimé';
 
     /**
-     * checkPseudo
+     * CheckPseudo
      *
-     * @param string $pseudo contains the value of the pseudo sent by the user
-     * @param array &$errors error information to display
+     * @param string $pseudo  Contains the value of the pseudo sent by the user
+     * @param array  &$errors Error information to display
      *
      * @return array
      */
@@ -37,10 +37,10 @@ class Constraints extends TwigController
     }
 
     /**
-     * checkPseudoSize
+     * CheckPseudoSize
      *
-     * @param string $pseudo contains the value of the pseudo sent by the user
-     * @param array &$errors error information to display
+     * @param string $pseudo  Contains the value of the pseudo sent by the user
+     * @param array  &$errors Error information to display
      *
      * @return array
      */
@@ -52,10 +52,10 @@ class Constraints extends TwigController
     }
 
     /**
-     * checkEmail
+     * CheckEmail
      *
-     * @param string $email contains the value of email sent by the user
-     * @param array &$errors error information to display
+     * @param string $email   Contains the value of email sent by the user
+     * @param array  &$errors Error information to display
      *
      * @return array
      */
@@ -67,11 +67,12 @@ class Constraints extends TwigController
     }
 
     /**
-     * checkPassword
+     * CheckPassword
      *
-     * @param string $password contains the value of the password sent by the user 
-     * @param array &$errors error information to display
-     *
+     * @param string $password Contains the value of the password sent by the user 
+     * @param array  &$errors  Error information to display
+     * 
+     * @return array
      */
     protected function checkPassword(string $password, array &$errors)
     {
@@ -81,12 +82,13 @@ class Constraints extends TwigController
     }
 
     /**
-     * checkConfirmPassword
+     * CheckConfirmPassword
      *
-     * @param string $password contains the value of the pseudo sent by the user
-     * @param string $confirm_password contains confirmation of the password sent by the user 
-     * @param array &$errors error information to display
-     *
+     * @param string $password         Contains the value of the pseudo sent by the user
+     * @param string $confirm_password Contains confirmation of the password sent by the user 
+     * @param array  &$errors          Error information to display
+     * 
+     * @return array
      */
     protected function checkConfirmPassword(string $password, string $confirm_password, array &$errors)
     {
@@ -94,9 +96,9 @@ class Constraints extends TwigController
             $this->setErrorMessage('confirm_password', self::PASSWORD . ' de confirmation n\'est pas identique.', $errors);
         }
     }
-    // ***** end user constraints *****
+    // ***** End user constraints *****
 
-    // ***** start post constraints *****
+    // ***** Start post constraints *****
     const MIN_VALUE_POST = 1;
     const MAX_VALUE_TITLE = 100;
     const MAX_VALUE_CHAPO = 300;
@@ -104,12 +106,12 @@ class Constraints extends TwigController
     const POST = 'L\'article a été ';
 
     /**
-     * checkTitle
+     * CheckTitle
      *
-     * @param string $title contains the value of the title sent by the admin 
-     * @param array &$errors error information to display
+     * @param string $title   Contains the value of the title sent by the admin 
+     * @param array  &$errors Error information to display
      *
-     * @return void
+     * @return array
      */
     protected function checkTitle(string $title, array &$errors)
     {
@@ -119,12 +121,12 @@ class Constraints extends TwigController
     }
 
     /**
-     * checkChapo
+     * CheckChapo
      *
-     * @param string $chapo contains the value of the chapo sent by the admin
-     * @param array &$errors error information to display
+     * @param string $chapo   Contains the value of the chapo sent by the admin
+     * @param array  &$errors Error information to display
      *
-     * @return void
+     * @return array
      */
     protected function checkChapo(string $chapo, array &$errors)
     {
@@ -134,12 +136,12 @@ class Constraints extends TwigController
     }
 
     /**
-     * checkContents
+     * CheckContents
      *
-     * @param string $contents contains the value of the content sent by the admin
-     * @param array &$errors error information to display
+     * @param string $contents Contains the value of the content sent by the admin
+     * @param array &$errors   Error information to display
      *
-     * @return void
+     * @return array
      */
     protected function checkContents(string $contents, array &$errors)
     {
@@ -147,20 +149,21 @@ class Constraints extends TwigController
             $this->setErrorMessage('contents', 'Le contenu n\'est pas renseigné ou invalide.', $errors);
         }
     }
-    // ***** end post constraints *****
+    // ***** End post constraints *****
 
-    // ***** start comment constraints *****
+    // ***** Start comment constraints *****
     const MIN_VALUE_COMMENT = 1;
     const MAX_VALUE_COMMENT = 1000;
     const COMM = 'Le commentaire a été ';
     const REFU = 'refusé';
 
     /**
-     * checkComment
+     * CheckComment
      *
-     * @param string $contents contains the comment value sent by the user
-     * @param array &$errors error information to display
-     * @return void
+     * @param string $contents Contains the comment value sent by the user
+     * @param array  &$errors  Error information to display
+     * 
+     * @return array
      */
     protected function checkComment(string $contents, array &$errors)
     {
@@ -168,16 +171,16 @@ class Constraints extends TwigController
             $this->setErrorMessage('contents', 'Le commentaire n\'est pas renseigné ou invalide. Maximum 1000 caractères.', $errors);
         }
     }
-    // ***** end comment constraints *****
+    // ***** End comment constraints *****
 
     const USER_RIGHT_ADMIN = 'admin';
     const POST_STATUS_WAITING = 'waiting';
     const MESSAGE_VALID_OK = 'L\'article à bien été';
 
     /**
-     * isAdmin checks if admin is true otherwise returns an error if admin is false  
+     * IsAdmin checks if admin is true otherwise returns an error if admin is false  
      *
-     * @param string $rankUser
+     * @param string $rankUser Contains the value 'admin' 
      *
      * @return bool
      */
@@ -190,13 +193,13 @@ class Constraints extends TwigController
     }
 
     /**
-     * setErrorMessage
+     * SetErrorMessage
      *
-     * @param string $key contains the reference key of the error
-     * @param string $message contains the error message
-     * @param array &$errors error information to display
+     * @param string $key     Contains the reference key of the error
+     * @param string $message Contains the error message
+     * @param array  &$errors Error information to display
      *
-     * @return array
+     * @return void
      */
     protected function setErrorMessage(string $key, string $message, array &$errors)
     {

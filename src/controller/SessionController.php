@@ -11,7 +11,7 @@ use Projet5\controller\Constraints;
 class SessionController extends Constraints
 {
 	/**
-	 * redirection according to user status 
+	 * Redirection according to user status 
 	 *
 	 * @return void
 	 */
@@ -20,7 +20,7 @@ class SessionController extends Constraints
 		parent::__construct();
 
 		try {
-			// exit if not login
+			// Exit if not login
 			if (!isset($_SESSION['IdConnectedUser'])) {
 				header('location:Connexion');
 				throw new Exception($_SESSION['error'] = 'Vous n\'êtes pas connecté');

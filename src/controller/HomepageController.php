@@ -3,7 +3,6 @@
 namespace Projet5\controller;
 
 use Exception;
-use Projet5\controller\TwigController;
 use Projet5\model\UserModel;
 
 /**
@@ -14,7 +13,9 @@ class HomepageController extends Constraints
 	/**
 	 * Get Homepage
 	 *
-	 * @param UserModel $userModel
+	 * @param UserModel $userModel Read, insert, update and delete users
+	 * 
+	 * @return void
 	 */
 	public function index(UserModel $userModel)
 	{
@@ -35,7 +36,8 @@ class HomepageController extends Constraints
 
 	/**
 	 * Get error404
-	 *
+	 * 
+	 * @return void
 	 */
 	public function error404()
 	{
@@ -45,6 +47,7 @@ class HomepageController extends Constraints
 	/**
 	 * Get error500
 	 *
+	 * @return void
 	 */
 	public function error500()
 	{
@@ -53,13 +56,16 @@ class HomepageController extends Constraints
 
 
 	/**
-	 * render Template
+	 * Render Template
 	 *
 	 * @param string $templateName Template name to render
-	 * @param array $session user session	
+	 * @param array  $session      User session
+	 * 
 	 * @throws LoaderError
 	 * @throws RuntimeError
 	 * @throws SyntaxError
+	 * 
+	 * @return void
 	 */
 	private function render(string $templateName, array $session)
 	{

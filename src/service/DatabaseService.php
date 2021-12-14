@@ -13,14 +13,14 @@ use Projet5\controller\Constraints;
 class DatabaseService extends Constraints
 {
 	/**
-	 * bdd
+	 * Bdd
 	 *
 	 * @var object PDO
 	 */
 	private $bdd;
 
 	/**
-	 * getDb
+	 * GetDb
 	 *
 	 * @return object PDOStatement
 	 */

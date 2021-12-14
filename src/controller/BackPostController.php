@@ -12,14 +12,16 @@ use Projet5\model\PostModel;
 class BackPostController extends SessionController
 {
 	/**
-	 * adding a new post
+	 * Add a new post
 	 *
-	 * @param PostModel $postModel
+	 * @param PostModel $postModel Read, insert, update and delete of posts
 	 *
 	 * @throws LoaderError
 	 * @throws RuntimeError
 	 * @throws SyntaxError
 	 * @throws Exception
+	 * 
+	 * @return array
 	 */
 	public function addPost(PostModel $postModel)
 	{
@@ -49,7 +51,7 @@ class BackPostController extends SessionController
 
 		$this->checkContents($contents, $errors);
 
-		// form information in a table for simplicity with twig
+		// Form information in a table for simplicity with twig
 		$form = [
 			'title' => $title,
 			'chapo' => $chapo,
@@ -59,7 +61,7 @@ class BackPostController extends SessionController
 
 
 		try {
-			// insert post if control ok
+			// Insert post if control ok
 			if (empty($errors)) {
 				$post = new Post();
 				$post
@@ -74,7 +76,7 @@ class BackPostController extends SessionController
 				header('location:admin-waiting-posts');
 				exit;
 			}
-			// display the form with errors and datas form
+			// Display the form with errors and datas form
 			$this->render('insert_post.twig', $_SESSION, $errors, $form);
 		} catch (Exception $e) {
 			$this->render('error_500.twig', $_SESSION, []);
@@ -82,19 +84,21 @@ class BackPostController extends SessionController
 	}
 
 	/**
-	 * modification of a post
+	 * Modification of a post
 	 *
-	 * @param int $idPost contains post id
-	 * @param PostModel $postModel
+	 * @param int       $idPost    Contains post id
+	 * @param PostModel $postModel Read, insert, update and delete of posts
 	 *
 	 * @throws LoaderError
 	 * @throws RuntimeError
 	 * @throws SyntaxError
 	 * @throws Exception
+	 * 
+	 * @return array
 	 */
 	public function editPost(int $idPost, PostModel $postModel)
 	{
-		// load Post with id
+		// Load Post with id
 		$post = $postModel->loadPost($idPost);
 
 		// If I do not follow admin, return to the home page
@@ -123,7 +127,7 @@ class BackPostController extends SessionController
 
 		$this->checkContents($contents, $errors);
 
-		// form information in a table for simplicity with twig
+		// Form information in a table for simplicity with twig
 		$form = [
 			'title' => $title,
 			'chapo' => $chapo,
@@ -133,7 +137,7 @@ class BackPostController extends SessionController
 		];
 
 		try {
-			// insert post if control ok
+			// Insert post if control ok
 			if (empty($errors)) {
 				$post = new Post();
 				$post
@@ -147,7 +151,7 @@ class BackPostController extends SessionController
 				header('location:Article-page1');
 				exit;
 			}
-			// display the post with error and datas form
+			// Display the post with error and datas form
 			$this->render('insert_post.twig', $_SESSION, $errors, $form);
 		} catch (Exception $e) {
 			$this->render('error_500.twig', $_SESSION, []);
@@ -155,19 +159,21 @@ class BackPostController extends SessionController
 	}
 
 	/**
-	 * delete a post
+	 * Delete a post
 	 *
-	 * @param string $idPost contains post id
-	 * @param PostModel $postModel
+	 * @param string    $idPost    Contains post id
+	 * @param PostModel $postModel Read, insert, update and delete of posts
 	 * 
 	 * @throws LoaderError
 	 * @throws RuntimeError
 	 * @throws SyntaxError
 	 * @throws Exception
+	 * 
+	 * @return array
 	 */
 	public function deletePost(string $idPost, PostModel $postModel)
 	{
-		// load Post with id
+		// Load Post with id
 		$post = $postModel->loadPost($idPost);
 
 		// If I do not follow admin, return to the home page
@@ -183,7 +189,7 @@ class BackPostController extends SessionController
 				exit;
 			}
 
-			// delete post if form is submit and redirect
+			// Delete post if form is submit and redirect
 			if (isset($_POST['idDeletePost'])) {
 				$postModel->deletePostWithId($_POST['idDeletePost']);
 				$_SESSION['success'] = self::MESSAGE_VALID_OK . ' supprimé';
@@ -191,7 +197,7 @@ class BackPostController extends SessionController
 				exit;
 			}
 
-			// display the confirm delete message
+			// Display the confirm delete message
 			$this->render('delete_post.twig', $_SESSION, [], [], $post);
 		} catch (Exception $e) {
 			$this->render('error_500.twig', $_SESSION, []);
@@ -199,16 +205,19 @@ class BackPostController extends SessionController
 	}
 
 	/**
-	 * render Template.
+	 * Render Template.
 	 *
 	 * @param string $templateName Template name to render
-	 * @param array $session user session
-	 * @param array $error error information to display
-	 * @param array $form content of the completed form
-	 * @param object $post contains the post data
+	 * @param array  $session      User session
+	 * @param array  $errors       Error information to display
+	 * @param array  $form         Content of the completed form
+	 * @param array  $post         Contains the post data
+	 * 
 	 * @throws LoaderError
 	 * @throws RuntimeError
 	 * @throws SyntaxError
+	 * 
+	 * @return void
 	 */
 	private function render(string $templateName, array $session, array $errors = [], array $form = [], $post = [])
 	{
