@@ -4,20 +4,20 @@ namespace Projet5\entity;
 
 class User
 {
-    private $id;
-    private $pseudo;
-    private $email;
-    private $password;
-    private $rank;
+    private int $id;
+    private string $pseudo;
+    private string $email;
+    private string $password;
+    private string $rank;
 
     /**
      * Method getId
      * 
      * Get value of idUser
      *
-     * @return object
+     * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
@@ -27,11 +27,11 @@ class User
      * 
      * Set value of IdUser
      *
-     * @param int $id
+     * @param int $id expected value : IdUser
      *
-     * @return object
+     * @return User
      */
-    public function setId($id)
+    public function setId(int $id): User
     {
         $this->id = $id;
         return $this;
@@ -42,9 +42,9 @@ class User
      * 
      * Get value of Pseudo
      *
-     * @return object
+     * @return string
      */
-    public function getPseudo()
+    public function getPseudo(): string
     {
         return $this->pseudo;
     }
@@ -54,11 +54,11 @@ class User
      * 
      * Set value of Pseudo
      *
-     * @param string $pseudo
+     * @param string $pseudo expected value : pseudo User
      *
-     * @return object
+     * @return User
      */
-    public function setPseudo($pseudo)
+    public function setPseudo(string $pseudo): User
     {
         $this->pseudo = $pseudo;
         return $this;
@@ -69,9 +69,9 @@ class User
      * 
      * Get value of Email
      *
-     * @return object
+     * @return string
      */
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->email;
     }
@@ -81,11 +81,11 @@ class User
      * 
      * Set value of Email
      *
-     * @param string $email
+     * @param string $email expected value : email User
      *
-     * @return object
+     * @return User
      */
-    public function setEmail($email)
+    public function setEmail(string $email): User
     {
         $this->email = $email;
         return $this;
@@ -96,9 +96,9 @@ class User
      * 
      * Get value of Password
      *
-     * @return object
+     * @return string
      */
-    public function getPassword()
+    public function getPassword(): string
     {
         return $this->password;
     }
@@ -108,11 +108,11 @@ class User
      * 
      * Set value of Password
      *
-     * @param string $password
+     * @param string $password expected value : password User
      *
-     * @return object
+     * @return User
      */
-    public function setPassword($password)
+    public function setPassword(string $password): User
     {
         $this->password = password_hash($password, PASSWORD_DEFAULT);
         return $this;
@@ -123,9 +123,9 @@ class User
      * 
      * Get value of Rank
      *
-     * @return object
+     * @return string
      */
-    public function getRank()
+    public function getRank(): string
     {
         return $this->rank;
     }
@@ -135,11 +135,11 @@ class User
      * 
      * Set value of Rank
      *
-     * @param string $rank
+     * @param string $rank flag value expected : 'pending' or 'registered'
      *
-     * @return object
+     * @return User
      */
-    public function setRank($rank)
+    public function setRank(string $rank): User
     {
         $this->rank = $rank;
         return $this;

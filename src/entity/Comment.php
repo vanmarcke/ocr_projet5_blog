@@ -7,21 +7,21 @@ namespace Projet5\entity;
  */
 class Comment
 {
-    private $id;
-    private $contents;
-    private $date_comment;
-    private $publish;
-    private $id_bpf_blog_posts;
-    private $id_bpf_users;
+    private int $id;
+    private string $contents;
+    private string $date_comment;
+    private string  $publish;
+    private int $id_bpf_blog_posts;
+    private int $id_bpf_users;
 
     /**
      * Method getId
      * 
      * Get value of idComment
      *
-     * @return object
+     * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
@@ -31,11 +31,11 @@ class Comment
      * 
      * Set value of idComment
      *
-     * @param int $id
+     * @param int $id expected value : IdComment
      *
-     * @return object
+     * @return Comment
      */
-    public function setId($id)
+    public function setId(int $id): Comment
     {
         $this->id = $id;
         return $this;
@@ -46,9 +46,9 @@ class Comment
      * 
      * Get value of contents
      *
-     * @return object
+     * @return string
      */
-    public function getContents()
+    public function getContents(): string
     {
         return $this->contents;
     }
@@ -58,11 +58,11 @@ class Comment
      * 
      * Set value of Contents
      *
-     * @param string $contents
+     * @param string $contents expected value : content of a comment 
      *
-     * @return object
+     * @return Comment
      */
-    public function setContents($contents)
+    public function setContents(String $contents): Comment
     {
         $this->contents = $contents;
         return $this;
@@ -73,9 +73,9 @@ class Comment
      * 
      * Get value of DateComment
      *
-     * @return object
+     * @return string
      */
-    public function getDateComment()
+    public function getDateComment(): string
     {
         return $this->date_comment;
     }
@@ -85,11 +85,11 @@ class Comment
      * 
      * Set value of DateComment
      *
-     * @param string $dateComment
+     * @param string $dateComment expected value: date of a comment
      *
-     * @return object
+     * @return Comment
      */
-    public function setDateComment($dateComment)
+    public function setDateComment(string $dateComment): Comment
     {
         $this->date_comment = $dateComment;
         return $this;
@@ -100,9 +100,9 @@ class Comment
      * 
      * Get value of Publish
      *
-     * @return object
+     * @return string
      */
-    public function getPublish()
+    public function getPublish(): string
     {
         return $this->publish;
     }
@@ -112,11 +112,11 @@ class Comment
      * 
      * Set value of Publish
      *
-     * @param string $publish
+     * @param string $publish flag value expected : 'valid', 'waiting' or 'refused'
      *
-     * @return object
+     * @return Comment
      */
-    public function setPublish($publish)
+    public function setPublish(string $publish): Comment
     {
         $this->publish = $publish;
         return $this;
@@ -127,9 +127,9 @@ class Comment
      * 
      * Get value of IdBlogPosts
      *
-     * @return object
+     * @return int
      */
-    public function getIdBlogPosts()
+    public function getIdBlogPosts(): int
     {
         return $this->id_bpf_blog_posts;
     }
@@ -139,11 +139,11 @@ class Comment
      * 
      * Set value of idBlogPosts
      *
-     * @param int $idBlogPosts
+     * @param int $idBlogPosts expected value: id of a Blog Post 
      *
-     * @return object
+     * @return Comment
      */
-    public function setIdBlogPosts($idBlogPosts)
+    public function setIdBlogPosts(int $idBlogPosts): Comment
     {
         $this->id_bpf_blog_posts = $idBlogPosts;
         return $this;
@@ -154,9 +154,9 @@ class Comment
      * 
      * Get value of IdUsers
      *
-     * @return object
+     * @return int
      */
-    public function getIdUsers()
+    public function getIdUsers(): int
     {
         return $this->id_bpf_users;
     }
@@ -166,11 +166,11 @@ class Comment
      * 
      * Set value of idUsers
      *
-     * @param int $idUsers
+     * @param int $idUsers expected value: idUser
      *
-     * @return object
+     * @return Comment
      */
-    public function setIdUsers($idUsers)
+    public function setIdUsers(int $idUsers): Comment
     {
         $this->id_bpf_users = $idUsers;
         return $this;
