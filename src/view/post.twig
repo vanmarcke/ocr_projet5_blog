@@ -1,0 +1,95 @@
+{% extends 'template_blog.twig' %}
+
+{% block meta_description %}
+	<meta name="description" content="{{ post.chapo }}"/>
+{% endblock %}
+
+{% block page_title %}
+	<title>{{ post.title }}</title>
+{% endblock %}
+
+{% block content %}
+
+	{#  Page Header #}
+	<header class="masthead" style="background-image: url('assets/images/post-bg.jpg')">
+		<div class="container position-relative px-4 px-lg-5">
+			<div class="row gx-5 gx-lg-7 justify-content-center">
+				<div class="col-md-12 col-lg-10 col-xl-9">
+					<div class="post-heading">
+						<h1>{{ post.title }}</h1>
+						<h2 class="subheading">{{ post.chapo }}</h2>
+						<span class="meta">
+							Ecrit par
+							{{ post.pseudo }}
+							<br>
+							Dernière modification le
+							{{ post.lastDateChange|date("d/m/Y à H:i") }}
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	{{ include('message_display.twig') }}
+
+	{#  Post Content #}
+	<article class="mb-8">
+		<div class="container px-8 px-lg-8">
+			<div class="row justify-content-center">
+				<div class="col-md-10 ">
+					<p>{{ post.contents|raw }}</p>
+				</div>
+			</div>
+		</div>
+	</article>
+
+	<br>
+	<div
+		class="container col-md-8">
+		{# display form if user is registered #}
+		{% if SESSION.rankConnectedUser == 'registered' or SESSION.rankConnectedUser == 'admin'%}
+			<form method="post" action="ajouter-un-commentaire-{{ post.id }}">
+				<div class="form-group">
+
+
+
+					<label for="comment" id="contentsAError" class="counter">Votre commentaire :
+					<span>0</span>
+						caractère(s) / 1000 max</label>
+
+					<textarea class="form-control" rows="4" maxlength="1000" name="contentsA" data-iderror="" id="comment" value="{{userDatas.pseudo}}" placeholder="1000 caractères MAX..."></textarea>
+
+				</div>
+				<br>
+				<input class="btn btn-primary" type="submit" value="Envoyer">
+			</form><br><hr>
+		{% endif %}
+		{% for comment in comments %}
+			{% if comment.publish == 'valid' %}
+				<div class="card">
+					<div class="card-body" style="background: #e3e3e3;">
+						<p class="card-text">{{ comment.contents|nl2br }}</p>
+						<h6 class="card-subtitle mb-2 text-muted">Ecrit par
+							{{ comment.pseudo }}
+							le
+							{{ comment.dateComment|date("d/m/Y")}}</h6>
+					</div>
+				</div><br>
+
+			{% elseif comment.publish == 'waiting' %}
+				<small>
+					<i class="card-text">Un nouveau commentaire écrit par
+						{{ comment.pseudo }}
+						est en attente de validation...</i>
+				</small>
+				<hr class="my-4"/>
+			{% endif %}
+
+		{% endfor %}
+	</div>
+
+	<h3 class="nav-item text-center">
+		<a href="Articles-Page1">Retour au Blog</a>
+	</h3>
+{% endblock %}

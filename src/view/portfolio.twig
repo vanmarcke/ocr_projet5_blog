@@ -1,0 +1,46 @@
+<section id="portfolio">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="w-100">
+				<h1 class="titreBorder">Portfolio
+				</h1>
+			</div>
+			<ul class="nav nav-tabs" id="myTab" role="tablist">
+				<li class="nav-item">
+					<a class="nav-link active" id="web-tab" data-toggle="tab" href="#web" role="tab" aria-controls="web" aria-selected="true">Web</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" id="design-tab" data-toggle="tab" href="#maquettes" role="tab" aria-controls="maquettes" aria-selected="false">Maquettes</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" id="autres-tab" data-toggle="tab" href="#recommandations" role="tab" aria-controls="autres" aria-selected="false">Appréciations / Recommandations</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" id="certificats-tab" data-toggle="tab" href="#certificats" role="tab" aria-controls="certificats" aria-selected="false">Certifications</a>
+				</li>
+			</ul>
+			<div
+				class="tab-content" id="myTabContent">
+
+				{# Content Web ***************************************** #}
+
+				{{ include('content_web.twig') }}
+
+				{# Content Maquettes ***************************************** #}
+
+				{{ include('content_maquettes.twig') }}
+
+				{# Content recommendations ***************************************** #}
+
+				{{ include('content_recommendations.twig') }}
+
+				{# Content certificates ***************************************** #}
+
+				{{ include('content_certificates.twig') }}
+
+				{# FIN contents ***************************************** #}
+
+			</div>
+		</div>
+	</div>
+</section>
