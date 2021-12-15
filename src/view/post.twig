@@ -51,15 +51,11 @@
 		{% if SESSION.rankConnectedUser == 'registered' or SESSION.rankConnectedUser == 'admin'%}
 			<form method="post" action="ajouter-un-commentaire-{{ post.id }}">
 				<div class="form-group">
-
-
-
 					<label for="comment" id="contentsAError" class="counter">Votre commentaire :
 					<span>0</span>
 						caractère(s) / 1000 max</label>
-
-					<textarea class="form-control" rows="4" maxlength="1000" name="contentsA" data-iderror="" id="comment" value="{{userDatas.pseudo}}" placeholder="1000 caractères MAX..."></textarea>
-
+					<textarea class="form-control" rows="4" maxlength="1000" name="contentsA" data-iderror="" 
+					id="comment" value="{{userDatas.pseudo}}" placeholder="1000 caractères MAX..."></textarea>
 				</div>
 				<br>
 				<input class="btn btn-primary" type="submit" value="Envoyer">
