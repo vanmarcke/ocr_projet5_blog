@@ -16,7 +16,7 @@ class UserModel extends DatabaseService
      *
      * @param int $idUser User identifier
      * 
-     * @return array      User informations
+     * @return array
      */
     public function loadUser(int $idUser): array
     {
@@ -31,7 +31,7 @@ class UserModel extends DatabaseService
      *
      * @param string $email User identifier
      * 
-     * @return array        User informations
+     * @return array
      */
     public function loadByEmail(string $email): array
     {
@@ -45,7 +45,7 @@ class UserModel extends DatabaseService
     /**
      * Return all pending users
      *
-     * @return array List of pending users 
+     * @return array
      */
     public function loadPendingUsers(): array
     {
@@ -59,7 +59,7 @@ class UserModel extends DatabaseService
      *
      * @param User $user Class User
      * 
-     * @return void      List of data to insert in the database 
+     * @return void
      */
     public function insert(User $user): void
     {
@@ -79,7 +79,7 @@ class UserModel extends DatabaseService
      *
      * @param int $idUser User identifier
      * 
-     * @return void       User informations
+     * @return void
      */
     public function validateUserWithId(int $idUser): void
     {
@@ -94,7 +94,7 @@ class UserModel extends DatabaseService
      *
      * @param int $idUser User identifier
      * 
-     * @return void       User informations
+     * @return void
      */
     public function deleteUserWithId(int $idUser): void
     {

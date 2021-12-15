@@ -21,9 +21,9 @@ class BackPostController extends SessionController
 	 * @throws SyntaxError
 	 * @throws Exception
 	 * 
-	 * @return array
+	 * @return void
 	 */
-	public function addPost(PostModel $postModel)
+	public function addPost(PostModel $postModel): void
 	{
 		// If I do not follow admin, return to the home page
 		if (!$this->isAdmin($_SESSION['rankConnectedUser'])) {
@@ -38,8 +38,8 @@ class BackPostController extends SessionController
 		}
 
 		// The form is submitted, control
-		$title = (isset($_POST['title'])) ? $_POST['title'] : "";
-		$chapo = (isset($_POST['chapo'])) ? $_POST['chapo'] : "";
+		$title = (isset($_POST['titleA'])) ? $_POST['titleA'] : "";
+		$chapo = (isset($_POST['chapoB'])) ? $_POST['chapoB'] : "";
 		$contents = (isset($_POST['contents'])) ? $_POST['contents'] : "";
 		$id_user = (isset($_SESSION['IdConnectedUser'])) ? $_SESSION['IdConnectedUser'] : "";
 		$errors = [];
@@ -58,7 +58,6 @@ class BackPostController extends SessionController
 			'contents' => $contents,
 			'id_user' => $id_user
 		];
-
 
 		try {
 			// Insert post if control ok
@@ -94,9 +93,9 @@ class BackPostController extends SessionController
 	 * @throws SyntaxError
 	 * @throws Exception
 	 * 
-	 * @return array
+	 * @return void
 	 */
-	public function editPost(int $idPost, PostModel $postModel)
+	public function editPost(int $idPost, PostModel $postModel): void
 	{
 		// Load Post with id
 		$post = $postModel->loadPost($idPost);
@@ -114,8 +113,8 @@ class BackPostController extends SessionController
 		}
 
 		// The form is submitted, control
-		$title = (isset($_POST['title'])) ? $_POST['title'] : "";
-		$chapo = (isset($_POST['chapo'])) ? $_POST['chapo'] : "";
+		$title = (isset($_POST['titleA'])) ? $_POST['titleA'] : "";
+		$chapo = (isset($_POST['chapoB'])) ? $_POST['chapoB'] : "";
 		$contents = (isset($_POST['contents'])) ? $_POST['contents'] : "";
 		$id_user = (isset($_SESSION['IdConnectedUser'])) ? $_SESSION['IdConnectedUser'] : "";
 		$errors = [];
@@ -169,9 +168,9 @@ class BackPostController extends SessionController
 	 * @throws SyntaxError
 	 * @throws Exception
 	 * 
-	 * @return array
+	 * @return void
 	 */
-	public function deletePost(string $idPost, PostModel $postModel)
+	public function deletePost(string $idPost, PostModel $postModel): void
 	{
 		// Load Post with id
 		$post = $postModel->loadPost($idPost);
@@ -219,7 +218,7 @@ class BackPostController extends SessionController
 	 * 
 	 * @return void
 	 */
-	private function render(string $templateName, array $session, array $errors = [], array $form = [], $post = [])
+	private function render(string $templateName, array $session, array $errors = [], array $form = [], $post = []): void
 	{
 		echo $this->twig->render($templateName, ['SESSION' => $session, 'error' => $errors, 'form' => $form, 'post' => $post]);
 	}

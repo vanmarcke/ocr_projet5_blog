@@ -26,26 +26,31 @@
 				<form method="post" action="Modifier-Article-{{post.id}}{{form.id_post}}">
 				{% endif %}
 				<div class="form-group">
-					<label for="title">Titre</label>
-					<input class="form-control" type="text" name="title" id="title" value="{{post.title}}{{form.title}}"/>
-					<small class="text-danger">{{ error.title }}</small>
-				</div>
-				<div class="form-group">
-					<label for="chapo">Châpo</label>
-					<input class="form-control" type="text" name="chapo" id="chapo" value="{{post.chapo}}{{form.chapo}}"/>
-					<small class="text-danger">{{ error.chapo }}</small>
-				</div>
-				<div class="form-group">
-					<label for="contents">Contenu</label>
-					<textarea type="text" class="ckeditor" name="contents" id="contents">{{post.contents}}{{form.contents}}</textarea>
-					<small class="text-danger">{{ error.contents }}</small>
-
-					<script>
-						CKEDITOR.replace('contents');
-					</script>
-				</div>
-
-				<input class="btn btn-primary" type="submit" value="Envoyer">
-			</form>
+					<label for="title" id="titleAError" class="counter">Titre :
+						<span>0</span>
+						caractère(s) / 100 max</label>
+					<input class="form-control" maxlength="100" name="titleA" data-iderror="" 
+					id="title" value="{{post.title}}{{form.title}}"></input>
+				<small class="text-danger">{{ error.title }}</small>
+			</div>
+			<div class="form-group">
+				<label for="chapo" id="chapoBError" class="counter">Châpo :
+					<span>0</span>
+					caractère(s) / 300 max</label>
+				<input class="form-control" maxlength="300" name="chapoB" data-iderror="" 
+				id="chapo" value="{{post.chapo}}{{form.chapo}}"></input>
+			<small class="text-danger">{{ error.chapo }}</small>
 		</div>
-	{% endblock %}
+		<div class="form-group">
+			<label for="contents">Contenu</label>
+			<textarea type="text" class="ckeditor" name="contents" id="contents">{{post.contents}}{{form.contents}}</textarea>
+			<small class="text-danger">{{ error.contents }}</small>
+
+			<script>
+				CKEDITOR.replace('contents');
+			</script>
+		</div>
+
+		<input class="btn btn-primary" type="submit" value="Envoyer">
+	</form>
+</div>{% endblock %}

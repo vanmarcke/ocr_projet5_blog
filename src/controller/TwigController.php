@@ -15,8 +15,6 @@ class TwigController
 
 	/**
 	 * Instantiating the loader and template engine
-	 * 
-	 * @return void
 	 */
 	public function __construct()
 	{

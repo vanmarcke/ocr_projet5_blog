@@ -57,9 +57,9 @@ class PostModel extends DatabaseService
      *
      * @param int $idPost Load the content of the posts with their id 
      *
-     * @return Post
+     * @return Post|false
      */
-    public function loadPost(int $idPost): Post
+    public function loadPost(int $idPost)
     {
         $req = $this->getDb()->prepare(
             'SELECT bpf_blog_posts.id, title, last_date_change, chapo, contents, publish, bpf_users.pseudo 

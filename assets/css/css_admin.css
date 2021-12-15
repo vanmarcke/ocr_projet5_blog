@@ -105,6 +105,9 @@ p {
   margin-bottom: 1rem;
 }
 
+.counter span{color:green}
+.counter span.warning{color:red}
+
 abbr[title],
 abbr[data-original-title] {
   text-decoration: underline;
