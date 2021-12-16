@@ -57,7 +57,7 @@ class PostModel extends DatabaseService
      *
      * @param int $idPost Load the content of the posts with their id 
      *
-     * @return Post|false
+     * @return Post|bool
      */
     public function loadPost(int $idPost)
     {
