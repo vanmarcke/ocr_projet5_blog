@@ -44,6 +44,14 @@
 		</div>
 	</article>
 
+	{% if comments == false %}
+		<div>
+			<h3 class="text-center m-5 text-black">il y a actuellement aucun commentaire !<br> 
+			<span style="font-size: .89rem; opacity: .78;">Soyez l'un des premiers à en poster un.</span><br>
+			<i style="font-size: 10rem; margin-top: 4rem; opacity: .87;" class="far fa-comments"></i></h3>
+		</div>
+	{% endif %}
+
 	<br>
 	<div
 		class="container col-md-8">
@@ -51,13 +59,6 @@
 		{% if SESSION.rankConnectedUser == 'registered' or SESSION.rankConnectedUser == 'admin'%}
 			<form method="post" action="ajouter-un-commentaire-{{ post.id }}">
 				<div class="form-group">
-					{% if comments == false %}
-						<div>
-							<h3 class="text-center m-5 text-black">il y a actuellement aucun commentaire !<br> 
-							<span style="font-size: .89rem; opacity: .78;">Soyez l'un des premiers à en poster un.</span><br>
-							<i style="font-size: 10rem; margin-top: 4rem; opacity: .87;" class="fas fa-comment-slash"></i></h3>
-						</div>
-        			{% endif %} 
 					<label for="comment" id="contentsAError" class="counter">Votre commentaire :
 					<span>0</span>
 						caractère(s) / 1000 max</label>
