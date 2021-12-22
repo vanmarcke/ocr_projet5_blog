@@ -20,11 +20,11 @@ class DatabaseService extends Constraints
 	private $bdd;
 
 	/**
-	 * GetDb
+	 * GetDb PDOStatement
 	 *
-	 * @return object PDOStatement
+	 * @return object
 	 */
-	public function getDb()
+	public function getDb(): object
 	{
 		if (!$this->bdd) {
 			try {

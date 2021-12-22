@@ -18,16 +18,16 @@ class FrontPostController extends Constraints
 	 * @param PostModel $postModel   Read, insert, update and delete of posts
 	 * @param int       $currentPage Contains the page number
 	 *
-	 * @return array
+	 * @return void
 	 */
-	public function displayPosts(PostModel $postModel, int $currentPage)
+	public function displayPosts(PostModel $postModel, int $currentPage): void
 	{
 		try {
 			// Count number of row valid
 			$numberPosts = $postModel->countAllPost($valid = self::VALUE_POST_VALID);
 			// Take Limits for request SQL
 			$paging = $this->paging(Router::POST_PER_PAGE, $numberPosts, $currentPage);
-
+			// Load posts
 			$posts = $postModel->loadAllPost($valid, $paging['startLimit'], Router::POST_PER_PAGE);
 			// Display posts
 			$this->render('blog_posts.twig', $_SESSION, $paging, [], $posts, []);
@@ -43,21 +43,21 @@ class FrontPostController extends Constraints
 	 * @param CommentModel $commentModel Read, insert, update and delete comments
 	 * @param string       $idPost       Contains post id
 	 *
-	 * @return array
+	 * @return void
 	 */
-	public function displayPost(PostModel $postModel, CommentModel $commentModel, string $idPost)
+	public function displayPost(PostModel $postModel, CommentModel $commentModel, string $idPost): void
 	{
 		try {
 			// Load the post
 			$post = $postModel->loadPost($idPost);
-			// load comments for this post
+			// Load comments for this post
 			$comments = $commentModel->loadAllCommentsWithIdPost($idPost);
 
-			// // if the post does not exist display an error message 		
-			// if ($postModel->loadPost($idPost) == false) {
-			// 	$this->render('error_404.twig', $_SESSION, []);
-			// 	return;
-			// }
+			// If the post does not exist display an error message 		
+			if ($postModel->loadPost($idPost) == false) {
+				$this->render('error_404.twig', $_SESSION, []);
+				return;
+			}
 
 			// If the post is waiting display an error message
 			if ($post->getPublish() === self::POST_STATUS_WAITING) {
@@ -73,7 +73,7 @@ class FrontPostController extends Constraints
 	}
 
 	/**
-	 * Function returning an array with the $currentPage and the $totalPages.
+	 * Paging returning an array with the $currentPage and the $totalPages.
 	 *
 	 * @param int $numberPerPage Contains the maximum number of posts or comments per page 
 	 * @param int $numberRow     Contains the total number of posts or comments
@@ -81,7 +81,7 @@ class FrontPostController extends Constraints
 	 *
 	 * @return array
 	 */
-	private function paging(int $numberPerPage, int $numberRow, int $currentPage = 1)
+	private function paging(int $numberPerPage, int $numberRow, int $currentPage = 1): array
 	{
 		// Calcul total pages
 		$totalPages = ceil($numberRow / $numberPerPage);
@@ -119,7 +119,7 @@ class FrontPostController extends Constraints
 	 * 
 	 * @return void
 	 */
-	private function render(string $templateName, array $session, array $paging, $post = [], array $posts = [], array $comments = [])
+	private function render(string $templateName, array $session, array $paging, $post = [], array $posts = [], array $comments = []): void
 	{
 		echo $this->twig->render($templateName, ['SESSION' => $session, 'paging' => $paging, 'post' => $post, 'posts' => $posts, 'comments' => $comments]);
 	}

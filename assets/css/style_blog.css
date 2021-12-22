@@ -417,6 +417,9 @@ textarea {
   resize: vertical;
 }
 
+.counter span{color:green}
+.counter span.warning{color:red}
+
 fieldset {
   min-width: 0;
   padding: 0;

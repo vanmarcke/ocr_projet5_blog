@@ -44,6 +44,14 @@
 		</div>
 	</article>
 
+	{% if comments == false %}
+		<div>
+			<h3 class="text-center m-5 text-black">il y a actuellement aucun commentaire !<br> 
+			<span style="font-size: .89rem; opacity: .78;">Soyez l'un des premiers à en poster un.</span><br>
+			<i style="font-size: 10rem; margin-top: 4rem; opacity: .87;" class="far fa-comments"></i></h3>
+		</div>
+	{% endif %}
+
 	<br>
 	<div
 		class="container col-md-8">
@@ -51,16 +59,20 @@
 		{% if SESSION.rankConnectedUser == 'registered' or SESSION.rankConnectedUser == 'admin'%}
 			<form method="post" action="ajouter-un-commentaire-{{ post.id }}">
 				<div class="form-group">
-					<label for="comment">Votre commentaire</label>
-					<textarea class="form-control" name="contents" id="comment" value="{{userDatas.pseudo}}"></textarea>
-				</div><br>
+					<label for="comment" id="contentsAError" class="counter">Votre commentaire :
+					<span>0</span>
+						caractère(s) / 1000 max</label>
+					<textarea class="form-control" rows="4" maxlength="1000" name="contentsA" data-iderror="" 
+					id="comment" value="{{userDatas.pseudo}}" placeholder="1000 caractères MAX..."></textarea>
+				</div>
+				<br>
 				<input class="btn btn-primary" type="submit" value="Envoyer">
 			</form><br><hr>
 		{% endif %}
 		{% for comment in comments %}
 			{% if comment.publish == 'valid' %}
 				<div class="card">
-					<div class="card-body" style="background: #d9d9d9;">
+					<div class="card-body" style="background: #e3e3e3;">
 						<p class="card-text">{{ comment.contents|nl2br }}</p>
 						<h6 class="card-subtitle mb-2 text-muted">Ecrit par
 							{{ comment.pseudo }}
@@ -71,7 +83,7 @@
 
 			{% elseif comment.publish == 'waiting' %}
 				<small>
-					<i class="card-text">Un nouveau commentaire écrit par
+					<i class="card-text">Un commentaire écrit par
 						{{ comment.pseudo }}
 						est en attente de validation...</i>
 				</small>

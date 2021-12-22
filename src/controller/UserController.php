@@ -19,7 +19,7 @@ class UserController extends Constraints
      * 
      * @return void
      */
-    public function connexion(UserModel $userModel)
+    public function connexion(UserModel $userModel): void
     {
         // The form is not submitted, posting the connexion form
         if (count($_POST) === 0) {
@@ -83,7 +83,7 @@ class UserController extends Constraints
      * 
      * @return void
      */
-    public function register(UserModel $userModel)
+    public function register(UserModel $userModel): void
     {
         // The form is not submitted, posting the registration form
         if (count($_POST) === 0) {
@@ -146,7 +146,7 @@ class UserController extends Constraints
      *
      * @return void
      */
-    public function disconnect()
+    public function disconnect(): void
     {
         $_SESSION = [];
         $_SESSION['success'] = 'Vous êtes déconnecté';
@@ -168,7 +168,7 @@ class UserController extends Constraints
      * 
      * @return void
      */
-    private function render(string $templateName, array $session, array $errors = [], array $form = [])
+    private function render(string $templateName, array $session, array $errors = [], array $form = []): void
     {
         echo $this->twig->render($templateName, ['SESSION' => $session, 'error' => $errors, 'form' => $form]);
     }

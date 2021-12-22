@@ -21,12 +21,13 @@ class CommentController extends SessionController
 	 *
 	 * @return array
 	 */
-	public function insertComment(PostModel $postModel, CommentModel $commentModel, string $idPost)
+	public function insertComment(PostModel $postModel, CommentModel $commentModel, string $idPost): array
 	{
 		// The form is submitted, control
-		$contents = (isset($_POST['contents'])) ? $_POST['contents'] : "";
+		$contents = (isset($_POST['contentsA'])) ? $_POST['contentsA'] : "";
 		$errors = [];
 
+		// Constraints
 		$this->checkComment($contents, $errors);
 
 		try {
@@ -75,7 +76,7 @@ class CommentController extends SessionController
 	 * 
 	 * @return void
 	 */
-	private function render(string $templateName, array $session, array $errors = [])
+	private function render(string $templateName, array $session, array $errors = []): void
 	{
 		echo $this->twig->render($templateName, ['SESSION' => $session, 'error' => $errors]);
 	}

@@ -12,8 +12,6 @@ class SessionController extends Constraints
 {
 	/**
 	 * Redirection according to user status 
-	 *
-	 * @return void
 	 */
 	public function __construct()
 	{
