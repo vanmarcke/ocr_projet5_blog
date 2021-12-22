@@ -7,7 +7,7 @@ use Projet5\entity\User;
 use Projet5\service\DatabaseService;
 
 /**
- * Reading, inserting, updating and deleting users 
+ * Reading, inserting, updating and deleting users
  */
 class UserModel extends DatabaseService
 {
@@ -15,7 +15,7 @@ class UserModel extends DatabaseService
      * LoadUser
      *
      * @param int $idUser User identifier
-     * 
+     *
      * @return array
      */
     public function loadUser(int $idUser): array
@@ -30,7 +30,7 @@ class UserModel extends DatabaseService
      * Return id users with email
      *
      * @param string $email User identifier
-     * 
+     *
      * @return array
      */
     public function loadByEmail(string $email): array
@@ -58,7 +58,7 @@ class UserModel extends DatabaseService
      * Insert user with datas table
      *
      * @param User $user Class User
-     * 
+     *
      * @return void
      */
     public function insert(User $user): void
@@ -78,7 +78,7 @@ class UserModel extends DatabaseService
      * Validate a new user
      *
      * @param int $idUser User identifier
-     * 
+     *
      * @return void
      */
     public function validateUserWithId(int $idUser): void
@@ -93,7 +93,7 @@ class UserModel extends DatabaseService
      * Delete a user
      *
      * @param int $idUser User identifier
-     * 
+     *
      * @return void
      */
     public function deleteUserWithId(int $idUser): void

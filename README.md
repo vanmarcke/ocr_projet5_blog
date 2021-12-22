@@ -83,7 +83,7 @@ A Google account for the configuration of reCAPTCHA V3
 
 Rename the controller/EmailProcessingCopy.php file to EmailProcessing.php
 
-Update line 10 with your obtained secret key.
+Update line 10 with your obtained secret key
 
 ```php
     $url = "https://www.google.com/recaptcha/api/siteverify?secret=votre code secret ici&response={$_POST['recaptcha-response']}";

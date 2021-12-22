@@ -7,14 +7,14 @@
     $(".sidebar").toggleClass("toggled");
     if ($(".sidebar").hasClass("toggled")) {
       $('.sidebar .collapse').collapse('hide');
-    };
+    }
   });
 
   // Close any open menu accordions when window is resized below 768px
   $(window).resize(function () {
     if ($(window).width() < 768) {
       $('.sidebar .collapse').collapse('hide');
-    };
+    }
   });
 
   // Prevent the content wrapper from scrolling when the fixed side navigation hovered over
@@ -65,7 +65,7 @@
               drop = $(this).removeClass("animate");
               return;
             }
-          })
+          });
         }
         x = event.pageX - drop.width() / 2 - $(this).offset().left;
         y = event.pageY - drop.height() / 2 - $(this).offset().top;
@@ -77,7 +77,7 @@
     });
     $(document.body).on('dragstart', '.materialBtn, .select li', function (e) {
       e.preventDefault();
-    })
+    });
 
     var selectTimeout;
     $(document.body).on('click', '.select li', function () {
@@ -188,7 +188,7 @@
 
       reader.onload = function (e) {
         $('#img-upload').attr('src', e.target.result);
-      }
+      };
 
       reader.readAsDataURL(input.files[0]);
     }

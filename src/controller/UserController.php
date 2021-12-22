@@ -8,7 +8,7 @@ use Projet5\entity\User;
 use Projet5\model\UserModel;
 
 /**
- * Manage login, registration and logout of a user 
+ * Manage login, registration and logout of a user
  */
 class UserController extends Constraints
 {
@@ -16,7 +16,7 @@ class UserController extends Constraints
      * Connexion user
      *
      * @param UserModel $userModel Read, insert, update and delete users
-     * 
+     *
      * @return void
      */
     public function connexion(UserModel $userModel): void
@@ -80,7 +80,7 @@ class UserController extends Constraints
      * Register user
      *
      * @param UserModel $userModel Read, insert, update and delete users
-     * 
+     *
      * @return void
      */
     public function register(UserModel $userModel): void
@@ -117,7 +117,7 @@ class UserController extends Constraints
             "confirm_password" => $confirm_password
         ];
 
-        // If no error, 
+        // If no error
         if (empty($errors)) {
             $user = new User();
             $user
@@ -129,7 +129,8 @@ class UserController extends Constraints
             try {
                 // Save to database and display connection
                 $userModel->insert($user);
-                $_SESSION['success'] = 'Votre compte à été créé, cependant il doit être validé par un administrateur pour pouvoir écrire des commentaires';
+                $_SESSION['success'] = 'Votre compte à été créé, cependant il doit être validé par 
+                un administrateur pour pouvoir écrire des commentaires';
                 $this->render('connexion.twig', $_SESSION, $errors, $form);
                 return;
                 // Or create a new error_sql message
@@ -161,11 +162,11 @@ class UserController extends Constraints
      * @param array $error error information to display
      * @param array $form content of the completed form
      * @param array $session user session
-     * 
+     *
      * @throws LoaderError
      * @throws RuntimeError
      * @throws SyntaxError
-     * 
+     *
      * @return void
      */
     private function render(string $templateName, array $session, array $errors = [], array $form = []): void

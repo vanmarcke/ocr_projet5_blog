@@ -55,7 +55,7 @@ class PostModel extends DatabaseService
     /**
      * Load post with id
      *
-     * @param int $idPost Load the content of the posts with their id 
+     * @param int $idPost Load the content of the posts with their id
      *
      * @return Post|bool
      */
@@ -75,7 +75,7 @@ class PostModel extends DatabaseService
     /**
      * Insert a new post
      *
-     * @param Post $post Insertion of a new post in the database 
+     * @param Post $post Insertion of a new post in the database
      *
      * @return void
      */
@@ -96,9 +96,9 @@ class PostModel extends DatabaseService
     /**
      * Edit a post
      *
-     * @param int  $idPost Returns the id of the post to modify 
+     * @param int  $idPost Returns the id of the post to modify
      * @param Post $post   Contains the modified data
-     * 
+     *
      * @return void
      */
     public function updatePost(int $idPost, Post $post): void
@@ -120,7 +120,7 @@ class PostModel extends DatabaseService
      * Publish a post
      *
      * @param int $idPost Returns the id of the publication to modify to publish
-     * 
+     *
      * @return void
      */
     public function publishPostWithId(int $idPost): void
@@ -135,7 +135,7 @@ class PostModel extends DatabaseService
      * Delete a post
      *
      * @param int $idPost Returns the id of the post to delete
-     * 
+     *
      * @return void
      */
     public function deletePostWithId(int $idPost): void

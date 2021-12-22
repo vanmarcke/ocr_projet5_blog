@@ -1,15 +1,16 @@
 <?php
 
-// We check that the POST method is used 
+// We check that the POST method is used
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // We check if the "recaptcha-response" field contains a value 
+    // We check if the "recaptcha-response" field contains a value
     if (empty($_POST['recaptcha-response'])) {
         header('Location: index.php');
     } else {
-        // We prepare the URL 
-        $url = "https://www.google.com/recaptcha/api/siteverify?secret=votre code secret ici&response={$_POST['recaptcha-response']}";
+        // We prepare the URL
+        $url = "https://www.google.com/recaptcha/api/siteverify?secret=
+        votre code secret ici&response={$_POST['recaptcha-response']}";
 
-        // We check if curl is installed 
+        // We check if curl is installed
         if (function_exists('curl_version')) {
             $curl = curl_init($url);
             curl_setopt($curl, CURLOPT_HEADER, false);
@@ -21,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $response = file_get_contents($url);
         }
 
-        // We check that we have an answer 
+        // We check that we have an answer
         if (empty($response) || is_null($response)) {
             header('Location: index.php');
         } else {
@@ -33,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     isset($_POST['email']) && !empty($_POST['email']) &&
                     isset($_POST['message']) && !empty($_POST['message'])
                 ) {
-                    // We clean the content 
+                    // We clean the content
                     $nom = strip_tags($_POST['nom']);
                     $sujet = strip_tags($_POST['sujet']);
                     $email = strip_tags($_POST['email']);
@@ -61,7 +62,8 @@ if ($_POST) {
 
     $headers .= "From: $email" . "\r\n" . "Reply-To:$email" . "\r\n";
 
-    $_POST['message'] = "De: $_POST[email] <br>Date: " . date('d/m/Y H:i:s') . "<br>Nom: $_POST[nom] <hr>Objet: $_POST[sujet] <hr>$_POST[message]";
+    $_POST['message'] = "De: $_POST[email] <br>Date: " . date('d/m/Y H:i:s') .
+    "<br>Nom: $_POST[nom] <hr>Objet: $_POST[sujet] <hr>$_POST[message]";
 
     mail($email, $_POST['sujet'], $_POST['message'], $headers);
 }
