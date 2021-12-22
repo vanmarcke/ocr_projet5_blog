@@ -7,7 +7,7 @@ use Projet5\entity\Comment;
 use Projet5\service\DatabaseService;
 
 /**
- * Reading, inserting, updating and deleting comments 
+ * Reading, inserting, updating and deleting comments
  */
 class CommentModel extends DatabaseService
 {
@@ -63,10 +63,10 @@ class CommentModel extends DatabaseService
     }
 
     /**
-     * Insert a new comment 
+     * Insert a new comment
      *
      * @param Comment $comment Insertion of a new comment in the database
-     * 
+     *
      * @return void
      */
     public function insertComment(Comment $comment): void
@@ -90,10 +90,10 @@ class CommentModel extends DatabaseService
     }
 
     /**
-     * Validate a new comment     
+     * Validate a new comment
      *
      * @param int $idComment Returns the id of the comment to modify to publish
-     * 
+     *
      * @return void
      */
     public function publishCommentWithId(int $idComment): void
@@ -108,7 +108,7 @@ class CommentModel extends DatabaseService
      * Delete a comment
      *
      * @param int $idComment Returns the id of the comment to delete
-     * 
+     *
      * @return void
      */
     public function deleteCommentWithId(int $idComment): void
@@ -122,7 +122,7 @@ class CommentModel extends DatabaseService
      * Decline a comment
      *
      * @param int $idComment Returns the id of the comment to modify to refuse
-     * 
+     *
      * @return void
      */
     public function refuseCommentWithId(int $idComment): void

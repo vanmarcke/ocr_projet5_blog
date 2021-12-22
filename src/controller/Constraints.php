@@ -10,16 +10,16 @@ use Projet5\controller\TwigController;
 class Constraints extends TwigController
 {
     // ***** Start user constraints *****
-    const MIN_VALUE_PSEUDO = 3;
-    const MAX_VALUE_PSEUDO = 20;
-    const MIN_VALUE_PASSWORD = 8;
-    const REGEX_ALL_CHARACTERS = '/^[[:print:]]+\z/';
-    const PSEUDO = 'Le pseudo ';
-    const PASSWORD = 'Le mot de passe ';
-    const INVALID = 'n\'est pas renseigné ou invalide';
-    const USER = 'L\'utilisateur a été ';
-    const VALID = 'validé';
-    const SUPPR = 'supprimé';
+    protected const MIN_VALUE_PSEUDO = 3;
+    protected const MAX_VALUE_PSEUDO = 20;
+    protected const MIN_VALUE_PASSWORD = 8;
+    protected const REGEX_ALL_CHARACTERS = '/^[[:print:]]+\z/';
+    protected const PSEUDO = 'Le pseudo ';
+    protected const PASSWORD = 'Le mot de passe ';
+    protected const INVALID = 'n\'est pas renseigné ou invalide';
+    protected const USER = 'L\'utilisateur a été ';
+    protected const VALID = 'validé';
+    protected const SUPPR = 'supprimé';
 
     /**
      * CheckPseudo
@@ -69,9 +69,9 @@ class Constraints extends TwigController
     /**
      * CheckPassword
      *
-     * @param string $password Contains the value of the password sent by the user 
+     * @param string $password Contains the value of the password sent by the user
      * @param array  &$errors  Error information to display
-     * 
+     *
      * @return void
      */
     protected function checkPassword(string $password, array &$errors): void
@@ -85,30 +85,31 @@ class Constraints extends TwigController
      * CheckConfirmPassword
      *
      * @param string $password         Contains the value of the pseudo sent by the user
-     * @param string $confirm_password Contains confirmation of the password sent by the user 
+     * @param string $confirm_password Contains confirmation of the password sent by the user
      * @param array  &$errors          Error information to display
-     * 
+     *
      * @return void
      */
     protected function checkConfirmPassword(string $password, string $confirm_password, array &$errors): void
     {
         if ($password !== $confirm_password) {
-            $this->setErrorMessage('confirm_password', self::PASSWORD . ' de confirmation n\'est pas identique.', $errors);
+            $this->setErrorMessage('confirm_password', self::PASSWORD .
+            ' de confirmation n\'est pas identique.', $errors);
         }
     }
     // ***** End user constraints *****
 
     // ***** Start post constraints *****
-    const MIN_VALUE_POST = 1;
-    const MAX_VALUE_TITLE = 100;
-    const MAX_VALUE_CHAPO = 300;
-    const VALUE_POST_VALID = 'valid';
-    const POST = 'L\'article a été ';
+    protected const MIN_VALUE_POST = 1;
+    protected const MAX_VALUE_TITLE = 100;
+    protected const MAX_VALUE_CHAPO = 300;
+    protected const VALUE_POST_VALID = 'valid';
+    protected const POST = 'L\'article a été ';
 
     /**
      * CheckTitle
      *
-     * @param string $title   Contains the value of the title sent by the admin 
+     * @param string $title   Contains the value of the title sent by the admin
      * @param array  &$errors Error information to display
      *
      * @return void
@@ -116,7 +117,8 @@ class Constraints extends TwigController
     protected function checkTitle(string $title, array &$errors): void
     {
         if (strlen($title) < self::MIN_VALUE_POST || strlen($title) > self::MAX_VALUE_TITLE) {
-            $this->setErrorMessage('title', 'Le titre n\'est pas renseigné ou invalide. Maximum 100 caractères.', $errors);
+            $this->setErrorMessage('title', 'Le titre n\'est pas renseigné ou invalide. 
+            Maximum 100 caractères.', $errors);
         }
     }
 
@@ -131,7 +133,8 @@ class Constraints extends TwigController
     protected function checkChapo(string $chapo, array &$errors): void
     {
         if (strlen($chapo) < self::MIN_VALUE_POST || strlen($chapo) > self::MAX_VALUE_CHAPO) {
-            $this->setErrorMessage('chapo', 'Le chapô n\'est pas renseigné ou invalide. Maximum 300 caractères', $errors);
+            $this->setErrorMessage('chapo', 'Le chapô n\'est pas renseigné ou invalide. 
+            Maximum 300 caractères', $errors);
         }
     }
 
@@ -152,35 +155,36 @@ class Constraints extends TwigController
     // ***** End post constraints *****
 
     // ***** Start comment constraints *****
-    const MIN_VALUE_COMMENT = 1;
-    const MAX_VALUE_COMMENT = 1000;
-    const COMM = 'Le commentaire a été ';
-    const REFU = 'refusé';
+    protected const MIN_VALUE_COMMENT = 1;
+    protected const MAX_VALUE_COMMENT = 1000;
+    protected const COMM = 'Le commentaire a été ';
+    protected const REFU = 'refusé';
 
     /**
      * CheckComment
      *
      * @param string $contents Contains the comment value sent by the user
      * @param array  &$errors  Error information to display
-     * 
+     *
      * @return void
      */
     protected function checkComment(string $contents, array &$errors): void
     {
         if (strlen($contents) < self::MIN_VALUE_COMMENT || strlen($contents) > self::MAX_VALUE_COMMENT) {
-            $this->setErrorMessage('contents', 'Le commentaire n\'est pas renseigné ou invalide. Maximum 1000 caractères.', $errors);
+            $this->setErrorMessage('contents', 'Le commentaire n\'est pas renseigné ou invalide. 
+            Maximum 1000 caractères.', $errors);
         }
     }
     // ***** End comment constraints *****
 
-    const USER_RIGHT_ADMIN = 'admin';
-    const POST_STATUS_WAITING = 'waiting';
-    const MESSAGE_VALID_OK = 'L\'article à bien été';
+    protected const USER_RIGHT_ADMIN = 'admin';
+    protected const POST_STATUS_WAITING = 'waiting';
+    protected const MESSAGE_VALID_OK = 'L\'article à bien été';
 
     /**
-     * IsAdmin checks if admin is true otherwise returns an error if admin is false  
+     * IsAdmin checks if admin is true otherwise returns an error if admin is false
      *
-     * @param string $rankUser Contains the value 'admin' 
+     * @param string $rankUser Contains the value 'admin'
      *
      * @return bool
      */

@@ -4,7 +4,7 @@ namespace Projet5\entity;
 
 class User
 {
-    private int    $id;
+    private int $id;
     private string $pseudo;
     private string $email;
     private string $password;
@@ -12,7 +12,7 @@ class User
 
     /**
      * Method getId
-     * 
+     *
      * Get value of idUser
      *
      * @return int
@@ -24,7 +24,7 @@ class User
 
     /**
      * Method setId
-     * 
+     *
      * Set value of IdUser
      *
      * @param int $id Expected value : IdUser
@@ -39,7 +39,7 @@ class User
 
     /**
      * Method getPseudo
-     * 
+     *
      * Get value of Pseudo
      *
      * @return string
@@ -51,7 +51,7 @@ class User
 
     /**
      * Method setPseudo
-     * 
+     *
      * Set value of Pseudo
      *
      * @param string $pseudo Expected value : pseudo User
@@ -66,7 +66,7 @@ class User
 
     /**
      * Method getEmail
-     * 
+     *
      * Get value of Email
      *
      * @return string
@@ -78,7 +78,7 @@ class User
 
     /**
      * Method setEmail
-     * 
+     *
      * Set value of Email
      *
      * @param string $email Expected value : email User
@@ -93,7 +93,7 @@ class User
 
     /**
      * Method getPassword
-     * 
+     *
      * Get value of Password
      *
      * @return string
@@ -105,7 +105,7 @@ class User
 
     /**
      * Method setPassword
-     * 
+     *
      * Set value of Password
      *
      * @param string $password Expected value : password User
@@ -120,7 +120,7 @@ class User
 
     /**
      * Method getRank
-     * 
+     *
      * Get value of Rank
      *
      * @return string
@@ -132,7 +132,7 @@ class User
 
     /**
      * Method setRank
-     * 
+     *
      * Set value of Rank
      *
      * @param string $rank Flag value expected : 'pending' or 'registered'

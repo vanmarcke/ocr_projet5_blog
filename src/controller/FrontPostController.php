@@ -8,119 +8,132 @@ use Projet5\model\CommentModel;
 use Projet5\model\PostModel;
 
 /**
- * Display of posts and pagination management 
+ * Display of posts and pagination management
  */
 class FrontPostController extends Constraints
 {
-	/**
-	 * Displays the list of posts 
-	 *
-	 * @param PostModel $postModel   Read, insert, update and delete of posts
-	 * @param int       $currentPage Contains the page number
-	 *
-	 * @return void
-	 */
-	public function displayPosts(PostModel $postModel, int $currentPage): void
-	{
-		try {
-			// Count number of row valid
-			$numberPosts = $postModel->countAllPost($valid = self::VALUE_POST_VALID);
-			// Take Limits for request SQL
-			$paging = $this->paging(Router::POST_PER_PAGE, $numberPosts, $currentPage);
-			// Load posts
-			$posts = $postModel->loadAllPost($valid, $paging['startLimit'], Router::POST_PER_PAGE);
-			// Display posts
-			$this->render('blog_posts.twig', $_SESSION, $paging, [], $posts, []);
-		} catch (Exception $e) {
-			$this->render('error_500.twig', $_SESSION, []);
-		}
-	}
+    /**
+     * Displays the list of posts
+     *
+     * @param PostModel $postModel   Read, insert, update and delete of posts
+     * @param int       $currentPage Contains the page number
+     *
+     * @return void
+     */
+    public function displayPosts(PostModel $postModel, int $currentPage): void
+    {
+        try {
+            // Count number of row valid
+            $numberPosts = $postModel->countAllPost($valid = self::VALUE_POST_VALID);
+            // Take Limits for request SQL
+            $paging = $this->paging(Router::POST_PER_PAGE, $numberPosts, $currentPage);
+            // Load posts
+            $posts = $postModel->loadAllPost($valid, $paging['startLimit'], Router::POST_PER_PAGE);
+            // Display posts
+            $this->render('blog_posts.twig', $_SESSION, $paging, [], $posts, []);
+        } catch (Exception $e) {
+            $this->render('error_500.twig', $_SESSION, []);
+        }
+    }
 
-	/**
-	 * Displays a post
-	 *
-	 * @param PostModel    $postModel    Read, insert, update and delete of posts
-	 * @param CommentModel $commentModel Read, insert, update and delete comments
-	 * @param string       $idPost       Contains post id
-	 *
-	 * @return void
-	 */
-	public function displayPost(PostModel $postModel, CommentModel $commentModel, string $idPost): void
-	{
-		try {
-			// Load the post
-			$post = $postModel->loadPost($idPost);
-			// Load comments for this post
-			$comments = $commentModel->loadAllCommentsWithIdPost($idPost);
+    /**
+     * Displays a post
+     *
+     * @param PostModel    $postModel    Read, insert, update and delete of posts
+     * @param CommentModel $commentModel Read, insert, update and delete comments
+     * @param string       $idPost       Contains post id
+     *
+     * @return void
+     */
+    public function displayPost(PostModel $postModel, CommentModel $commentModel, string $idPost): void
+    {
+        try {
+            // Load the post
+            $post = $postModel->loadPost($idPost);
+            // Load comments for this post
+            $comments = $commentModel->loadAllCommentsWithIdPost($idPost);
 
-			// If the post does not exist display an error message 		
-			if ($postModel->loadPost($idPost) == false) {
-				$this->render('error_404.twig', $_SESSION, []);
-				return;
-			}
+            // If the post does not exist display an error message
+            if ($postModel->loadPost($idPost) == false) {
+                $this->render('error_404.twig', $_SESSION, []);
+                return;
+            }
 
-			// If the post is waiting display an error message
-			if ($post->getPublish() === self::POST_STATUS_WAITING) {
-				$_SESSION['error'] = 'Cet article est en attente de validation';
-				header('location:Articles-Page1');
-				exit;
-			}
-			// Display post and comments
-			$this->render('post.twig', $_SESSION, [], $post, [], $comments);
-		} catch (Exception $e) {
-			$this->render('error_500.twig', $_SESSION, []);
-		}
-	}
+            // If the post is waiting display an error message
+            if ($post->getPublish() === self::POST_STATUS_WAITING) {
+                $_SESSION['error'] = 'Cet article est en attente de validation';
+                header('location:Articles-Page1');
+                exit;
+            }
+            // Display post and comments
+            $this->render('post.twig', $_SESSION, [], $post, [], $comments);
+        } catch (Exception $e) {
+            $this->render('error_500.twig', $_SESSION, []);
+        }
+    }
 
-	/**
-	 * Paging returning an array with the $currentPage and the $totalPages.
-	 *
-	 * @param int $numberPerPage Contains the maximum number of posts or comments per page 
-	 * @param int $numberRow     Contains the total number of posts or comments
-	 * @param int $currentPage   Contains the current page
-	 *
-	 * @return array
-	 */
-	private function paging(int $numberPerPage, int $numberRow, int $currentPage = 1): array
-	{
-		// Calcul total pages
-		$totalPages = ceil($numberRow / $numberPerPage);
+    /**
+     * Paging returning an array with the $currentPage and the $totalPages.
+     *
+     * @param int $numberPerPage Contains the maximum number of posts or comments per page
+     * @param int $numberRow     Contains the total number of posts or comments
+     * @param int $currentPage   Contains the current page
+     *
+     * @return array
+     */
+    private function paging(int $numberPerPage, int $numberRow, int $currentPage = 1): array
+    {
+        // Calcul total pages
+        $totalPages = ceil($numberRow / $numberPerPage);
 
-		// Calcul startlimit for request SQL
-		$startLimit = intval(($currentPage - 1) * $numberPerPage);
-		
-		// Redirection if the page does not exist
-		if ($currentPage > $totalPages) {
-			$_SESSION['error'] = 'Cette page n\'existe pas !!!';
-			header('location:Articles-Page1');
-			exit;
-		}
+        // Calcul startlimit for request SQL
+        $startLimit = intval(($currentPage - 1) * $numberPerPage);
 
-		return $paging = [
-			'startLimit' => $startLimit,
-			'currentPage' => $currentPage,
-			'totalPages' => $totalPages
-		];
-	}
+        // Redirection if the page does not exist
+        if ($currentPage > $totalPages) {
+            $_SESSION['error'] = 'Cette page n\'existe pas !!!';
+            header('location:Articles-Page1');
+            exit;
+        }
 
-	/**
-	 * Render Template
-	 *
-	 * @param string $templateName Template name to render
-	 * @param array  $session      User session
-	 * @param array  $paging       Contains the data of the number of pages 
-	 * @param array  $post         Contains post data
-	 * @param array  $posts        Contains posts data 
-	 * @param array  $comments     Contains comment data
-	 * 
-	 * @throws LoaderError
-	 * @throws RuntimeError
-	 * @throws SyntaxError
-	 * 
-	 * @return void
-	 */
-	private function render(string $templateName, array $session, array $paging, $post = [], array $posts = [], array $comments = []): void
-	{
-		echo $this->twig->render($templateName, ['SESSION' => $session, 'paging' => $paging, 'post' => $post, 'posts' => $posts, 'comments' => $comments]);
-	}
+        return $paging = [
+            'startLimit' => $startLimit,
+            'currentPage' => $currentPage,
+            'totalPages' => $totalPages
+        ];
+    }
+
+    /**
+     * Render Template
+     *
+     * @param string $templateName Template name to render
+     * @param array  $session      User session
+     * @param array  $paging       Contains the data of the number of pages
+     * @param array  $post         Contains post data
+     * @param array  $posts        Contains posts data
+     * @param array  $comments     Contains comment data
+     *
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
+     *
+     * @return void
+     */
+    private function render(
+        string $templateName,
+        array $session,
+        array $paging,
+        $post = [],
+        array $posts = [],
+        array $comments = []
+    ): void {
+        echo $this->twig->render(
+            $templateName,
+            ['SESSION' => $session,
+            'paging' => $paging,
+            'post' => $post,
+            'posts' => $posts,
+            'comments' => $comments]
+        );
+    }
 }

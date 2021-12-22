@@ -7,16 +7,16 @@ namespace Projet5\entity;
  */
 class Comment
 {
-    private int    $id;
+    private int $id;
     private string $contents;
     private string $date_comment;
     private string $publish;
-    private int    $id_bpf_blog_posts;
-    private int    $id_bpf_users;
+    private int $id_bpf_blog_posts;
+    private int $id_bpf_users;
 
     /**
      * Method getId
-     * 
+     *
      * Get value of idComment
      *
      * @return int
@@ -28,7 +28,7 @@ class Comment
 
     /**
      * Method setId
-     * 
+     *
      * Set value of idComment
      *
      * @param int $id Expected value : IdComment
@@ -43,7 +43,7 @@ class Comment
 
     /**
      * Method getContents
-     * 
+     *
      * Get value of contents
      *
      * @return string
@@ -55,14 +55,14 @@ class Comment
 
     /**
      * Method setContents
-     * 
+     *
      * Set value of Contents
      *
-     * @param string $contents Expected value : content of a comment 
+     * @param string $contents Expected value : content of a comment
      *
      * @return Comment
      */
-    public function setContents(String $contents): Comment
+    public function setContents(string $contents): Comment
     {
         $this->contents = $contents;
         return $this;
@@ -70,7 +70,7 @@ class Comment
 
     /**
      * Method getDateComment
-     * 
+     *
      * Get value of DateComment
      *
      * @return string
@@ -82,7 +82,7 @@ class Comment
 
     /**
      * Method setDateComment
-     * 
+     *
      * Set value of DateComment
      *
      * @param string $dateComment Expected value: date of a comment
@@ -97,7 +97,7 @@ class Comment
 
     /**
      * Method getPublish
-     * 
+     *
      * Get value of Publish
      *
      * @return string
@@ -109,7 +109,7 @@ class Comment
 
     /**
      * Method setPublish
-     * 
+     *
      * Set value of Publish
      *
      * @param string $publish Flag value expected : 'valid', 'waiting' or 'refused'
@@ -124,7 +124,7 @@ class Comment
 
     /**
      * Method getIdBlogPosts
-     * 
+     *
      * Get value of IdBlogPosts
      *
      * @return int
@@ -136,10 +136,10 @@ class Comment
 
     /**
      * Method setIdBlogPosts
-     * 
+     *
      * Set value of idBlogPosts
      *
-     * @param int $idBlogPosts Expected value: id of a Blog Post 
+     * @param int $idBlogPosts Expected value: id of a Blog Post
      *
      * @return Comment
      */
@@ -151,7 +151,7 @@ class Comment
 
     /**
      * Method getIdUsers
-     * 
+     *
      * Get value of IdUsers
      *
      * @return int
@@ -163,7 +163,7 @@ class Comment
 
     /**
      * Method setIdUsers
-     * 
+     *
      * Set value of idUsers
      *
      * @param int $idUsers Expected value: idUser

@@ -7,24 +7,24 @@ use Twig\Extension\DebugExtension;
 use Twig\Loader\FilesystemLoader;
 
 /**
- * Defining the location of branch views 
+ * Defining the location of branch views
  */
 class TwigController
 {
-	protected Environment $twig;
+    protected Environment $twig;
 
-	/**
-	 * Instantiating the loader and template engine
-	 */
-	public function __construct()
-	{
-		// Twig
-		$loader = new FilesystemLoader('src/view');
-		$twig = new Environment($loader, [
-			'debug' => true,
-			'cache' => false //__DIR__ .'/tmp'
-		]);
-		$twig->addExtension(new DebugExtension());
-		$this->twig = $twig;
-	}
+    /**
+     * Instantiating the loader and template engine
+     */
+    public function __construct()
+    {
+        // Twig
+        $loader = new FilesystemLoader('src/view');
+        $twig = new Environment($loader, [
+            'debug' => true,
+            'cache' => false //__DIR__ .'/tmp'
+        ]);
+        $twig->addExtension(new DebugExtension());
+        $this->twig = $twig;
+    }
 }

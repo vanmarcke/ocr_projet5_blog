@@ -7,17 +7,17 @@ namespace Projet5\entity;
  */
 class Post
 {
-    private int    $id;
+    private int $id;
     private string $title;
     private string $last_date_change;
     private string $chapo;
     private string $contents;
     private string $publish;
-    private int    $id_bpf_users;
+    private int $id_bpf_users;
 
     /**
      * Method getId
-     * 
+     *
      * Get value of idPost
      *
      * @return int
@@ -29,7 +29,7 @@ class Post
 
     /**
      * Method setId
-     * 
+     *
      * Set value of IdPost
      *
      * @param int $id Expected value : IdPost
@@ -44,7 +44,7 @@ class Post
 
     /**
      * Method getTitle
-     * 
+     *
      * Get value of Title
      *
      * @return string
@@ -56,7 +56,7 @@ class Post
 
     /**
      * Method setTitle
-     * 
+     *
      * Set value of Title
      *
      * @param string $title Expected value : Title
@@ -71,7 +71,7 @@ class Post
 
     /**
      * Method getLastDateChange
-     * 
+     *
      * Get value of LastDateChange
      *
      * @return string
@@ -83,7 +83,7 @@ class Post
 
     /**
      * Method setLastDateChange
-     * 
+     *
      * Set value of LasDateChange
      *
      * @param string $lastDateChange Expected value : update date of post
@@ -98,7 +98,7 @@ class Post
 
     /**
      * Method getChapo
-     * 
+     *
      * Get value of Chapo
      *
      * @return string
@@ -110,7 +110,7 @@ class Post
 
     /**
      * Method setChapo
-     * 
+     *
      * Set value of Chapo
      *
      * @param string $chapo Expected value : Chapo of the post (post subtitle)
@@ -125,7 +125,7 @@ class Post
 
     /**
      * Method getContents
-     * 
+     *
      * Get value of Contents
      *
      * @return string
@@ -137,7 +137,7 @@ class Post
 
     /**
      * Method setContents
-     * 
+     *
      * Set value of Contents
      *
      * @param string $contents Expected value : content of the post
@@ -152,7 +152,7 @@ class Post
 
     /**
      * Method getPublish
-     * 
+     *
      * Get value of Publish
      *
      * @return string
@@ -164,7 +164,7 @@ class Post
 
     /**
      * Method setPublish
-     * 
+     *
      * Get value of  Publish
      *
      * @param string $publish Flag value expected : 'valid' or 'waiting'
@@ -179,7 +179,7 @@ class Post
 
     /**
      * Method getUsers
-     * 
+     *
      * Get value of idUsers
      *
      * @return int
@@ -191,7 +191,7 @@ class Post
 
     /**
      * Method setUser
-     * 
+     *
      * Set value of IdUsers
      *
      * @param int $idUsers Expected value : IdUser
