@@ -4,6 +4,14 @@
 
 Creation of a Blog via an object-oriented MVC architecture.
 
+## App
+
+![php](https://img.shields.io/badge/php-7.4.3-blue)
+![twig](https://img.shields.io/badge/twig-2.11.3-green)
+![code-sniffer](https://img.shields.io/badge/code--sniffer-%5E3.6-green)
+![ckeditor](https://img.shields.io/badge/ckeditor-devfull/stable-green)
+![symfony/vardumper](https://img.shields.io/badge/symfony/vardumper-%5E5.3-green)
+
 ## Code Quality
 
 **Codacy:**
