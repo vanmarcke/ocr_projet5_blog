@@ -25,9 +25,9 @@ class Router
 	/**
 	 * Execute the route to home page 
 	 *
-	 * @return array
+	 * @return void
 	 */
-	public function run()
+	public function run(): void
 	{
 		// Models variables
 		$userModel = new UserModel();
@@ -155,9 +155,13 @@ class Router
 				}
 		}
 	}
-
-	// Unset success variables after display
-	public function unsetSuccessErrorVariables()
+	
+	/**
+	 * Method unsetSuccessErrorVariables Unset success variables after display
+	 *
+	 * @return void
+	 */
+	public function unsetSuccessErrorVariables(): void
 	{
 		unset($_SESSION['success']);
 		unset($_SESSION['error']);

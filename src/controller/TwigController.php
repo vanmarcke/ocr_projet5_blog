@@ -15,13 +15,11 @@ class TwigController
 
 	/**
 	 * Instantiating the loader and template engine
-	 * 
-	 * @return void
 	 */
 	public function __construct()
 	{
 		// Twig
-		$loader = new FilesystemLoader('view');
+		$loader = new FilesystemLoader('src/view');
 		$twig = new Environment($loader, [
 			'debug' => true,
 			'cache' => false //__DIR__ .'/tmp'

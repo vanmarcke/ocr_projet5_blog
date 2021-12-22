@@ -26,9 +26,9 @@ class AdminController extends SessionController
 	 * @throws RuntimeError
 	 * @throws SyntaxError
 	 * 
-	 * @return array
+	 * @return void
 	 */
-	public function displayAllElements(UserModel $userModel, PostModel $postModel, CommentModel $commentModel)
+	public function displayAllElements(UserModel $userModel, PostModel $postModel, CommentModel $commentModel): void
 	{
 		// If I do not follow admin, return to the home page
 		if (!$this->isAdmin($_SESSION['rankConnectedUser'])) {
@@ -75,9 +75,9 @@ class AdminController extends SessionController
 	 * @throws RuntimeError
 	 * @throws SyntaxError
 	 * 
-	 * @return array
+	 * @return void
 	 */
-	public function displayWaitingPosts(UserModel $userModel, PostModel $postModel, CommentModel $commentModel)
+	public function displayWaitingPosts(UserModel $userModel, PostModel $postModel, CommentModel $commentModel): void
 	{
 		// If I do not follow admin, return to the home page
 		if (!$this->isAdmin($_SESSION['rankConnectedUser'])) {
@@ -110,9 +110,9 @@ class AdminController extends SessionController
 	 * @throws RuntimeError
 	 * @throws SyntaxError
 	 * 
-	 * @return array
+	 * @return void
 	 */
-	public function displayPendingUsers(UserModel $userModel, PostModel $postModel, CommentModel $commentModel)
+	public function displayPendingUsers(UserModel $userModel, PostModel $postModel, CommentModel $commentModel): void
 	{
 		// If I do not follow admin, return to the home page
 		if (!$this->isAdmin($_SESSION['rankConnectedUser'])) {
@@ -145,9 +145,9 @@ class AdminController extends SessionController
 	 * @throws RuntimeError
 	 * @throws SyntaxError
 	 * 
-	 * @return array
+	 * @return void
 	 */
-	public function displayInvalidComments(UserModel $userModel, PostModel $postModel, CommentModel $commentModel)
+	public function displayInvalidComments(UserModel $userModel, PostModel $postModel, CommentModel $commentModel): void
 	{
 		// If I do not follow admin, return to the home page
 		if (!$this->isAdmin($_SESSION['rankConnectedUser'])) {
@@ -180,9 +180,9 @@ class AdminController extends SessionController
 	 * @throws RuntimeError
 	 * @throws SyntaxError
 	 * 
-	 * @return array
+	 * @return void
 	 */
-	public function displayRefusedComments(UserModel $userModel, PostModel $postModel, CommentModel $commentModel)
+	public function displayRefusedComments(UserModel $userModel, PostModel $postModel, CommentModel $commentModel): void
 	{
 		// If I do not follow admin, return to the home page
 		if (!$this->isAdmin($_SESSION['rankConnectedUser'])) {
@@ -215,9 +215,9 @@ class AdminController extends SessionController
 	 * @throws RuntimeError
 	 * @throws SyntaxError
 	 * 
-	 * @return array
+	 * @return void
 	 */
-	private function controleForms(UserModel $userModel, PostModel $postModel, CommentModel $commentModel)
+	private function controleForms(UserModel $userModel, PostModel $postModel, CommentModel $commentModel): void
 	{
 		switch (true) {
 				// Valid user if form is submit
@@ -296,7 +296,7 @@ class AdminController extends SessionController
 		array  $invalidPosts = [],
 		array  $invalidComments = [],
 		array  $refuseComments = []
-	) {
+	): void {
 		echo $this->twig->render($templateName, [
 			'SESSION'         => $session,
 			'error'           => $errors,
